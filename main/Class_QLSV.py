@@ -1,17 +1,9 @@
-import sys
-from PyQt6.QtWidgets import QWidget, QApplication, QPushButton, QFrame, QMessageBox, QTableWidgetItem
-from PyQt6.QtCore import pyqtSlot
+from PyQt6.QtWidgets import QMessageBox, QTableWidgetItem, QPushButton
 from PyQt6.QtGui import QIntValidator
-
-from FrontEnd.Form_QLSV import QLSV
 from Backend.Connection_Database import ConnectDB
-
-class Window_QLSV(QWidget):
-    def __init__(self):
-        super().__init__()
-
-        # self.UI = QLSV()
-        # self.UI.setupQLSV(self)
+class QLSV():
+    def __init__(self, Menu_Form):
+        self.UI = Menu_Form
 
         self.DB = ConnectDB()
 
@@ -30,7 +22,7 @@ class Window_QLSV(QWidget):
 
         self.listbox_table = self.UI.tableWidget
         self.listbox_table.setSortingEnabled(False)
-        self.buttons_list = self.UI.function_frame.findChildren(QPushButton)
+        self.buttons_list = self.UI.Frame_Function.findChildren(QPushButton)
 
         # Khoi tao cac chuc nang
         self.init_signal_slot()
@@ -233,15 +225,3 @@ class Window_QLSV(QWidget):
         }
 
         return sv_info
-    
-    def check_masv(self, new_masv):
-        result  = self.DB.search_info(masvtk=new_masv)
-        return result
-    
-    
-if __name__ == '__main__':
-    APP  = QApplication(sys.argv)
-    WINDOW = Window_QLSV()
-    WINDOW.show()
-    sys.exit(APP.exec())
-
