@@ -225,3 +225,7 @@ class QLSV():
         }
 
         return sv_info
+
+    def check_masv(self, new_masv):
+        result  = self.DB.search_info(masvtk=new_masv)
+        return result
