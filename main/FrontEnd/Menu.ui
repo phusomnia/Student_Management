@@ -32,16 +32,16 @@ background-color: pink;
 background-color: cyan;
 }</string>
    </property>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
-      <x>9</x>
-      <y>9</y>
+      <x>10</x>
+      <y>10</y>
       <width>161</width>
       <height>731</height>
      </rect>
     </property>
-    <layout class="QVBoxLayout" name="MenuBox">
+    <layout class="QVBoxLayout" name="verticalLayout_7">
      <item>
       <layout class="QHBoxLayout" name="horizontalLayout">
        <item>
@@ -145,6 +145,47 @@ background-color: cyan;
       </widget>
      </item>
      <item>
+      <widget class="QFrame" name="frame">
+       <property name="frameShape">
+        <enum>QFrame::StyledPanel</enum>
+       </property>
+       <property name="frameShadow">
+        <enum>QFrame::Raised</enum>
+       </property>
+       <layout class="QVBoxLayout" name="verticalLayout_5">
+        <item>
+         <widget class="QPushButton" name="GVBtn_3">
+          <property name="text">
+           <string>Sinh Vien</string>
+          </property>
+          <property name="checkable">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QFrame" name="SubFrame_GVBtn_3">
+          <property name="frameShape">
+           <enum>QFrame::StyledPanel</enum>
+          </property>
+          <property name="frameShadow">
+           <enum>QFrame::Raised</enum>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout_6">
+           <item>
+            <widget class="QPushButton" name="QLSVBtn_3">
+             <property name="text">
+              <string>Xem Diem</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </item>
+     <item>
       <spacer name="verticalSpacer">
        <property name="orientation">
         <enum>Qt::Vertical</enum>
@@ -172,7 +213,7 @@ background-color: cyan;
     <rect>
      <x>200</x>
      <y>10</y>
-     <width>1171</width>
+     <width>1151</width>
      <height>751</height>
     </rect>
    </property>
@@ -198,12 +239,189 @@ background-color: green;
      </rect>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>3</number>
     </property>
     <widget class="QWidget" name="Frame_QLHP">
      <property name="styleSheet">
       <string notr="true"/>
      </property>
+     <widget class="QFrame" name="Frame_Title_QLHP">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>10</y>
+        <width>1111</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+      <layout class="QGridLayout" name="gridLayout_14">
+       <item row="0" column="0">
+        <widget class="QLabel" name="label_21">
+         <property name="font">
+          <font>
+           <family>Times New Roman</family>
+           <pointsize>30</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>Quản lý học phần</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QFrame" name="Frame_Entry_2">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>80</y>
+        <width>1111</width>
+        <height>94</height>
+       </rect>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+      <widget class="QWidget" name="">
+       <property name="geometry">
+        <rect>
+         <x>11</x>
+         <y>11</y>
+         <width>1091</width>
+         <height>71</height>
+        </rect>
+       </property>
+       <layout class="QGridLayout" name="gridLayout_15">
+        <item row="0" column="0">
+         <layout class="QGridLayout" name="gridLayout_2">
+          <item row="0" column="0">
+           <widget class="QLabel" name="label_24">
+            <property name="text">
+             <string>Ma HP</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="QLineEdit" name="MaHPEntry">
+            <property name="text">
+             <string>12334</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0">
+           <widget class="QLabel" name="label_23">
+            <property name="text">
+             <string>Giang Vien</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QLineEdit" name="GVEntry"/>
+          </item>
+         </layout>
+        </item>
+        <item row="0" column="1">
+         <layout class="QGridLayout" name="gridLayout">
+          <item row="0" column="0">
+           <widget class="QLabel" name="label_25">
+            <property name="text">
+             <string>Nhom</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="QLineEdit" name="NhomEntry"/>
+          </item>
+          <item row="1" column="0">
+           <widget class="QLabel" name="label_26">
+            <property name="text">
+             <string>Mon</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QLineEdit" name="MonEntry"/>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+     <widget class="QFrame" name="Frame_Listbox_2">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>180</y>
+        <width>1111</width>
+        <height>481</height>
+       </rect>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+      <layout class="QGridLayout" name="gridLayout_16">
+       <item row="0" column="0">
+        <widget class="QTableWidget" name="tableWidget_2">
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>121</height>
+          </size>
+         </property>
+         <attribute name="horizontalHeaderDefaultSectionSize">
+          <number>275</number>
+         </attribute>
+         <column>
+          <property name="text">
+           <string>MaHP</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>GiangVien</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>Nhom</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>Mon</string>
+          </property>
+         </column>
+        </widget>
+       </item>
+      </layout>
+     </widget>
     </widget>
     <widget class="QWidget" name="Frame_QLSV">
      <widget class="QFrame" name="Frame_Title">
@@ -464,7 +682,42 @@ background-color: green;
      </widget>
     </widget>
     <widget class="QWidget" name="Frame_Init"/>
-    <widget class="QWidget" name="Frame_QLD"/>
+    <widget class="QWidget" name="Frame_QLD">
+     <widget class="QFrame" name="Frame_Title_2">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>10</y>
+        <width>1111</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+      <layout class="QGridLayout" name="gridLayout_17">
+       <item row="0" column="0">
+        <widget class="QLabel" name="label_22">
+         <property name="font">
+          <font>
+           <family>Times New Roman</family>
+           <pointsize>30</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>Quản lý điểm</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </widget>
    </widget>
   </widget>
  </widget>
@@ -477,28 +730,28 @@ background-color: green;
    <slot>setHidden(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>130</x>
-     <y>65</y>
+     <x>151</x>
+     <y>70</y>
     </hint>
     <hint type="destinationlabel">
-     <x>143</x>
-     <y>204</y>
+     <x>164</x>
+     <y>153</y>
     </hint>
    </hints>
   </connection>
   <connection>
-   <sender>GVBtn</sender>
+   <sender>GVBtn_3</sender>
    <signal>toggled(bool)</signal>
-   <receiver>SubFrame_GVBtn</receiver>
-   <slot>setVisible(bool)</slot>
+   <receiver>SubFrame_GVBtn_3</receiver>
+   <slot>setHidden(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>83</x>
-     <y>63</y>
+     <x>139</x>
+     <y>251</y>
     </hint>
     <hint type="destinationlabel">
-     <x>146</x>
-     <y>205</y>
+     <x>166</x>
+     <y>282</y>
     </hint>
    </hints>
   </connection>

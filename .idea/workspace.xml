@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="6d53c9f6-2d1e-4a51-9429-4da7a71bf308" name="Changes" comment="" />
+    <list default="true" id="6d53c9f6-2d1e-4a51-9429-4da7a71bf308" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/main/Class_QLSV.py" beforeDir="false" afterPath="$PROJECT_DIR$/main/Class_QLSV.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/Frame_Menu.py" beforeDir="false" afterPath="$PROJECT_DIR$/main/Frame_Menu.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/FrontEnd/Menu.ui" beforeDir="false" afterPath="$PROJECT_DIR$/main/FrontEnd/Menu.ui" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -10,10 +17,10 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "customColor": "",
-  "associatedIndex": 7
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 7
+}</component>
   <component name="ProjectId" id="2f0d9czMGrtCdYi05HFlSq89Nx0" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -23,7 +30,9 @@
   "keyToString": {
     "Python.window.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "main"
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "D:/Storage/clone/Student_Management",
+    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
   }
 }]]></component>
   <component name="SharedIndexes">

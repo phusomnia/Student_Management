@@ -2,8 +2,8 @@ from PyQt6.QtWidgets import QMessageBox, QTableWidgetItem, QPushButton
 from PyQt6.QtGui import QIntValidator
 from Backend.Connection_Database import ConnectDB
 class QLSV():
-    def __init__(self, Menu_Form):
-        self.UI = Menu_Form
+    def __init__(self, UI):
+        self.UI = UI
 
         self.DB = ConnectDB()
 
