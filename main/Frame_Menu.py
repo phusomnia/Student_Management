@@ -5,7 +5,6 @@ from FrontEnd.Form_Menu import Menu
 from Backend.Connection_Database import ConnectDB
 
 # from Backend.Connection_Database import ConnectDB
-from Class_QLSV import QLSV
 
 class Window_Menu(QWidget):
     def __init__(self):
@@ -15,25 +14,52 @@ class Window_Menu(QWidget):
 
         self.DB = ConnectDB()
 
-        self.Masv = self.UI.MaSV_Entry
+        self.Masv = self.UI.MaSV_Entry_QLSV
         self.Masv.setValidator(QIntValidator())
 
-        self.Hoten = self.UI.TenSV_Entry
-        self.Lop = self.UI.LopSV_Entry
-        self.Dchi = self.UI.DiaChiSV_Entry
-        self.Ngsinh = self.UI.NgSinhSV_Entry
-        self.GTinh = self.UI.ComboboxGtinh
-        self.Sdt = self.UI.SdtSV_Entry
+        # Init Entry
+        ## SV
+        self.Hoten = self.UI.TenSV_Entry_QLSV
+        self.Lop = self.UI.LopSV_Entry_QLSV
+        self.Dchi = self.UI.DiaChiSV_Entry_QLSV
+        self.Ngsinh = self.UI.NgSinhSV_Entry_QLSV
+        self.GTinh = self.UI.ComboboxGtinh_QLSV
+        self.Sdt = self.UI.SdtSV_Entry_QLSV
+        ## LOP
+        self.Malop = self.UI.MaLop_Entry_QLL
+        self.TenLop = self.UI.TenLop_Entry_QLL
+        self.Khoa = self.UI.Khoa_Entry_QLL
+        self.KhoaHK = self.UI.KhoaHK_Entry_QLL
+        self.HDT = self.UI.HeDaoTao_Entry_QLL
 
+        # Init Btn
+        ## SV BTN
         self.add_btn_QLSV = self.UI.AddBtn_QLSV
         self.update_btn_QLSV = self.UI.UpdateBtn_QLSV
         self.delete_btn_QLSV = self.UI.DelBtn_QLSV
+        ## LOP BTN
+        self.add_btn_QLL = self.UI.AddBtn_QLL
+        self.update_btn_QLL = self.UI.UpdateBtn_QLL
+        self.delete_btn_QLL = self.UI.DelBtn_QLL
+        ## GV BTN
+        self.add_btn_QLGV = self.UI.AddBtn_QLL
+        self.update_btn_QLGV = self.UI.UpdateBtn_QLL
+        # self.delete_btn_QLGV = self.UI.Del
+        ## KHOA BTN
 
-        self.listbox_table = self.UI.tableWidgetQLSV
-        self.listbox_table.setSortingEnabled(False)
-        self.buttons_list = self.UI.Frame_Listbox_QLSV.findChildren(QPushButton)
+        ## MONHOC BTN
 
-        # 
+        # INIT TABLE
+        ## SV LISTBOX
+        self.listbox_QLSV = self.UI.tableWidget_QLSV
+        self.listbox_QLSV.setSortingEnabled(False)
+        self.buttons_list_QLSV = self.UI.Frame_Listbox_QLSV.findChildren(QPushButton)
+        ## LOP LISTBOX
+        self.listbox_QLL = self.UI.tableWidget_QLL
+        self.listbox_QLL.setSortingEnabled(False)
+        self.buttons_list_QLL = self.UI.Frame_Listbox_QLL.findChildren(QPushButton)
+        
+        # Init hide
         self.HideDropDown()
         self.init_signal_slot_toggle_dropdown()
         self.init_signal_slot_form()
@@ -43,22 +69,26 @@ class Window_Menu(QWidget):
 
         # Khoi tao hien thi du lieu dang co trong databasez
         self.display_data_QLSV()
+        self.display_data_QLL()
     #############################################################################
     def init_signal_slot(self):
         self.add_btn_QLSV.clicked.connect(self.add_info_QLSV)
         self.update_btn_QLSV.clicked.connect(self.update_info_QLSV)
         self.delete_btn_QLSV.clicked.connect(self.delete_info_QLSV)
+        # self.add_btn_QLL.clicked.connect()
+        # self.update_btn_QLL.clicked.connect()
+        # self.delete_btn_QLL.clicked.connect()
     #############################################################################
-    def disable_buttons(self):
-        for button in self.buttons_list:
+    def disable_buttons_QLSV(self):
+        for button in self.buttons_list_QLSV:
             button.setDisabled(True)
     #############################################################################
-    def enable_buttons(self):
-        for button in self.buttons_list:
+    def enable_buttons_QLSV(self):
+        for button in self.buttons_list_QLSV:
             button.setDisabled(False)
     #############################################################################
     def add_info_QLSV(self):
-        self.disable_buttons()
+        self.disable_buttons_QLSV()
 
         sv_info = self.get_sv_info()
 
@@ -70,7 +100,7 @@ class Window_Menu(QWidget):
                 self.enable_buttons()
                 return
 
-            add_result = self.DB.add_info(
+            add_result = self.DB.add_info_sv(
                 masv=int(sv_info["MASV"]),
                 hoten=sv_info["HOTEN"],
                 lop=sv_info["LOP"],
@@ -87,7 +117,7 @@ class Window_Menu(QWidget):
             QMessageBox.information(self, "Canh bao", "Nhap ma sinh vien va hoten", QMessageBox.StandardButton.Ok)
 
         self.display_data_QLSV()
-        self.enable_buttons()
+        self.enable_buttons_QLSV()
     #############################################################################
     def update_info_QLSV(self):
         if self.Masv.isEnabled():
@@ -97,7 +127,7 @@ class Window_Menu(QWidget):
             new_sv_info = self.get_sv_info()
 
             if new_sv_info["MASV"]:
-                update_result = self.DB.update_info(
+                update_result = self.DB.update_info_sv(
                     masv=new_sv_info["MASV"],
                     hoten=new_sv_info["HOTEN"],
                     lop=new_sv_info["LOP"],
@@ -124,16 +154,16 @@ class Window_Menu(QWidget):
     #############################################################################
     def select_info_QLSV(self):
         # Chon du lieu can chinh sua
-        select_row = self.listbox_table.currentRow()
+        select_row = self.listbox_QLSV.currentRow()
         if select_row != -1:
             self.Masv.setEnabled(False)
-            s_Masv = self.listbox_table.item(select_row, 0).text().strip()
-            s_Hoten =  self.listbox_table.item(select_row, 1).text().strip()
-            s_Lop =  self.listbox_table.item(select_row, 2).text().strip()
-            s_Dchi = self.listbox_table.item(select_row, 3).text().strip()
-            s_Ngsinh =  self.listbox_table.item(select_row, 4).text().strip()
-            s_Gtinh =  self.listbox_table.item(select_row, 5).text().strip()
-            s_Sdt =  self.listbox_table.item(select_row, 6).text().strip()
+            s_Masv = self.listbox_QLSV.item(select_row, 0).text().strip()
+            s_Hoten =  self.listbox_QLSV.item(select_row, 1).text().strip()
+            s_Lop =  self.listbox_QLSV.item(select_row, 2).text().strip()
+            s_Dchi = self.listbox_QLSV.item(select_row, 3).text().strip()
+            s_Ngsinh =  self.listbox_QLSV.item(select_row, 4).text().strip()
+            s_Gtinh =  self.listbox_QLSV.item(select_row, 5).text().strip()
+            s_Sdt =  self.listbox_QLSV.item(select_row, 6).text().strip()
 
             # Set du lieu moi
             self.Masv.setText(s_Masv)
@@ -148,44 +178,44 @@ class Window_Menu(QWidget):
     #############################################################################
     def delete_info_QLSV(self):
         # Chon dong hien tai
-        select_row = self.listbox_table.currentRow()
+        select_row = self.listbox_QLSV.currentRow()
         if select_row != -1:
             selected_option = QMessageBox.warning(self, "Canh bao", "Ban muon xoa du lieu?", QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.Cancel)
 
             if selected_option == QMessageBox.StandardButton.Yes:
                 # Lay masv de thuc hien xoa
-                Masv = self.listbox_table.item(select_row, 0).text().strip()
+                Masv = self.listbox_QLSV.item(select_row, 0).text().strip()
 
-                delete_result = self.DB.delete_info(Masv)
+                delete_result = self.DB.delete_info_sv(Masv)
 
                 if not delete_result:
-                    self.listbox_table.removeRow(select_row)
+                    self.listbox_QLSV.removeRow(select_row)
                 else:
                     QMessageBox.information(self, "Canh bao", f"That bai xoa {delete_result}! hay thu lai.", QMessageBox.StandardButton.Ok)
 
         else:
             QMessageBox.information(self, "Canh bao", "Hay chon 1 sinh vien de xoa", QMessageBox.StandardButton.Ok)
     #############################################################################
-    def search_info_QLSV(self):
-        sv_info = self.get_sv_info()
+    # def search_info_QLSV(self):
+    #     sv_info = self.get_sv_info()
 
-        search_result = self.DB.search_info(
-            masvtk=sv_info["MASV"],
-            hotentk=sv_info["HOTEN"],
-            loptk=sv_info["LOP"],
-            dchitk=sv_info["DCHI"],
-            ngsinhtk=sv_info["NGSINH"],
-            gtinhtk=sv_info["GTINH"],
-            sdttk=sv_info["SDT"]
-        )
+    #     search_result = self.DB.search_info(
+    #         masvtk=sv_info["MASV"],
+    #         hotentk=sv_info["HOTEN"],
+    #         loptk=sv_info["LOP"],
+    #         dchitk=sv_info["DCHI"],
+    #         ngsinhtk=sv_info["NGSINH"],
+    #         gtinhtk=sv_info["GTINH"],
+    #         sdttk=sv_info["SDT"]
+    #     )
 
-        self.show_data_QLSV(search_result)
+    #     self.show_data_QLSV(search_result)
     #############################################################################
     def show_data_QLSV(self, result):
         # lay du lieu tu bang tim kiem de gan du lieu tu database vao table
         if result:
-            self.listbox_table.setRowCount(0)
-            self.listbox_table.setRowCount(len(result))
+            self.listbox_QLSV.setRowCount(0)
+            self.listbox_QLSV.setRowCount(len(result))
 
             for row, info in enumerate(result):
                 info_list = [
@@ -200,11 +230,11 @@ class Window_Menu(QWidget):
 
                 for column, item in enumerate(info_list):
                     cell_item = QTableWidgetItem(str(item))
-                    self.listbox_table.setItem(row, column, cell_item)
+                    self.listbox_QLSV.setItem(row, column, cell_item)
     #############################################################################
     def display_data_QLSV(self):
         # Lay du lieu tu ham tim kiem
-        search_result = self.DB.search_info()
+        search_result = self.DB.search_info_sv()
 
         # Hien thi data
         self.show_data_QLSV(search_result)
@@ -231,14 +261,63 @@ class Window_Menu(QWidget):
         }
 
         return sv_info
-
+    #############################################################################
     def check_masv(self, new_masv):
-        result = self.DB.search_info(masvtk=new_masv)
+        result = self.DB.search_info_sv(masvtk=new_masv)
         return result
     #############################################################################
+    def show_data_QLL(self, result):
+        if result:
+            self.listbox_QLL.setRowCount(0)
+            self.listbox_QLL.setRowCount(len(result))
+
+            for row, info in enumerate(result):
+                info_list = [
+                    info["MALOP"],
+                    info["TENLOP"],
+                    info["KHOA"],
+                    info["KHOAHOC"],
+                    info["HEDAOTAO"]
+                ]
+
+                for column, item in enumerate(info_list):
+                    cell_item = QTableWidgetItem(str(item))
+                    self.listbox_QLL.setItem(row, column, cell_item)
+    #############################################################################
+    def display_data_QLL(self):
+        # Lay du lieu tu ham tim kiem
+        search_result = self.DB.search_info_lop()
+
+        # Hien thi data
+        self.show_data_QLL(search_result)
+    #############################################################################
+    # def get_lop_info(self):
+    #     # Lay du lieu tu input
+    #     get_Malop = self.Malop.text().strip()
+    #     get_TenLop = self.TenLop.text().strip()
+    #     get_Khoa = self.Khoa.text().strip()
+    #     get_KhoaHK = self.KhoaHK.text().strip()
+    #     get_HDT = self.HDT.text().strip()
+
+    #     # tao dict de luu cac bien
+    #     lop_info = {
+    #         "MALOP": get_Malop,
+    #         "TENLOP": get_TenLop,
+    #         "KHOA": get_Khoa,
+    #         "KHOAHK": get_KhoaHK,
+    #         "HDT": get_HDT
+    #     }
+
+    #     return lop_info
+    #############################################################################
+    def check_malop(self, new_malop):
+        result = self.DB.search_info_sv(masvtk=new_malop)
+        return result
+    #############################################################################
+    ## GIANGVIEN ##
     # Kiem tra ma sinh vien
     def check_masv(self, new_masv):
-        result  = self.DB.search_info(masvtk=new_masv)
+        result  = self.DB.search_info_sv(masvtk=new_masv)
         return result
    #############################################################################
     # an dropdown
@@ -260,9 +339,10 @@ class Window_Menu(QWidget):
             Subframe.show()
     #############################################################################
     def init_signal_slot_form(self):
-        # self.UI.QLTKBtn.clicked.connect()
-        self.UI.QLSVBtn.clicked.connect(lambda: self.toggleForm(self.UI.Frame_GV, self.UI.Frame_QLSV))
-        self.UI.QLGVBtn.clicked.connect(lambda: self.toggleForm(self.UI.Frame_GV, self.UI.Frame_QLGV))
+        self.UI.QLSVBtn.clicked.connect(lambda: self.toggleForm(self.UI.Frame_Admin, self.UI.Frame_QLSV))
+        self.UI.QLGVBtn.clicked.connect(lambda: self.toggleForm(self.UI.Frame_Admin, self.UI.Frame_QLGV))
+        self.UI.QLLBtn.clicked.connect(lambda: self.toggleForm(self.UI.Frame_Admin, self.UI.Frame_QLL))
+        self.UI.QLMHBtn.clicked.connect(lambda: self.toggleForm(self.UI.Frame_Admin, self.UI.Frame_QLMH))
     #############################################################################
     def toggleForm(self, Frame, Form):
         Frame.setCurrentIndex(Frame.indexOf(Form))

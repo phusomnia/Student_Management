@@ -81,7 +81,7 @@ background-color: cyan;
            <item>
             <widget class="QPushButton" name="GVBtn">
              <property name="text">
-              <string>Giảng Viên</string>
+              <string>Giảng viên</string>
              </property>
              <property name="checkable">
               <bool>true</bool>
@@ -98,30 +98,23 @@ background-color: cyan;
              </property>
              <layout class="QVBoxLayout" name="verticalLayout">
               <item>
-               <widget class="QPushButton" name="QLHPBtn">
-                <property name="text">
-                 <string>Quản Lý Học Phần</string>
-                </property>
-               </widget>
-              </item>
-              <item>
                <widget class="QPushButton" name="QLBDBtn">
                 <property name="text">
-                 <string>Quản Lý Bảng Điểm</string>
+                 <string>Thông tin giảng viên</string>
                 </property>
                </widget>
               </item>
               <item>
                <widget class="QPushButton" name="CThiBtn">
                 <property name="text">
-                 <string>Chấm Thi</string>
+                 <string>Nhập điểm</string>
                 </property>
                </widget>
               </item>
               <item>
                <widget class="QPushButton" name="ThongKeBtn">
                 <property name="text">
-                 <string>Thống Kê</string>
+                 <string>Thống kê</string>
                 </property>
                </widget>
               </item>
@@ -143,7 +136,7 @@ background-color: cyan;
            <item>
             <widget class="QPushButton" name="SVBtn">
              <property name="text">
-              <string>Sinh Viên</string>
+              <string>Sinh viên</string>
              </property>
              <property name="checkable">
               <bool>true</bool>
@@ -162,14 +155,21 @@ background-color: cyan;
               <item>
                <widget class="QPushButton" name="XemDiemBtn">
                 <property name="text">
-                 <string>Xem Điểm</string>
+                 <string>Xem điểm</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="pushButton">
+                <property name="text">
+                 <string>Thông tin sinh viên</string>
                 </property>
                </widget>
               </item>
               <item>
                <widget class="QPushButton" name="DangKiHPBtn">
                 <property name="text">
-                 <string>Đăng Kí Học Phần</string>
+                 <string>Thống kê điểm</string>
                 </property>
                </widget>
               </item>
@@ -213,49 +213,49 @@ background-color: cyan;
               <item>
                <widget class="QPushButton" name="QLTKBtn">
                 <property name="text">
-                 <string>Quản Lý Tài Khoản</string>
+                 <string>Quản lý tài khoản</string>
                 </property>
                </widget>
               </item>
               <item>
                <widget class="QPushButton" name="QLGVBtn">
                 <property name="text">
-                 <string>Quản Lý Giảng Viên</string>
+                 <string>Quản lý giảng viên</string>
                 </property>
                </widget>
               </item>
               <item>
                <widget class="QPushButton" name="QLSVBtn">
                 <property name="text">
-                 <string>Quản Lý Sinh Viên</string>
+                 <string>Quản lý sinh viên</string>
                 </property>
                </widget>
               </item>
               <item>
                <widget class="QPushButton" name="QLKBtn">
                 <property name="text">
-                 <string>Quản Lý Khoa</string>
+                 <string>Quản lý khoa</string>
                 </property>
                </widget>
               </item>
               <item>
                <widget class="QPushButton" name="QLLBtn">
                 <property name="text">
-                 <string>Quản Lý Lớp</string>
+                 <string>Quản lý lớp</string>
                 </property>
                </widget>
               </item>
               <item>
                <widget class="QPushButton" name="QLMHBtn">
                 <property name="text">
-                 <string>Quản Lý Môn Học</string>
+                 <string>Quản lý môn học</string>
                 </property>
                </widget>
               </item>
               <item>
                <widget class="QPushButton" name="BaoCaoBtn">
                 <property name="text">
-                 <string>Báo Cáo</string>
+                 <string>Báo cáo</string>
                 </property>
                </widget>
               </item>
@@ -301,9 +301,9 @@ background-color: yellow;
      </property>
      <layout class="QGridLayout" name="gridLayout_10">
       <item row="0" column="0">
-       <widget class="QStackedWidget" name="Frame_GV">
+       <widget class="QStackedWidget" name="Frame_Admin">
         <property name="currentIndex">
-         <number>1</number>
+         <number>4</number>
         </property>
         <widget class="QWidget" name="Frame_QLGV">
          <property name="styleSheet">
@@ -348,103 +348,78 @@ background-color: yellow;
             </property>
             <layout class="QGridLayout" name="gridLayout_12">
              <item row="0" column="0">
-              <layout class="QGridLayout" name="gridLayout_13">
-               <item row="0" column="0">
-                <layout class="QGridLayout" name="gridLayout_14">
-                 <item row="1" column="0">
-                  <widget class="QLabel" name="label_11">
-                   <property name="text">
-                    <string>Tên GV</string>
-                   </property>
-                   <property name="alignment">
-                    <set>Qt::AlignCenter</set>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="2" column="2">
-                  <widget class="QLineEdit" name="Khoa_Entry"/>
-                 </item>
-                 <item row="1" column="2">
-                  <widget class="QLineEdit" name="TenGVEntry"/>
-                 </item>
-                 <item row="0" column="0">
-                  <widget class="QLabel" name="label_13">
-                   <property name="text">
-                    <string>Mã GV</string>
-                   </property>
-                   <property name="alignment">
-                    <set>Qt::AlignCenter</set>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="2" column="0">
-                  <widget class="QLabel" name="label_12">
-                   <property name="text">
-                    <string>Khoa</string>
-                   </property>
-                   <property name="alignment">
-                    <set>Qt::AlignCenter</set>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="0" column="2">
-                  <widget class="QLineEdit" name="MaGV_Entry"/>
-                 </item>
-                </layout>
+              <layout class="QGridLayout" name="gridLayout_14">
+               <item row="1" column="0">
+                <widget class="QLabel" name="label_11">
+                 <property name="text">
+                  <string>Tên GV</string>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignCenter</set>
+                 </property>
+                </widget>
                </item>
-               <item row="0" column="1">
-                <layout class="QGridLayout" name="gridLayout_15">
-                 <item row="1" column="2">
-                  <widget class="QComboBox" name="GtinhSV_Entry">
-                   <item>
-                    <property name="text">
-                     <string>Nam</string>
-                    </property>
-                   </item>
-                   <item>
-                    <property name="text">
-                     <string>Nu</string>
-                    </property>
-                   </item>
-                  </widget>
+               <item row="1" column="2">
+                <widget class="QLineEdit" name="TenGV_Entry_QLGV"/>
+               </item>
+               <item row="0" column="0">
+                <widget class="QLabel" name="label_13">
+                 <property name="text">
+                  <string>Mã GV</string>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignCenter</set>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="2">
+                <widget class="QLineEdit" name="MaGV_Entry_QLGV"/>
+               </item>
+              </layout>
+             </item>
+             <item row="0" column="1">
+              <layout class="QGridLayout" name="gridLayout_15">
+               <item row="1" column="2">
+                <widget class="QComboBox" name="GtinhSV_Entry_QLGV">
+                 <item>
+                  <property name="text">
+                   <string>...</string>
+                  </property>
                  </item>
-                 <item row="0" column="0">
-                  <widget class="QLabel" name="label_15">
-                   <property name="text">
-                    <string>Ngày sinh</string>
-                   </property>
-                   <property name="alignment">
-                    <set>Qt::AlignCenter</set>
-                   </property>
-                  </widget>
+                 <item>
+                  <property name="text">
+                   <string>Nam</string>
+                  </property>
                  </item>
-                 <item row="1" column="0">
-                  <widget class="QLabel" name="label_16">
-                   <property name="text">
-                    <string>Giới tính</string>
-                   </property>
-                   <property name="alignment">
-                    <set>Qt::AlignCenter</set>
-                   </property>
-                  </widget>
+                 <item>
+                  <property name="text">
+                   <string>Nu</string>
+                  </property>
                  </item>
-                 <item row="2" column="0">
-                  <widget class="QLabel" name="label_17">
-                   <property name="text">
-                    <string>Mã HP</string>
-                   </property>
-                   <property name="alignment">
-                    <set>Qt::AlignCenter</set>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="2" column="2">
-                  <widget class="QLineEdit" name="MaHP_Entry"/>
-                 </item>
-                 <item row="0" column="2">
-                  <widget class="QDateEdit" name="NgSinhGV_Entry"/>
-                 </item>
-                </layout>
+                </widget>
+               </item>
+               <item row="1" column="0">
+                <widget class="QLabel" name="label_16">
+                 <property name="text">
+                  <string>Giới tính</string>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignCenter</set>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="2">
+                <widget class="QDateEdit" name="NgSinhGV_Entry_QLGV"/>
+               </item>
+               <item row="0" column="0">
+                <widget class="QLabel" name="label_15">
+                 <property name="text">
+                  <string>Ngày sinh</string>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignCenter</set>
+                 </property>
+                </widget>
                </item>
               </layout>
              </item>
@@ -461,7 +436,7 @@ background-color: yellow;
             </property>
             <layout class="QGridLayout" name="gridLayout_16">
              <item row="0" column="0">
-              <widget class="QTableWidget" name="tableWidget_2">
+              <widget class="QTableWidget" name="tableWidget_QLGV">
                <property name="minimumSize">
                 <size>
                  <width>0</width>
@@ -516,28 +491,28 @@ background-color: yellow;
             </property>
             <layout class="QHBoxLayout" name="horizontalLayout_3">
              <item>
-              <widget class="QPushButton" name="AddBtn_QLHP">
+              <widget class="QPushButton" name="AddBtn_QLGV">
                <property name="text">
                 <string>Thêm</string>
                </property>
               </widget>
              </item>
              <item>
-              <widget class="QPushButton" name="UpdateBtn_2">
+              <widget class="QPushButton" name="UpdateBtn_GLGV">
                <property name="text">
                 <string>Sửa</string>
                </property>
               </widget>
              </item>
              <item>
-              <widget class="QPushButton" name="DelBtn_2">
+              <widget class="QPushButton" name="DelBtn_QLGV">
                <property name="text">
                 <string>Xóa</string>
                </property>
               </widget>
              </item>
              <item>
-              <widget class="QPushButton" name="ExitBtn_2">
+              <widget class="QPushButton" name="ExitBtn_QLGV">
                <property name="text">
                 <string>Thoát</string>
                </property>
@@ -628,7 +603,7 @@ background-color: yellow;
             </property>
             <layout class="QGridLayout" name="gridLayout_7">
              <item row="0" column="0">
-              <widget class="QTableWidget" name="tableWidgetQLSV">
+              <widget class="QTableWidget" name="tableWidget_QLSV">
                <property name="minimumSize">
                 <size>
                  <width>0</width>
@@ -712,10 +687,10 @@ background-color: yellow;
                   </widget>
                  </item>
                  <item row="2" column="2">
-                  <widget class="QLineEdit" name="LopSV_Entry"/>
+                  <widget class="QLineEdit" name="LopSV_Entry_QLSV"/>
                  </item>
                  <item row="1" column="2">
-                  <widget class="QLineEdit" name="TenSV_Entry"/>
+                  <widget class="QLineEdit" name="TenSV_Entry_QLSV"/>
                  </item>
                  <item row="0" column="0">
                   <widget class="QLabel" name="label_5">
@@ -728,7 +703,7 @@ background-color: yellow;
                   </widget>
                  </item>
                  <item row="0" column="2">
-                  <widget class="QLineEdit" name="MaSV_Entry"/>
+                  <widget class="QLineEdit" name="MaSV_Entry_QLSV"/>
                  </item>
                  <item row="3" column="0">
                   <widget class="QLabel" name="label_9">
@@ -738,14 +713,14 @@ background-color: yellow;
                   </widget>
                  </item>
                  <item row="3" column="2">
-                  <widget class="QLineEdit" name="DiaChiSV_Entry"/>
+                  <widget class="QLineEdit" name="DiaChiSV_Entry_QLSV"/>
                  </item>
                 </layout>
                </item>
                <item row="0" column="1">
                 <layout class="QGridLayout" name="gridLayout_5">
                  <item row="1" column="2">
-                  <widget class="QComboBox" name="ComboboxGtinh">
+                  <widget class="QComboBox" name="ComboboxGtinh_QLSV">
                    <item>
                     <property name="text">
                      <string>...</string>
@@ -794,10 +769,10 @@ background-color: yellow;
                   </widget>
                  </item>
                  <item row="2" column="2">
-                  <widget class="QLineEdit" name="SdtSV_Entry"/>
+                  <widget class="QLineEdit" name="SdtSV_Entry_QLSV"/>
                  </item>
                  <item row="0" column="2">
-                  <widget class="QDateEdit" name="NgSinhSV_Entry"/>
+                  <widget class="QDateEdit" name="NgSinhSV_Entry_QLSV"/>
                  </item>
                 </layout>
                </item>
@@ -863,7 +838,7 @@ background-color: yellow;
                   </widget>
                  </item>
                  <item row="1" column="2">
-                  <widget class="QLineEdit" name="TenLop_Entry_3"/>
+                  <widget class="QLineEdit" name="TenLop_Entry_QLMH"/>
                  </item>
                  <item row="0" column="0">
                   <widget class="QLabel" name="label_28">
@@ -876,7 +851,7 @@ background-color: yellow;
                   </widget>
                  </item>
                  <item row="0" column="2">
-                  <widget class="QLineEdit" name="MaLop_Entry_3"/>
+                  <widget class="QLineEdit" name="Malop_Entry_QLMH"/>
                  </item>
                 </layout>
                </item>
@@ -893,7 +868,7 @@ background-color: yellow;
                   </widget>
                  </item>
                  <item row="1" column="2">
-                  <widget class="QLineEdit" name="Khoa_Entry_7"/>
+                  <widget class="QLineEdit" name="Khoa_Entry_QLMH"/>
                  </item>
                  <item row="1" column="0">
                   <widget class="QLabel" name="label_43">
@@ -906,7 +881,7 @@ background-color: yellow;
                   </widget>
                  </item>
                  <item row="0" column="2">
-                  <widget class="QLineEdit" name="Khoa_Entry_8"/>
+                  <widget class="QLineEdit" name="SoTinChi_Entry_QLMH"/>
                  </item>
                 </layout>
                </item>
@@ -925,7 +900,7 @@ background-color: yellow;
             </property>
             <layout class="QGridLayout" name="gridLayout_50">
              <item row="0" column="0">
-              <widget class="QTableWidget" name="tableWidget_7">
+              <widget class="QTableWidget" name="tableWidget_QLMH">
                <property name="minimumSize">
                 <size>
                  <width>0</width>
@@ -1056,7 +1031,7 @@ background-color: yellow;
                   </widget>
                  </item>
                  <item row="1" column="2">
-                  <widget class="QLineEdit" name="TenLop_Entry"/>
+                  <widget class="QLineEdit" name="TenLop_Entry_QLL"/>
                  </item>
                  <item row="0" column="0">
                   <widget class="QLabel" name="label_18">
@@ -1069,27 +1044,18 @@ background-color: yellow;
                   </widget>
                  </item>
                  <item row="0" column="2">
-                  <widget class="QLineEdit" name="MaLop_Entry"/>
+                  <widget class="QLineEdit" name="MaLop_Entry_QLL"/>
                  </item>
                 </layout>
                </item>
                <item row="0" column="1">
                 <layout class="QGridLayout" name="gridLayout_21">
-                 <item row="0" column="0">
-                  <widget class="QLabel" name="label_19">
+                 <item row="2" column="0">
+                  <widget class="QLabel" name="label_20">
                    <property name="text">
-                    <string>Khoa</string>
-                   </property>
-                   <property name="alignment">
-                    <set>Qt::AlignCenter</set>
+                    <string>Hệ đào tạo</string>
                    </property>
                   </widget>
-                 </item>
-                 <item row="0" column="1">
-                  <widget class="QLineEdit" name="Khoa_Entry_2"/>
-                 </item>
-                 <item row="1" column="1">
-                  <widget class="QLineEdit" name="KhoaHK_Entry"/>
                  </item>
                  <item row="1" column="0">
                   <widget class="QLabel" name="label_21">
@@ -1100,6 +1066,25 @@ background-color: yellow;
                     <set>Qt::AlignCenter</set>
                    </property>
                   </widget>
+                 </item>
+                 <item row="1" column="2">
+                  <widget class="QLineEdit" name="KhoaHK_Entry_QLL"/>
+                 </item>
+                 <item row="0" column="2">
+                  <widget class="QLineEdit" name="Khoa_Entry_QLL"/>
+                 </item>
+                 <item row="0" column="0">
+                  <widget class="QLabel" name="label_19">
+                   <property name="text">
+                    <string>Khoa</string>
+                   </property>
+                   <property name="alignment">
+                    <set>Qt::AlignCenter</set>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="2" column="2">
+                  <widget class="QLineEdit" name="HeDaoTao_Entry_QLL"/>
                  </item>
                 </layout>
                </item>
@@ -1126,7 +1111,7 @@ background-color: yellow;
                 </size>
                </property>
                <attribute name="horizontalHeaderDefaultSectionSize">
-                <number>255</number>
+                <number>206</number>
                </attribute>
                <column>
                 <property name="text">
@@ -1146,6 +1131,11 @@ background-color: yellow;
                <column>
                 <property name="text">
                  <string>Khóa</string>
+                </property>
+               </column>
+               <column>
+                <property name="text">
+                 <string>HDT</string>
                 </property>
                </column>
               </widget>

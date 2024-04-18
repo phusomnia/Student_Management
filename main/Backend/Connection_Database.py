@@ -21,8 +21,9 @@ class ConnectDB:
             self.cursor = self.con.cursor(dictionary=True)
         except mysql.connector.Error as err:
             print("Error:", err)
-
-    def add_info(self, masv, hoten, lop, diachi, ngsinh, gtinh, sdt):
+    ## SV ##
+    #############################################################################
+    def add_info_sv(self, masv, hoten, lop, diachi, ngsinh, gtinh, sdt):
         self.link_db()
         
         sql = f"""
@@ -38,8 +39,8 @@ class ConnectDB:
             return E
         finally:
             self.con.close()
-
-    def update_info(self, masv, hoten, lop, diachi, ngsinh, gtinh, sdt):
+    #############################################################################
+    def update_info_sv(self, masv, hoten, lop, diachi, ngsinh, gtinh, sdt):
         self.link_db()
         
         # Cap nhat database
@@ -57,8 +58,8 @@ class ConnectDB:
             return E
         finally:
             self.con.close()
-
-    def delete_info(self, masv):
+    #############################################################################
+    def delete_info_sv(self, masv):
         self.link_db()
         
         sql = f"""
@@ -75,8 +76,8 @@ class ConnectDB:
         
         finally:
             self.con.close()
-
-    def search_info(self, masvtk=None, hotentk=None, loptk=None, dchitk=None ,ngsinhtk=None, gtinhtk=None, sdttk=None):
+    #############################################################################
+    def search_info_sv(self, masvtk=None, hotentk=None, loptk=None, dchitk=None ,ngsinhtk=None, gtinhtk=None, sdttk=None):
         self.link_db()
 
         # Tim kiem du lieu trong database
@@ -126,6 +127,222 @@ class ConnectDB:
             sql = f"""
                 SELECT *
                 FROM SINHVIEN;
+            """
+
+        try:
+            self.cursor.execute(sql)
+            result = self.cursor.fetchall()
+            return result
+        
+        except Exception as E:
+            return E
+        
+        finally:
+            self.con.close()
+    ## LOP ##
+    #############################################################################
+    def add_info_lop(self, malop, tenlop, khoa, khoahoc, hedaotao):
+        self.link_db()
+        
+        sql = f"""
+            INSERT INTO LOP (MALOP, TENLOP, KHOA, KHOAHOC, HEDAOTAO)
+            VALUES ({malop}, '{tenlop}', '{khoa}', {khoahoc}, '{hedaotao}');
+        """
+
+        try:
+            self.cursor.execute(sql)
+            self.con.commit()
+        except Exception as E:
+            self.con.rollback()
+            return E
+        finally:
+            self.con.close()
+    ##############################################################################
+    def update_info_lop(self, malop, tenlop, khoa, khoahoc, hedaotao):
+        self.link_db()
+        
+        # Cap nhat database
+        sql = f"""
+            UPDATE LOP
+            SET MALOP={malop}, TENLOP={tenlop}, KHOA={khoa}, KHOAHOC={khoahoc}, HEDAOTAO={hedaotao}
+            WHERE MASV={malop}
+        """
+
+        try:
+            self.cursor.execute(sql)
+            self.con.commit()
+        except Exception as E:
+            self.con.rollback()
+            return E
+        finally:
+            self.con.close()
+    #############################################################################      
+    def delete_info_lop(self, malop):
+        self.link_db()
+        
+        sql = f"""
+            DELETE FROM LOP 
+            WHERE MALOP={malop};
+        """
+
+        try:
+            self.cursor.execute(sql)
+            self.con.commit()
+        except Exception as E:
+            self.con.rollback()
+            return E
+        
+        finally:
+            self.con.close()
+    ############################################################################# 
+    def search_info_lop(self, maloptk=None, tenloptk=None, khoatk=None, khoahoctk=None, hedaotaotk=None):
+        self.link_db()
+
+        # Tim kiem du lieu trong database
+        condition = ""
+        if maloptk:
+            condition += f"MALOP LIKE '%{maloptk}%'"
+        else:
+            if tenloptk:
+                if condition:
+                    condition += f" AND TENLOP LIKE '%{tenloptk}%'"
+                else:
+                    condition += f"TENLOP LIKE '%{tenloptk}%'"
+            if khoatk:
+                if condition:
+                    condition += f" AND KHOA LIKE '%{khoatk}%'"
+                else:
+                    condition += f"KHOA LIKE '%{khoatk}%'"
+            if khoahoctk:
+                if condition:
+                    condition += f" AND KHOAHOC LIKE '%{khoahoctk}%'"
+                else:
+                    condition += f"KHOAHOC LIKE '%{khoahoctk}%'"
+            if hedaotaotk:
+                if condition:
+                    condition += f"AND HEDAOTAO LIKE '%{hedaotaotk}%'"
+                else:
+                    condition += f"HEDAOTAO LIKE '%{hedaotaotk}%'"
+
+        # Lenh truy van tim kiem thong tin
+        # Neu khong co dieu kien se lay tat ca thong tin
+        if condition:
+            sql = f"""
+                SELECT * 
+                FROM LOP WHERE {condition};
+            """
+        else:
+            sql = f"""
+                SELECT *
+                FROM LOP;
+            """
+
+        try:
+            self.cursor.execute(sql)
+            result = self.cursor.fetchall()
+            return result
+        
+        except Exception as E:
+            return E
+        
+        finally:
+            self.con.close()
+    ## GV ##
+    #############################################################################
+    def add_info_gv(self, magv, hoten, ngsinh, gtinh, khoa):
+        self.link_db()
+        
+        sql = f"""
+            NSERT INTO GIANGVIEN (MAGV, HOTEN, NGSINH, GTINH, KHOA)
+            VALUES ({magv}, '{hoten}', '{ngsinh}', {gtinh}, '{khoa}');
+        """
+
+        try:
+            self.cursor.execute(sql)
+            self.con.commit()
+        except Exception as E:
+            self.con.rollback()
+            return E
+        finally:
+            self.con.close()
+    ##############################################################################
+    def update_info_lop(self, magv, hoten, ngsinh, gtinh, khoa):
+        self.link_db()
+        
+        # Cap nhat database
+        sql = f"""
+            UPDATE LOP
+            SET MALOP={magv}, TENLOP={hoten}, KHOA={ngsinh}, KHOAHOC={gtinh}, HEDAOTAO={khoa}
+            WHERE MASV={magv}
+        """
+
+        try:
+            self.cursor.execute(sql)
+            self.con.commit()
+        except Exception as E:
+            self.con.rollback()
+            return E
+        finally:
+            self.con.close()
+    #############################################################################      
+    def delete_info_lop(self, malop):
+        self.link_db()
+        
+        sql = f"""
+            DELETE FROM LOP 
+            WHERE MALOP={malop};
+        """
+
+        try:
+            self.cursor.execute(sql)
+            self.con.commit()
+        except Exception as E:
+            self.con.rollback()
+            return E
+        
+        finally:
+            self.con.close()
+    ############################################################################# 
+    def search_info_lop(self, maloptk=None, tenloptk=None, khoatk=None, khoahoctk=None, hedaotaotk=None):
+        self.link_db()
+
+        # Tim kiem du lieu trong database
+        condition = ""
+        if maloptk:
+            condition += f"MALOP LIKE '%{maloptk}%'"
+        else:
+            if tenloptk:
+                if condition:
+                    condition += f" AND TENLOP LIKE '%{tenloptk}%'"
+                else:
+                    condition += f"TENLOP LIKE '%{tenloptk}%'"
+            if khoatk:
+                if condition:
+                    condition += f" AND KHOA LIKE '%{khoatk}%'"
+                else:
+                    condition += f"KHOA LIKE '%{khoatk}%'"
+            if khoahoctk:
+                if condition:
+                    condition += f" AND KHOAHOC LIKE '%{khoahoctk}%'"
+                else:
+                    condition += f"KHOAHOC LIKE '%{khoahoctk}%'"
+            if hedaotaotk:
+                if condition:
+                    condition += f"AND HEDAOTAO LIKE '%{hedaotaotk}%'"
+                else:
+                    condition += f"HEDAOTAO LIKE '%{hedaotaotk}%'"
+
+        # Lenh truy van tim kiem thong tin
+        # Neu khong co dieu kien se lay tat ca thong tin
+        if condition:
+            sql = f"""
+                SELECT * 
+                FROM LOP WHERE {condition};
+            """
+        else:
+            sql = f"""
+                SELECT *
+                FROM LOP;
             """
 
         try:
