@@ -22,12 +22,12 @@ class ConnectDB:
         except mysql.connector.Error as err:
             print("Error:", err)
 
-    def add_info(self, masv, hoten, lop, ngsinh, gtinh, sdt):
+    def add_info(self, masv, hoten, lop, diachi, ngsinh, gtinh, sdt):
         self.link_db()
         
         sql = f"""
-            INSERT INTO SINHVIEN (MASV, HOTEN, LOP, NGSINH, GTINH, SDT)
-            VALUES ({masv}, '{hoten}', '{lop}', '{ngsinh}', '{gtinh}', {sdt});
+            INSERT INTO SINHVIEN (MASV, HOTEN, LOP, DCHI ,NGSINH, GTINH, SDT)
+            VALUES ({masv}, '{hoten}', '{lop}', {diachi}, '{ngsinh}', '{gtinh}', {sdt});
         """
 
         try:
@@ -39,13 +39,13 @@ class ConnectDB:
         finally:
             self.con.close()
 
-    def update_info(self, masv, hoten, lop, ngsinh, gtinh, sdt):
+    def update_info(self, masv, hoten, lop, diachi, ngsinh, gtinh, sdt):
         self.link_db()
         
         # Cap nhat database
         sql = f"""
             UPDATE SINHVIEN
-            SET HOTEN='{hoten}', LOP='{lop}', NGSINH='{ngsinh}', GTINH='{gtinh}', SDT={sdt}
+            SET HOTEN='{hoten}', LOP='{lop}', NGSINH='{ngsinh}', DCHI='{diachi}', GTINH='{gtinh}', SDT={sdt}
             WHERE MASV={masv}
         """
 
@@ -76,7 +76,7 @@ class ConnectDB:
         finally:
             self.con.close()
 
-    def search_info(self, masvtk=None, hotentk=None, loptk=None, ngsinhtk=None, gtinhtk=None, sdttk=None):
+    def search_info(self, masvtk=None, hotentk=None, loptk=None, dchitk=None ,ngsinhtk=None, gtinhtk=None, sdttk=None):
         self.link_db()
 
         # Tim kiem du lieu trong database
@@ -94,6 +94,11 @@ class ConnectDB:
                     condition += f" AND LOP LIKE '%{loptk}%'"
                 else:
                     condition += f"LOP LIKE '%{loptk}%'"
+            if dchitk:
+                if condition:
+                    condition += f" AND LOP LIKE '%{dchitk}%'"
+                else:
+                    condition += f"LOP LIKE '%{dchitk}%'"
             if ngsinhtk:
                 if condition:
                     condition += f"AND NGSINH LIKE '%{ngsinhtk}%'"

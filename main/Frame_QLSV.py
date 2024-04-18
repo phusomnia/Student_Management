@@ -10,8 +10,8 @@ class Window_QLSV(QWidget):
     def __init__(self):
         super().__init__()
 
-        # self.UI = QLSV()
-        # self.UI.setupQLSV(self)
+        self.UI = QLSV()
+        self.UI.setupQLSV(self)
 
         self.DB = ConnectDB()
 
@@ -27,6 +27,7 @@ class Window_QLSV(QWidget):
         self.add_btn = self.UI.AddBtn
         self.update_btn = self.UI.UpdateBtn
         self.delete_btn = self.UI.DelBtn
+        self.search_btn = self.UI.ExitBtn
 
         self.listbox_table = self.UI.tableWidget
         self.listbox_table.setSortingEnabled(False)
@@ -36,6 +37,7 @@ class Window_QLSV(QWidget):
         self.init_signal_slot()
 
         # Khoi tao hien thi du lieu dang co trong database
+        # self.search_info()
         self.display_data()
     
     # Lien ket cac button voi cac ham chuc nang
@@ -43,6 +45,7 @@ class Window_QLSV(QWidget):
         self.add_btn.clicked.connect(self.add_info)
         self.update_btn.clicked.connect(self.update_info)
         self.delete_btn.clicked.connect(self.delete_info)
+        self.search_btn.clicked.connect(self.search_info)
 
     # Bat va tat cac entry trong qua trinh nhap du lieu
     def disable_buttons(self):
@@ -184,7 +187,10 @@ class Window_QLSV(QWidget):
             sdttk=sv_info["SDT"]
         )
 
-        self.show_data(search_result)
+        if search_result :
+            self.show_data(search_result)
+        else:
+            self.display_data()
     
     def show_data(self, result):
         # lay du lieu tu bang tim kiem de gan du lieu tu database vao table
@@ -208,7 +214,7 @@ class Window_QLSV(QWidget):
 
     def display_data(self):
         # Lay du lieu tu ham tim kiem
-        search_result = self.DB.search_info()
+        search_result = self.DB.search_info() # search info trong database
 
         # Hien thi data 
         self.show_data(search_result)

@@ -202,7 +202,7 @@ background-color: cyan;
             </widget>
            </item>
            <item>
-            <widget class="QFrame" name="SubFrame_GVBtn_4">
+            <widget class="QFrame" name="SubFrame_AdminBtn">
              <property name="frameShape">
               <enum>QFrame::StyledPanel</enum>
              </property>
@@ -228,6 +228,13 @@ background-color: cyan;
                <widget class="QPushButton" name="QLSVBtn">
                 <property name="text">
                  <string>Quản Lý Sinh Viên</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="QLKBtn">
+                <property name="text">
+                 <string>Quản Lý Khoa</string>
                 </property>
                </widget>
               </item>
@@ -286,7 +293,7 @@ background-color: cyan;
    <item row="0" column="1">
     <widget class="QWidget" name="Frame_Display" native="true">
      <property name="styleSheet">
-      <string notr="true">#Frame_QLGV, #Frame_QLL, #Frame_QLSV {
+      <string notr="true">#Frame_QLGV, #Frame_QLL, #Frame_QLSV, #Frame_QLMH {
 background-color: yellow;
 }
 
@@ -296,7 +303,7 @@ background-color: yellow;
       <item row="0" column="0">
        <widget class="QStackedWidget" name="Frame_GV">
         <property name="currentIndex">
-         <number>3</number>
+         <number>1</number>
         </property>
         <widget class="QWidget" name="Frame_QLGV">
          <property name="styleSheet">
@@ -500,7 +507,7 @@ background-color: yellow;
            </widget>
           </item>
           <item row="3" column="0">
-           <widget class="QFrame" name="Frame_Function_QLHP">
+           <widget class="QFrame" name="Frame_Function_QLGV">
             <property name="frameShape">
              <enum>QFrame::StyledPanel</enum>
             </property>
@@ -509,7 +516,7 @@ background-color: yellow;
             </property>
             <layout class="QHBoxLayout" name="horizontalLayout_3">
              <item>
-              <widget class="QPushButton" name="AddBtn_2">
+              <widget class="QPushButton" name="AddBtn_QLHP">
                <property name="text">
                 <string>Thêm</string>
                </property>
@@ -553,28 +560,28 @@ background-color: yellow;
             </property>
             <layout class="QHBoxLayout" name="horizontalLayout_2">
              <item>
-              <widget class="QPushButton" name="AddBtn">
+              <widget class="QPushButton" name="AddBtn_QLSV">
                <property name="text">
                 <string>Thêm</string>
                </property>
               </widget>
              </item>
              <item>
-              <widget class="QPushButton" name="UpdateBtn">
+              <widget class="QPushButton" name="UpdateBtn_QLSV">
                <property name="text">
                 <string>Sửa</string>
                </property>
               </widget>
              </item>
              <item>
-              <widget class="QPushButton" name="DelBtn">
+              <widget class="QPushButton" name="DelBtn_QLSV">
                <property name="text">
                 <string>Xóa</string>
                </property>
               </widget>
              </item>
              <item>
-              <widget class="QPushButton" name="ExitBtn">
+              <widget class="QPushButton" name="ExitBtn_QLSV">
                <property name="text">
                 <string>Thoát</string>
                </property>
@@ -621,7 +628,7 @@ background-color: yellow;
             </property>
             <layout class="QGridLayout" name="gridLayout_7">
              <item row="0" column="0">
-              <widget class="QTableWidget" name="tableWidget">
+              <widget class="QTableWidget" name="tableWidgetQLSV">
                <property name="minimumSize">
                 <size>
                  <width>0</width>
@@ -731,7 +738,7 @@ background-color: yellow;
                   </widget>
                  </item>
                  <item row="3" column="2">
-                  <widget class="QLineEdit" name="lineEdit"/>
+                  <widget class="QLineEdit" name="DiaChiSV_Entry"/>
                  </item>
                 </layout>
                </item>
@@ -739,6 +746,11 @@ background-color: yellow;
                 <layout class="QGridLayout" name="gridLayout_5">
                  <item row="1" column="2">
                   <widget class="QComboBox" name="ComboboxGtinh">
+                   <item>
+                    <property name="text">
+                     <string>...</string>
+                    </property>
+                   </item>
                    <item>
                     <property name="text">
                      <string>Nam</string>
@@ -782,7 +794,7 @@ background-color: yellow;
                   </widget>
                  </item>
                  <item row="2" column="2">
-                  <widget class="QLineEdit" name="SdtGV_Entry"/>
+                  <widget class="QLineEdit" name="SdtSV_Entry"/>
                  </item>
                  <item row="0" column="2">
                   <widget class="QDateEdit" name="NgSinhSV_Entry"/>
@@ -958,28 +970,28 @@ background-color: yellow;
             </property>
             <layout class="QHBoxLayout" name="horizontalLayout_8">
              <item>
-              <widget class="QPushButton" name="AddLopBtn_3">
+              <widget class="QPushButton" name="AddBtn_QLMH">
                <property name="text">
                 <string>Thêm</string>
                </property>
               </widget>
              </item>
              <item>
-              <widget class="QPushButton" name="UpdateLopBtn_5">
+              <widget class="QPushButton" name="UpdateLopBtn_QLMH">
                <property name="text">
                 <string>Sửa</string>
                </property>
               </widget>
              </item>
              <item>
-              <widget class="QPushButton" name="DelLopBtn_5">
+              <widget class="QPushButton" name="DelLopBtn_QLMH">
                <property name="text">
                 <string>Xóa</string>
                </property>
               </widget>
              </item>
              <item>
-              <widget class="QPushButton" name="ExitLopBtn_5">
+              <widget class="QPushButton" name="ExitLopBtn_QLMH">
                <property name="text">
                 <string>Thoát</string>
                </property>
@@ -993,7 +1005,7 @@ background-color: yellow;
         <widget class="QWidget" name="Frame_QLL">
          <layout class="QGridLayout" name="gridLayout_24">
           <item row="0" column="0">
-           <widget class="QFrame" name="Frame_Title_QLD">
+           <widget class="QFrame" name="Frame_Title_QLL">
             <property name="frameShape">
              <enum>QFrame::StyledPanel</enum>
             </property>
@@ -1021,7 +1033,7 @@ background-color: yellow;
            </widget>
           </item>
           <item row="1" column="0">
-           <widget class="QFrame" name="Frame_Entry_QLHP">
+           <widget class="QFrame" name="Frame_Entry_QLL">
             <property name="frameShape">
              <enum>QFrame::StyledPanel</enum>
             </property>
@@ -1077,7 +1089,7 @@ background-color: yellow;
                   <widget class="QLineEdit" name="Khoa_Entry_2"/>
                  </item>
                  <item row="1" column="1">
-                  <widget class="QLineEdit" name="Khoa_Entry_3"/>
+                  <widget class="QLineEdit" name="KhoaHK_Entry"/>
                  </item>
                  <item row="1" column="0">
                   <widget class="QLabel" name="label_21">
@@ -1097,7 +1109,7 @@ background-color: yellow;
            </widget>
           </item>
           <item row="2" column="0">
-           <widget class="QFrame" name="Frame_Listbox_QLD">
+           <widget class="QFrame" name="Frame_Listbox_QLL">
             <property name="frameShape">
              <enum>QFrame::StyledPanel</enum>
             </property>
@@ -1106,7 +1118,7 @@ background-color: yellow;
             </property>
             <layout class="QGridLayout" name="gridLayout_22">
              <item row="0" column="0">
-              <widget class="QTableWidget" name="tableWidget_3">
+              <widget class="QTableWidget" name="tableWidget_QLL">
                <property name="minimumSize">
                 <size>
                  <width>0</width>
@@ -1142,7 +1154,7 @@ background-color: yellow;
            </widget>
           </item>
           <item row="3" column="0">
-           <widget class="QFrame" name="Frame_Function_QLD">
+           <widget class="QFrame" name="Frame_Function_QLL">
             <property name="frameShape">
              <enum>QFrame::StyledPanel</enum>
             </property>
@@ -1151,28 +1163,28 @@ background-color: yellow;
             </property>
             <layout class="QHBoxLayout" name="horizontalLayout_4">
              <item>
-              <widget class="QPushButton" name="AddLopBtn">
+              <widget class="QPushButton" name="AddBtn_QLL">
                <property name="text">
                 <string>Thêm</string>
                </property>
               </widget>
              </item>
              <item>
-              <widget class="QPushButton" name="UpdateLopBtn_3">
+              <widget class="QPushButton" name="UpdateBtn_QLL">
                <property name="text">
                 <string>Sửa</string>
                </property>
               </widget>
              </item>
              <item>
-              <widget class="QPushButton" name="DelLopBtn_3">
+              <widget class="QPushButton" name="DelBtn_QLL">
                <property name="text">
                 <string>Xóa</string>
                </property>
               </widget>
              </item>
              <item>
-              <widget class="QPushButton" name="ExitLopBtn_3">
+              <widget class="QPushButton" name="ExitBtn_QLL">
                <property name="text">
                 <string>Thoát</string>
                </property>
@@ -1193,22 +1205,5 @@ background-color: yellow;
   <zorder>Menu_Frame</zorder>
  </widget>
  <resources/>
- <connections>
-  <connection>
-   <sender>GVBtn</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>SubFrame_GVBtn</receiver>
-   <slot>setHidden(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>134</x>
-     <y>66</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>153</x>
-     <y>105</y>
-    </hint>
-   </hints>
-  </connection>
- </connections>
+ <connections/>
 </ui>
