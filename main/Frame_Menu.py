@@ -16,11 +16,11 @@ class Window_Menu(QWidget):
         ## SV ##
         self.MaSV = self.UI.MaSV_Entry_QLSV
         self.Hoten_QLSV = self.UI.TenSV_Entry_QLSV
-        self.Lop_QLSV = self.UI.Lop_Entry_QLSV
-        self.Dchi_QLSV = self.UI.DiaChi_Entry_QLSV
         self.Ngsinh_QLSV = self.UI.NgSinh_Entry_QLSV
         self.GTinh_QLSV = self.UI.Gtinh_Cbox_QLSV
+        self.Dchi_QLSV = self.UI.DiaChi_Entry_QLSV
         self.Sdt_QLSV = self.UI.Sdt_Entry_QLSV
+        self.Lop_QLSV = self.UI.Lop_Entry_QLSV
         ## GV ##
         self.MaGV = self.UI.MaGV_Entry_QLGV
         self.Hoten_QLGV = self.UI.TenGV_Entry_QLGV
@@ -44,6 +44,11 @@ class Window_Menu(QWidget):
         self.TenMon_QLMH = self.UI.TenMon_Entry_QLMH
         self.SoTinChi_QLMH = self.UI.SoTinChi_Entry_QLMH
         self.SoTinChi_QLMH.setValidator(QIntValidator())
+        ## NHAP MON
+        self.MaMon_QLD = self.UI.MaMH_Entry_QLD
+        self.MaNhom_QLD = self.UI.MaNhom_Entry_QLD
+        self.NamHoc_QLD = self.UI.NamHoc_Cbox_QLD
+        self.HocKy_QLD = self.UI.HocKy_CBox_QLD
         #############################################################################
         # INIT BTN
         ## SV BTN
@@ -66,6 +71,9 @@ class Window_Menu(QWidget):
         self.add_btn_QLMH = self.UI.AddBtn_QLMH
         self.update_btn_QLMH = self.UI.UpdateBtn_QLMH
         self.delete_btn_QLMH = self.UI.DelBtn_QLMH
+        ## 
+        self.search_btn_QLD = self.UI.SearchBtn_QLD
+        self.update_btn_QLD = self.UI.UpdateBtn_QLD
         #############################################################################
         # INIT TABLE 
         ## SV
@@ -89,9 +97,9 @@ class Window_Menu(QWidget):
         self.listbox_QLMH.setSortingEnabled(False)
         self.buttons_list_QLMH = self.UI.Frame_Listbox_QLMH.findChildren(QPushButton)
         ## NHAP DIEM
-        self.listbox_QLD = self.UI.tableWidget_NhapDiem
+        self.listbox_QLD = self.UI.tableWidget_QLD
         self.listbox_QLD.setSortingEnabled(False)
-        self.buttons_list_QLD = self.UI.Frame_Listbox_NhapDiem.findChildren(QPushButton)
+        self.buttons_list_QLD = self.UI.Frame_Listbox_QLD.findChildren(QPushButton)
         #############################################################################
         # Init hide
         self.HideDropDown()
@@ -107,7 +115,6 @@ class Window_Menu(QWidget):
         self.display_data_QLL()
         self.display_data_QLK()
         self.display_data_QLMH()
-        self.display_data_QLD()
     #############################################################################
     def init_signal_slot(self):
         self.add_btn_QLSV.clicked.connect(self.add_info_QLSV)
@@ -125,6 +132,7 @@ class Window_Menu(QWidget):
         self.add_btn_QLMH.clicked.connect(self.add_info_QLMH)
         self.update_btn_QLMH.clicked.connect(self.update_info_QLMH)
         self.delete_btn_QLMH.clicked.connect(self.delete_info_QLMH)
+        self.search_btn_QLD.clicked.connect(self.search_info_QLD)
     #############################################################################
     ## SV ## 
     def disable_buttons_QLSV(self):
@@ -214,11 +222,11 @@ class Window_Menu(QWidget):
                 update_result = self.DB.update_info_sv(
                     masv=new_sv_info["MASV"],
                     hoten=new_sv_info["HOTEN"],
-                    lop=new_sv_info["LOP"],
-                    diachi=new_sv_info["DCHI"],
                     ngsinh=new_sv_info["NGSINH"],
                     gtinh=new_sv_info["GTINH"],
-                    sdt=new_sv_info["SDT"]
+                    diachi=new_sv_info["DCHI"],
+                    sdt=new_sv_info["SDT"],
+                    lop=new_sv_info["LOP"]
                 )
 
                 if update_result:
@@ -305,11 +313,11 @@ class Window_Menu(QWidget):
                 info_list = [
                     info["MASV"],
                     info["HOTEN"],
-                    info["LOP"],
-                    info["DCHI"],
                     info["NGSINH"],
                     info["GTINH"],
+                    info["DCHI"],
                     info["SDT"],
+                    info["LOP"]
                 ]
 
                 for column, item in enumerate(info_list):
@@ -327,21 +335,21 @@ class Window_Menu(QWidget):
         # LAY DU LIEU TU LINEEDIT
         get_Masv = self.MaSV.text().strip()
         get_Hoten = self.Hoten_QLSV.text().strip()
-        get_Lop = self.Lop_QLSV.text().strip()
-        get_Dchi = self.Dchi_QLSV.text().strip()
         get_Ngsinh = self.Ngsinh_QLSV.date().toString("yyyy-MM-dd")
         get_Gtinh = self.GTinh_QLSV.currentText().strip()
+        get_Dchi = self.Dchi_QLSV.text().strip()
         get_Sdt = self.Sdt_QLSV.text().strip()
+        get_Lop = self.Lop_QLSV.text().strip()
 
         # TAO DICT DE LUU CAC BIEN
         sv_info = {
             "MASV": get_Masv,
             "HOTEN": get_Hoten, 
-            "LOP": get_Lop, 
-            "DCHI": get_Dchi,
             "NGSINH": get_Ngsinh, 
             "GTINH": get_Gtinh, 
-            "SDT": get_Sdt
+            "DCHI": get_Dchi,
+            "SDT": get_Sdt,
+            "LOP": get_Lop
         }
 
         return sv_info
@@ -923,6 +931,27 @@ class Window_Menu(QWidget):
     #############################################################################
     ## NHAP DIEM ##
     #############################################################################
+    def search_info_QLD(self):
+        nhapdiem_info = self.get_nhapdiem_info()
+
+        search_result = self.DB.search_info_nhapdiem(
+                mamhtk= nhapdiem_info["MAMH"],
+                manhomtk= nhapdiem_info["MANHOM"],
+                hockytk= nhapdiem_info["HOCKY"],
+                namhoctk= nhapdiem_info["NAMHOC"]
+        )
+
+        if search_result:
+            self.show_data_QLD(search_result)
+        else:
+            self.clear_listbox_QLD()
+    ############################################################################
+    ## 
+    def clear_listbox_QLD(self):
+        self.listbox_QLD.clearContents()
+        self.listbox_QLD.setRowCount(0) 
+    ############################################################################
+    ##  HIEN THI NHAP DIEM
     def show_data_QLD(self, result):
         if result:
             self.listbox_QLD.setRowCount(0)
@@ -931,27 +960,42 @@ class Window_Menu(QWidget):
             for row, info in enumerate(result):
                 nhapdiem_info = [
                     info["MAGV"],
-                    info["TEN_GIANGVIEN"],
-                    info["MASV"],
-                    info["TEN_SINHVIEN"],
                     info["MAMH"],
-                    info["TENMH"],
-                    info["HOCKY"],
-                    info["NAMHOC"],
-                    info["DIEM_QUATRINH"],
+                    info["MANHOM"],
+                    info["MASV"],
+                    info["HOTEN"],
+                    info["DIEM_QT"],
                     info["HESO_QT"],
                     info["DIEMTHI"],
-                    info["HESO_THI"]
+                    info["HESO_THI"],
+                    info["HOCKY"],
+                    info["NAMHOC"]
                 ]
-
                 for column, item in enumerate(nhapdiem_info):
                     cell_item = QTableWidgetItem(str(item))
                     self.listbox_QLD.setItem(row, column, cell_item)
     #############################################################################
-    def display_data_QLD(self):
-        search_result = self.DB.search_info_nhapdiem()
+    # def display_data_QLD(self):
+    #     ## LAY DU LIEU DE HIEN THI
+    #     search_result = self.DB.search_info_nhapdiem()
 
-        self.show_data_QLD(search_result)
+    #     ## HIEN THI
+    #     self.show_data_QLD(search_result)
+    #############################################################################  
+    def get_nhapdiem_info(self):
+        get_MaMH = self.MaMon_QLD.text().strip()
+        get_MaNhom = self.MaNhom_QLD.text().strip()
+        get_HocKy = self.HocKy_QLD.currentText().strip()
+        get_NamHoc = self.NamHoc_QLD.currentText().strip()
+
+        diem_info = {
+            "MAMH": get_MaMH,
+            "MANHOM": get_MaNhom,
+            "HOCKY": get_HocKy,
+            "NAMHOC": get_NamHoc
+        }
+
+        return diem_info
     #############################################################################
     # an dropdown
     def HideDropDown(self):

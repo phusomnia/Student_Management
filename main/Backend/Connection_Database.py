@@ -60,12 +60,13 @@ class ConnectDB:
         finally:
             self.con.close()
     #############################################################################
-    def delete_info_sv(self, masv):
+    def update_info_sv(self, masv, hoten, ngsinh, gtinh, diachi, sdt, lop):
         self.link_db()
-        ## XOA
+        ## CAP NHAT 
         sql = f"""
-            DELETE FROM SINHVIEN 
-            WHERE MASV='{masv}';
+            UPDATE SINHVIEN
+            SET HOTEN='{hoten}', NGSINH='{ngsinh}', GTINH='{gtinh}', DCHI='{diachi}', SDT={sdt}, LOP='{lop}'
+            WHERE MASV='{masv}'
         """
 
         try:
@@ -74,11 +75,10 @@ class ConnectDB:
         except Exception as E:
             self.con.rollback()
             return E
-        
         finally:
             self.con.close()
     #############################################################################
-    def search_info_sv(self, masvtk=None, hotentk=None, loptk=None, dchitk=None ,ngsinhtk=None, gtinhtk=None, sdttk=None):
+    def search_info_sv(self, masvtk=None, hotentk=None, ngsinhtk=None, gtinhtk=None, dchitk=None, sdttk=None, loptk=None):
         self.link_db()
         # TIM KIEM DU LIEU TRONG DATABASE
         condition = ""
@@ -90,31 +90,31 @@ class ConnectDB:
                     condition += f" AND HOTEN LIKE '%{hotentk}%'"
                 else:
                     condition += f"HOTEN LIKE '%{hotentk}%'"
+            if ngsinhtk:
+                if condition:
+                    condition += f" AND NGSINH LIKE '%{ngsinhtk}%'"
+                else:
+                    condition += f"NGSINH LIKE '%{ngsinhtk}%'"
+            if gtinhtk:
+                if condition:
+                    condition += f" AND GTINH LIKE '%{gtinhtk}%'"
+                else:
+                    condition += f"GTINH LIKE '%{gtinhtk}%'"
+            if dchitk:
+                if condition:
+                    condition += f" AND DCHI LIKE '%{dchitk}%'"
+                else:
+                    condition += f"DCHI LIKE '%{dchitk}%'"
+            if sdttk:
+                if condition:
+                    condition += f" AND SDT LIKE '%{sdttk}%'"
+                else:
+                    condition += f"SDT LIKE '%{sdttk}%'"
             if loptk:
                 if condition:
                     condition += f" AND LOP LIKE '%{loptk}%'"
                 else:
                     condition += f"LOP LIKE '%{loptk}%'"
-            if dchitk:
-                if condition:
-                    condition += f" AND LOP LIKE '%{dchitk}%'"
-                else:
-                    condition += f"LOP LIKE '%{dchitk}%'"
-            if ngsinhtk:
-                if condition:
-                    condition += f"AND NGSINH LIKE '%{ngsinhtk}%'"
-                else:
-                    condition += f"NGSINH LIKE '%{ngsinhtk}%'"
-            if gtinhtk:
-                if condition:
-                    condition += f"AND GTINH LIKE '%{gtinhtk}%'"
-                else:
-                    condition += f"GTINH LIKE '%{gtinhtk}%'"
-            if sdttk:
-                if condition:
-                    condition += f" AND SDT LIKE '%{sdttk}%'"
-                else:
-                    condition += f"SDT LIKE '%{sdttk}%'"         
         if condition:
             sql = f"""
                 SELECT * 
@@ -130,12 +130,13 @@ class ConnectDB:
             self.cursor.execute(sql)
             result = self.cursor.fetchall()
             return result
-        
+            
         except Exception as E:
             return E
-        
+            
         finally:
             self.con.close()
+    #############################################################################  
     ## LOP ##
     #############################################################################
     def add_info_lop(self, malop, tenlop, khoa, khoahoc, hedaotao):
@@ -659,19 +660,55 @@ class ConnectDB:
     ##############################################################################
     ## NHAP DIEM ##
     ##############################################################################
-    def search_info_nhapdiem(self):
+    def search_info_nhapdiem(self, mamhtk=None, manhomtk=None, hockytk=None, namhoctk=None):
         self.link_db()
-        sql = f"""
-                SELECT DISTINCT GV.MAGV, GV.HOTEN AS TEN_GIANGVIEN, SV.MASV, SV.HOTEN AS TEN_SINHVIEN, 
-                    MH.MAMH, MH.TENMH, BD.HOCKY, BD.NAMHOC, CTBD.DIEM_QUATRINH, CTBD.HESO_QT, CTBD.DIEMTHI, CTBD.HESO_THI
-                FROM SINHVIEN SV
-                INNER JOIN BANGDIEM BD ON SV.MASV = BD.MASV
-                INNER JOIN DANGKYNHOM DKNH ON SV.MASV = DKNH.MASV
-                INNER JOIN CHITIETBANGDIEM CTBD ON BD.MABD = CTBD.MABD
-                INNER JOIN NHOMMONHOC NH ON CTBD.MANHOM = NH.MANHOM
-                INNER JOIN MONHOC MH ON NH.MH = MH.MAMH
-                INNER JOIN GIANGVIEN GV ON NH.GV = GV.MAGV
+        # LENH TRUY VAN
+        condition = ""
+        if mamhtk:
+            condition += f"MH.MAMH LIKE '%{mamhtk}%'"
+        if manhomtk:
+            if condition:
+                condition += f" AND NMH.MANHOM LIKE '%{manhomtk}%'"
+            else:
+                condition += f"NMH.MANHOM LIKE '%{manhomtk}%'"
+        if namhoctk:
+            if condition:
+                condition += f" AND BD.NAMHOC LIKE '%{namhoctk}%'"
+            else:
+                condition += f"BD.NAMHOC LIKE '%{namhoctk}%'"
+        if hockytk:
+            if condition:
+                condition += f" AND BD.HOCKY LIKE '%{hockytk}%'"
+            else:
+                condition += f"BD.HOCKY LIKE '%{hockytk}%'"
+        if condition:
+            sql = f"""
+                SELECT DISTINCT GV.MAGV, GV.HOTEN , MH.MAMH, NMH.MANHOM, SV.MASV, SV.HOTEN , CTBD.DIEM_QT, CTBD.HESO_QT, CTBD.DIEMTHI, CTBD.HESO_THI, BD.HOCKY, BD.NAMHOC
+                FROM GIANGVIEN GV
+                JOIN KHOA K ON GV.KHOA = K.MAKHOA
+                JOIN LOP L ON L.KHOA = K.MAKHOA
+                JOIN NHOMMONHOC NMH ON NMH.GV = GV.MAGV
+                JOIN CHITIETBANGDIEM CTBD ON CTBD.MANHOM = NMH.MANHOM
+                JOIN BANGDIEM BD ON CTBD.BD = BD.MABD
+                JOIN DANGKYNHOM DKN ON DKN.NHOM = NMH.MANHOM
+                JOIN SINHVIEN SV ON DKN.SV = SV.MASV AND BD.MASV = SV.MASV
+                JOIN MONHOC MH ON NMH.MH = MH.MAMH
+                WHERE {condition};
+            """ 
+        else:
+            sql = f"""
+                SELECT DISTINCT GV.MAGV, GV.HOTEN , MH.MAMH, NMH.MANHOM, SV.MASV, SV.HOTEN , CTBD.DIEM_QT, CTBD.HESO_QT, CTBD.DIEMTHI, CTBD.HESO_THI, BD.HOCKY, BD.NAMHOC
+                FROM GIANGVIEN GV
+                JOIN KHOA K ON GV.KHOA = K.MAKHOA
+                JOIN LOP L ON L.KHOA = K.MAKHOA
+                JOIN NHOMMONHOC NMH ON NMH.GV = GV.MAGV
+                JOIN CHITIETBANGDIEM CTBD ON CTBD.MANHOM = NMH.MANHOM
+                JOIN BANGDIEM BD ON CTBD.BD = BD.MABD
+                JOIN DANGKYNHOM DKN ON DKN.NHOM = NMH.MANHOM
+                JOIN SINHVIEN SV ON DKN.SV = SV.MASV AND BD.MASV = SV.MASV
+                JOIN MONHOC MH ON NMH.MH = MH.MAMH
             """
+
         try:
             self.cursor.execute(sql)
             result = self.cursor.fetchall()
@@ -682,4 +719,35 @@ class ConnectDB:
             
         finally:
             self.con.close()
+    ##############################################################################
+    def update_info_nhapdiem(self, mamhtk=None, manhomtk=None, hockytk=None, namhoctk=None, new_data=None):
+        self.link_db()
+        
+        # First, retrieve the data based on the provided conditions
+        search_result = self.search_info_nhapdiem(mamhtk, manhomtk, hockytk, namhoctk)
+
+        # If search_result is not empty and new_data is provided
+        if search_result and new_data:
+            try:
+                # Update the retrieved data
+                for row in search_result:
+                    # Assuming new_data is a dictionary containing updated values
+                    update_sql = f"""
+                        UPDATE CHITIETBANGDIEM
+                        SET DIEM_QT='{new_data.get("DIEM_QT", row["DIEM_QT"])}',
+                            HESO_QT='{new_data.get("HESO_QT", row["HESO_QT"])}',
+                            DIEMTHI='{new_data.get("DIEMTHI", row["DIEMTHI"])}',
+                            HESO_THI='{new_data.get("HESO_THI", row["HESO_THI"])}'
+                        WHERE MANHOM='{row["MANHOM"]}' AND HOCKY='{row["HOCKY"]}' AND NAMHOC='{row["NAMHOC"]}';
+                    """
+                    self.cursor.execute(update_sql)
+                self.con.commit()
+                return "Update successful"
+            except Exception as e:
+                self.con.rollback()
+                return e
+            finally:
+                self.con.close()
+        else:
+            return "No search result found or new data is not provided"
 
