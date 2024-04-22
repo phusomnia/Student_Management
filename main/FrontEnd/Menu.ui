@@ -796,9 +796,9 @@ background-color: yellow;
           <property name="geometry">
            <rect>
             <x>9</x>
-            <y>161</y>
+            <y>201</y>
             <width>1051</width>
-            <height>461</height>
+            <height>421</height>
            </rect>
           </property>
           <property name="frameShape">
@@ -866,6 +866,11 @@ background-color: yellow;
              </column>
              <column>
               <property name="text">
+               <string>ĐiểmTB_HE10</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
                <string>Học kỳ</string>
               </property>
              </column>
@@ -917,8 +922,8 @@ background-color: yellow;
            <rect>
             <x>10</x>
             <y>100</y>
-            <width>991</width>
-            <height>62</height>
+            <width>881</width>
+            <height>90</height>
            </rect>
           </property>
           <property name="frameShape">
@@ -927,8 +932,8 @@ background-color: yellow;
           <property name="frameShadow">
            <enum>QFrame::Raised</enum>
           </property>
-          <layout class="QGridLayout" name="gridLayout_29">
-           <item row="1" column="0">
+          <layout class="QGridLayout" name="gridLayout_40">
+           <item row="0" column="0">
             <widget class="QFrame" name="SubFrame_Entry_QLD">
              <property name="frameShape">
               <enum>QFrame::StyledPanel</enum>
@@ -936,9 +941,12 @@ background-color: yellow;
              <property name="frameShadow">
               <enum>QFrame::Raised</enum>
              </property>
-             <layout class="QGridLayout" name="gridLayout_36">
+             <layout class="QGridLayout" name="gridLayout_39">
               <item row="0" column="0">
                <layout class="QGridLayout" name="gridLayout_25">
+                <item row="0" column="1">
+                 <widget class="QLineEdit" name="MaMH_Entry_QLD"/>
+                </item>
                 <item row="0" column="0">
                  <widget class="QLabel" name="label_23">
                   <property name="text">
@@ -949,13 +957,13 @@ background-color: yellow;
                   </property>
                  </widget>
                 </item>
-                <item row="0" column="1">
-                 <widget class="QLineEdit" name="MaMH_Entry_QLD"/>
-                </item>
                </layout>
               </item>
-              <item row="0" column="1">
+              <item row="0" column="1" colspan="2">
                <layout class="QGridLayout" name="gridLayout_35">
+                <item row="0" column="1">
+                 <widget class="QLineEdit" name="MaNhom_Entry_QLD"/>
+                </item>
                 <item row="0" column="0">
                  <widget class="QLabel" name="label_31">
                   <property name="text">
@@ -966,12 +974,23 @@ background-color: yellow;
                   </property>
                  </widget>
                 </item>
+               </layout>
+              </item>
+              <item row="0" column="3" colspan="2">
+               <layout class="QGridLayout" name="gridLayout_28">
+                <item row="0" column="0">
+                 <widget class="QLabel" name="label_27">
+                  <property name="text">
+                   <string>Mã sinh viên</string>
+                  </property>
+                 </widget>
+                </item>
                 <item row="0" column="1">
-                 <widget class="QLineEdit" name="MaNhom_Entry_QLD"/>
+                 <widget class="QLineEdit" name="MaSV_Entry_QLD"/>
                 </item>
                </layout>
               </item>
-              <item row="0" column="4">
+              <item row="0" column="5" colspan="2">
                <layout class="QGridLayout" name="gridLayout_26">
                 <item row="0" column="0">
                  <widget class="QLabel" name="label_24">
@@ -1004,7 +1023,7 @@ background-color: yellow;
                 </item>
                </layout>
               </item>
-              <item row="0" column="5">
+              <item row="0" column="7">
                <layout class="QGridLayout" name="gridLayout_27">
                 <item row="0" column="0">
                  <widget class="QLabel" name="label_25">
@@ -1044,6 +1063,62 @@ background-color: yellow;
                    </property>
                   </item>
                  </widget>
+                </item>
+               </layout>
+              </item>
+              <item row="1" column="0" colspan="2">
+               <layout class="QGridLayout" name="gridLayout_29">
+                <item row="0" column="0">
+                 <widget class="QLabel" name="label_32">
+                  <property name="text">
+                   <string>Điểm quá trình</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="0" column="1">
+                 <widget class="QLineEdit" name="DiemQT_Entry_QLD"/>
+                </item>
+               </layout>
+              </item>
+              <item row="1" column="2" colspan="2">
+               <layout class="QGridLayout" name="gridLayout_36">
+                <item row="0" column="0">
+                 <widget class="QLabel" name="label_33">
+                  <property name="text">
+                   <string>Hệ Số QT</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="0" column="1">
+                 <widget class="QLineEdit" name="HSQT_Entry_QLD"/>
+                </item>
+               </layout>
+              </item>
+              <item row="1" column="4" colspan="2">
+               <layout class="QGridLayout" name="gridLayout_38">
+                <item row="0" column="0">
+                 <widget class="QLabel" name="label_34">
+                  <property name="text">
+                   <string>Điểm thi</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="0" column="1">
+                 <widget class="QLineEdit" name="DiemThi_Entry_QLD"/>
+                </item>
+               </layout>
+              </item>
+              <item row="1" column="6" colspan="2">
+               <layout class="QGridLayout" name="gridLayout_37">
+                <item row="0" column="0">
+                 <widget class="QLabel" name="label_35">
+                  <property name="text">
+                   <string>Hệ số thi</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="0" column="1">
+                 <widget class="QLineEdit" name="HST_Entry_QLD"/>
                 </item>
                </layout>
               </item>
