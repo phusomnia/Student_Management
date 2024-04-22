@@ -1,16 +1,22 @@
 import mysql.connector
+from PyQt6.QtWidgets import QMessageBox
 
 class ConnectDB:
     def __init__(self):
         self._host = "localhost"
         self._port = 3306
         self._user = "root"
-        self._password = "1337"
         self._database = "dulieu"
         self.con = None
         self.cursor = None
-    
     # Ket noi den mysql
+
+    def get_connection():
+        return mysql.connector.connect(
+            host='localhost',
+            user='root',
+            database='dulieu'
+        )
     def link_db(self):
         try:
             self.con = mysql.connector.connect(
@@ -20,6 +26,7 @@ class ConnectDB:
                 user=self._user,
             )
             self.cursor = self.con.cursor(dictionary=True)
+            return self.con
         except mysql.connector.Error as err:
             print("Error:", err)
     #############################################################################
@@ -660,7 +667,7 @@ class ConnectDB:
     ##############################################################################
     ## NHAP DIEM ##
     ##############################################################################
-    def search_info_nhapdiem(self, mamhtk=None, manhomtk=None, hockytk=None, namhoctk=None):
+    def search_info_nhapdiem(self, mamhtk=None, manhomtk=None, masvtk=None, hockytk=None, namhoctk=None):
         self.link_db()
         # LENH TRUY VAN
         condition = ""
@@ -671,6 +678,11 @@ class ConnectDB:
                 condition += f" AND NMH.MANHOM LIKE '%{manhomtk}%'"
             else:
                 condition += f"NMH.MANHOM LIKE '%{manhomtk}%'"
+        if masvtk:
+            if condition:
+                condition += f" AND SV.MASV LIKE '%{masvtk}%'"
+            else:
+                condition += f"SV.MASV LIKE '%{masvtk}%'"
         if namhoctk:
             if condition:
                 condition += f" AND BD.NAMHOC LIKE '%{namhoctk}%'"
@@ -683,7 +695,7 @@ class ConnectDB:
                 condition += f"BD.HOCKY LIKE '%{hockytk}%'"
         if condition:
             sql = f"""
-                SELECT DISTINCT GV.MAGV, GV.HOTEN , MH.MAMH, NMH.MANHOM, SV.MASV, SV.HOTEN , CTBD.DIEM_QT, CTBD.HESO_QT, CTBD.DIEMTHI, CTBD.HESO_THI, BD.HOCKY, BD.NAMHOC
+                SELECT DISTINCT GV.MAGV, GV.HOTEN , MH.MAMH, NMH.MANHOM, SV.MASV, SV.HOTEN , CTBD.DIEM_QT, CTBD.HESO_QT, CTBD.DIEMTHI, CTBD.HESO_THI, CTBD.DIEMTB_HE10, BD.HOCKY, BD.NAMHOC
                 FROM GIANGVIEN GV
                 JOIN KHOA K ON GV.KHOA = K.MAKHOA
                 JOIN LOP L ON L.KHOA = K.MAKHOA
@@ -697,7 +709,7 @@ class ConnectDB:
             """ 
         else:
             sql = f"""
-                SELECT DISTINCT GV.MAGV, GV.HOTEN , MH.MAMH, NMH.MANHOM, SV.MASV, SV.HOTEN , CTBD.DIEM_QT, CTBD.HESO_QT, CTBD.DIEMTHI, CTBD.HESO_THI, BD.HOCKY, BD.NAMHOC
+                SELECT DISTINCT GV.MAGV, GV.HOTEN , MH.MAMH, NMH.MANHOM, SV.MASV, SV.HOTEN , CTBD.DIEM_QT, CTBD.HESO_QT, CTBD.DIEMTHI, CTBD.HESO_THI, CTBD.DIEMTB_HE10 ,BD.HOCKY, BD.NAMHOC
                 FROM GIANGVIEN GV
                 JOIN KHOA K ON GV.KHOA = K.MAKHOA
                 JOIN LOP L ON L.KHOA = K.MAKHOA
@@ -718,36 +730,45 @@ class ConnectDB:
             return E
             
         finally:
-            self.con.close()
+            self.con.close()            
     ##############################################################################
-    def update_info_nhapdiem(self, mamhtk=None, manhomtk=None, hockytk=None, namhoctk=None, new_data=None):
-        self.link_db()
-        
-        # First, retrieve the data based on the provided conditions
-        search_result = self.search_info_nhapdiem(mamhtk, manhomtk, hockytk, namhoctk)
-
-        # If search_result is not empty and new_data is provided
-        if search_result and new_data:
+    def update_info_nhapdiem(self, mamh, manhom, masv, diem_qt, heso_qt, diemthi, heso_thi):
+            self.link_db()
+            sql = f"""
+                UPDATE CHITIETBANGDIEM CTBD
+                JOIN BANGDIEM BD ON CTBD.BD = BD.MABD
+                JOIN SINHVIEN SV ON SV.MASV = BD.MASV
+                JOIN NHOMMONHOC NMH ON NMH.MANHOM = CTBD.MANHOM
+                JOIN MONHOC MH ON NMH.MH = MH.MAMH
+                JOIN GIANGVIEN GV ON GV.MAGV = NMH.GV
+                JOIN KHOA K ON GV.KHOA = K.MAKHOA
+                JOIN LOP L ON L.KHOA = K.MAKHOA
+                JOIN DANGKYNHOM DKN ON DKN.NHOM = NMH.MANHOM
+                SET 
+                    CTBD.DIEM_QT = '{diem_qt}',
+                    CTBD.HESO_QT = '{heso_qt}', 
+                    CTBD.DIEMTHI = '{diemthi}',
+                    CTBD.HESO_THI = '{heso_thi}',
+                    CTBD.DIEMTB_HE10 = ('{diem_qt}' * '{heso_qt}') + ('{diemthi}' * '{heso_thi}')
+                WHERE 
+                    MH.MAMH = '{mamh}'
+                    AND CTBD.MANHOM = '{manhom}'
+                    AND SV.MASV = '{masv}';
+            """
+            
             try:
-                # Update the retrieved data
-                for row in search_result:
-                    # Assuming new_data is a dictionary containing updated values
-                    update_sql = f"""
-                        UPDATE CHITIETBANGDIEM
-                        SET DIEM_QT='{new_data.get("DIEM_QT", row["DIEM_QT"])}',
-                            HESO_QT='{new_data.get("HESO_QT", row["HESO_QT"])}',
-                            DIEMTHI='{new_data.get("DIEMTHI", row["DIEMTHI"])}',
-                            HESO_THI='{new_data.get("HESO_THI", row["HESO_THI"])}'
-                        WHERE MANHOM='{row["MANHOM"]}' AND HOCKY='{row["HOCKY"]}' AND NAMHOC='{row["NAMHOC"]}';
-                    """
-                    self.cursor.execute(update_sql)
+                self.cursor.execute(sql)
                 self.con.commit()
-                return "Update successful"
-            except Exception as e:
+            except Exception as E:
                 self.con.rollback()
-                return e
+                return str(E)
             finally:
                 self.con.close()
-        else:
-            return "No search result found or new data is not provided"
+    ##############################################################################
+    ## THONGKE ##
+    ##############################################################################
+
+
+
+
 

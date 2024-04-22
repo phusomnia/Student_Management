@@ -60,9 +60,6 @@ class Menu(object):
         self.ChamDiemBtn = QtWidgets.QPushButton(parent=self.SubFrame_GVBtn)
         self.ChamDiemBtn.setObjectName("ChamDiemBtn")
         self.verticalLayout.addWidget(self.ChamDiemBtn)
-        self.ThongKeBtn = QtWidgets.QPushButton(parent=self.SubFrame_GVBtn)
-        self.ThongKeBtn.setObjectName("ThongKeBtn")
-        self.verticalLayout.addWidget(self.ThongKeBtn)
         self.verticalLayout_2.addWidget(self.SubFrame_GVBtn)
         self.gridLayout.addWidget(self.Frame_GVBtn, 1, 0, 1, 1)
         self.Frame_SVBtn = QtWidgets.QFrame(parent=self.Menu_Frame)
@@ -81,15 +78,12 @@ class Menu(object):
         self.SubFrame_SVBtn.setObjectName("SubFrame_SVBtn")
         self.verticalLayout_6 = QtWidgets.QVBoxLayout(self.SubFrame_SVBtn)
         self.verticalLayout_6.setObjectName("verticalLayout_6")
-        self.XemDiemBtn = QtWidgets.QPushButton(parent=self.SubFrame_SVBtn)
-        self.XemDiemBtn.setObjectName("XemDiemBtn")
-        self.verticalLayout_6.addWidget(self.XemDiemBtn)
         self.pushButton = QtWidgets.QPushButton(parent=self.SubFrame_SVBtn)
         self.pushButton.setObjectName("pushButton")
         self.verticalLayout_6.addWidget(self.pushButton)
-        self.DangKiHPBtn = QtWidgets.QPushButton(parent=self.SubFrame_SVBtn)
-        self.DangKiHPBtn.setObjectName("DangKiHPBtn")
-        self.verticalLayout_6.addWidget(self.DangKiHPBtn)
+        self.XemDiemBtn = QtWidgets.QPushButton(parent=self.SubFrame_SVBtn)
+        self.XemDiemBtn.setObjectName("XemDiemBtn")
+        self.verticalLayout_6.addWidget(self.XemDiemBtn)
         self.verticalLayout_5.addWidget(self.SubFrame_SVBtn)
         self.gridLayout.addWidget(self.Frame_SVBtn, 2, 0, 1, 1)
         self.Frame_AdBtn = QtWidgets.QFrame(parent=self.Menu_Frame)
@@ -109,6 +103,9 @@ class Menu(object):
         self.SubFrame_AdminBtn.setObjectName("SubFrame_AdminBtn")
         self.verticalLayout_8 = QtWidgets.QVBoxLayout(self.SubFrame_AdminBtn)
         self.verticalLayout_8.setObjectName("verticalLayout_8")
+        self.DangKiHPBtn = QtWidgets.QPushButton(parent=self.SubFrame_AdminBtn)
+        self.DangKiHPBtn.setObjectName("DangKiHPBtn")
+        self.verticalLayout_8.addWidget(self.DangKiHPBtn)
         self.QLTKBtn = QtWidgets.QPushButton(parent=self.SubFrame_AdminBtn)
         self.QLTKBtn.setObjectName("QLTKBtn")
         self.verticalLayout_8.addWidget(self.QLTKBtn)
@@ -140,10 +137,33 @@ class Menu(object):
         self.gridLayout_2.addLayout(self.gridLayout, 0, 0, 1, 1)
         self.formLayout.setWidget(0, QtWidgets.QFormLayout.ItemRole.LabelRole, self.Menu_Frame)
         self.Frame_Display = QtWidgets.QWidget(parent=Form)
-        self.Frame_Display.setStyleSheet("#Frame_QLGV, #Frame_QLL, #Frame_QLSV, #Frame_QLMH, #Frame_QLK, #Frame_NhapDiem {\n"
+        self.Frame_Display.setStyleSheet("#Frame_QLGV, #Frame_QLL, #Frame_QLSV, #Frame_QLMH, #Frame_QLK, #Frame_NhapDiem, #ThongKe_Diem {\n"
 "background-color: yellow;\n"
 "}\n"
 "\n"
+"#Thongke_frame{\n"
+"    border-radius: 10px;\n"
+"    border:none;\n"
+"    background-color:#fff;\n"
+"}\n"
+"\n"
+"#chon_nam_frame{\n"
+"    background-color: #fff;\n"
+"    border: none;\n"
+"    border-radius: 5px;\n"
+"}\n"
+"\n"
+"#Bieudo_frame{\n"
+"    background-color: #fff;\n"
+"    border:none;\n"
+"    border-radius: 10px;\n"
+"}\n"
+"\n"
+"#diemtop_bot_frame{\n"
+"    background-color: #fff;\n"
+"    border: none;\n"
+"    border-radius: 5px;\n"
+"}\n"
 "")
         self.Frame_Display.setObjectName("Frame_Display")
         self.gridLayout_10 = QtWidgets.QGridLayout(self.Frame_Display)
@@ -917,6 +937,64 @@ class Menu(object):
         self.Chi_Tiet_BangDiem = QtWidgets.QWidget()
         self.Chi_Tiet_BangDiem.setObjectName("Chi_Tiet_BangDiem")
         self.Frame_Admin.addWidget(self.Chi_Tiet_BangDiem)
+        self.ThongKe_Diem = QtWidgets.QWidget()
+        self.ThongKe_Diem.setObjectName("ThongKe_Diem")
+        self.Frame_Title_TKD = QtWidgets.QFrame(parent=self.ThongKe_Diem)
+        self.Frame_Title_TKD.setGeometry(QtCore.QRect(10, 10, 1051, 61))
+        self.Frame_Title_TKD.setFrameShape(QtWidgets.QFrame.Shape.StyledPanel)
+        self.Frame_Title_TKD.setFrameShadow(QtWidgets.QFrame.Shadow.Raised)
+        self.Frame_Title_TKD.setObjectName("Frame_Title_TKD")
+        self.title_lbl = QtWidgets.QLabel(parent=self.Frame_Title_TKD)
+        self.title_lbl.setGeometry(QtCore.QRect(30, 10, 1001, 41))
+        font = QtGui.QFont()
+        font.setPointSize(18)
+        self.title_lbl.setFont(font)
+        self.title_lbl.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        self.title_lbl.setObjectName("title_lbl")
+        self.Frame_BieuDo = QtWidgets.QFrame(parent=self.ThongKe_Diem)
+        self.Frame_BieuDo.setGeometry(QtCore.QRect(10, 140, 1051, 501))
+        self.Frame_BieuDo.setFrameShape(QtWidgets.QFrame.Shape.StyledPanel)
+        self.Frame_BieuDo.setFrameShadow(QtWidgets.QFrame.Shadow.Raised)
+        self.Frame_BieuDo.setObjectName("Frame_BieuDo")
+        self.chon_nam_frame = QtWidgets.QFrame(parent=self.ThongKe_Diem)
+        self.chon_nam_frame.setGeometry(QtCore.QRect(10, 80, 371, 50))
+        self.chon_nam_frame.setStyleSheet("#chon_name_frame{\n"
+"    background-color: #fff;\n"
+"    border: none;\n"
+"    border-radius: 5px;\n"
+"}")
+        self.chon_nam_frame.setFrameShape(QtWidgets.QFrame.Shape.StyledPanel)
+        self.chon_nam_frame.setFrameShadow(QtWidgets.QFrame.Shadow.Raised)
+        self.chon_nam_frame.setObjectName("chon_nam_frame")
+        self.horizontalLayout_5 = QtWidgets.QHBoxLayout(self.chon_nam_frame)
+        self.horizontalLayout_5.setObjectName("horizontalLayout_5")
+        self.MH_lbl = QtWidgets.QLabel(parent=self.chon_nam_frame)
+        font = QtGui.QFont()
+        font.setPointSize(10)
+        self.MH_lbl.setFont(font)
+        self.MH_lbl.setObjectName("MH_lbl")
+        self.horizontalLayout_5.addWidget(self.MH_lbl)
+        self.MaMH_Entry_TKD = QtWidgets.QLineEdit(parent=self.chon_nam_frame)
+        self.MaMH_Entry_TKD.setObjectName("MaMH_Entry_TKD")
+        self.horizontalLayout_5.addWidget(self.MaMH_Entry_TKD)
+        self.label_36 = QtWidgets.QLabel(parent=self.chon_nam_frame)
+        font = QtGui.QFont()
+        font.setPointSize(10)
+        self.label_36.setFont(font)
+        self.label_36.setObjectName("label_36")
+        self.horizontalLayout_5.addWidget(self.label_36)
+        self.BieuDo_CBox = QtWidgets.QComboBox(parent=self.chon_nam_frame)
+        font = QtGui.QFont()
+        font.setPointSize(10)
+        self.BieuDo_CBox.setFont(font)
+        self.BieuDo_CBox.setObjectName("BieuDo_CBox")
+        self.BieuDo_CBox.addItem("")
+        self.BieuDo_CBox.addItem("")
+        self.horizontalLayout_5.addWidget(self.BieuDo_CBox)
+        self.SearchBtn_TKD = QtWidgets.QPushButton(parent=self.chon_nam_frame)
+        self.SearchBtn_TKD.setObjectName("SearchBtn_TKD")
+        self.horizontalLayout_5.addWidget(self.SearchBtn_TKD)
+        self.Frame_Admin.addWidget(self.ThongKe_Diem)
         self.Frame_QLL = QtWidgets.QWidget()
         self.Frame_QLL.setObjectName("Frame_QLL")
         self.gridLayout_24 = QtWidgets.QGridLayout(self.Frame_QLL)
@@ -1034,7 +1112,7 @@ class Menu(object):
         self.formLayout.setWidget(0, QtWidgets.QFormLayout.ItemRole.FieldRole, self.Frame_Display)
 
         self.retranslateUi(Form)
-        self.Frame_Admin.setCurrentIndex(2)
+        self.Frame_Admin.setCurrentIndex(8)
         QtCore.QMetaObject.connectSlotsByName(Form)
 
     def retranslateUi(self, Form):
@@ -1044,12 +1122,11 @@ class Menu(object):
         self.GVBtn.setText(_translate("Form", "Giảng viên"))
         self.QLBDBtn.setText(_translate("Form", "Thông tin giảng viên"))
         self.ChamDiemBtn.setText(_translate("Form", "Nhập điểm"))
-        self.ThongKeBtn.setText(_translate("Form", "Thống kê"))
         self.SVBtn.setText(_translate("Form", "Sinh viên"))
-        self.XemDiemBtn.setText(_translate("Form", "Xem điểm"))
         self.pushButton.setText(_translate("Form", "Thông tin sinh viên"))
-        self.DangKiHPBtn.setText(_translate("Form", "Thống kê điểm"))
+        self.XemDiemBtn.setText(_translate("Form", "Xem điểm"))
         self.AdminBtn.setText(_translate("Form", "Admin"))
+        self.DangKiHPBtn.setText(_translate("Form", "Thống kê điểm"))
         self.QLTKBtn.setText(_translate("Form", "Quản lý tài khoản"))
         self.QLSVBtn.setText(_translate("Form", "Quản lý sinh viên"))
         self.QLLBtn.setText(_translate("Form", "Quản lý lớp"))
@@ -1216,6 +1293,12 @@ class Menu(object):
         self.TB4_lbl.setText(_translate("Form", "- Điểm trung bình học kỳ hệ 4:    "))
         self.TB10_lbl.setText(_translate("Form", "- Điểm trung bình học kỳ hệ 10:    "))
         self.TC_lbl.setText(_translate("Form", "- Số tín chỉ đạt học kỳ:"))
+        self.title_lbl.setText(_translate("Form", "THỐNG KÊ ĐIỂM"))
+        self.MH_lbl.setText(_translate("Form", "Mã môn học:"))
+        self.label_36.setText(_translate("Form", "Biểu đồ"))
+        self.BieuDo_CBox.setItemText(0, _translate("Form", "Cột"))
+        self.BieuDo_CBox.setItemText(1, _translate("Form", "Tròn"))
+        self.SearchBtn_TKD.setText(_translate("Form", "Tìm"))
         self.label_22.setText(_translate("Form", "Quản lý lớp"))
         self.label_14.setText(_translate("Form", "Tên lớp"))
         self.label_18.setText(_translate("Form", "Mã lớp"))

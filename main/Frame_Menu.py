@@ -44,7 +44,7 @@ class Window_Menu(QWidget):
         self.TenMon_QLMH = self.UI.TenMon_Entry_QLMH
         self.SoTinChi_QLMH = self.UI.SoTinChi_Entry_QLMH
         self.SoTinChi_QLMH.setValidator(QIntValidator())
-        ## NHAP MON
+        ## NHAP DIEM
         self.MaMon_QLD = self.UI.MaMH_Entry_QLD
         self.MaNhom_QLD = self.UI.MaNhom_Entry_QLD
         self.NamHoc_QLD = self.UI.NamHoc_Cbox_QLD
@@ -71,7 +71,7 @@ class Window_Menu(QWidget):
         self.add_btn_QLMH = self.UI.AddBtn_QLMH
         self.update_btn_QLMH = self.UI.UpdateBtn_QLMH
         self.delete_btn_QLMH = self.UI.DelBtn_QLMH
-        ## 
+        ## NHAP DIEM BTN
         self.search_btn_QLD = self.UI.SearchBtn_QLD
         self.update_btn_QLD = self.UI.UpdateBtn_QLD
         #############################################################################

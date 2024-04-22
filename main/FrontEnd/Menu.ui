@@ -111,13 +111,6 @@ background-color: cyan;
                 </property>
                </widget>
               </item>
-              <item>
-               <widget class="QPushButton" name="ThongKeBtn">
-                <property name="text">
-                 <string>Thống kê</string>
-                </property>
-               </widget>
-              </item>
              </layout>
             </widget>
            </item>
@@ -153,13 +146,6 @@ background-color: cyan;
              </property>
              <layout class="QVBoxLayout" name="verticalLayout_6">
               <item>
-               <widget class="QPushButton" name="XemDiemBtn">
-                <property name="text">
-                 <string>Xem điểm</string>
-                </property>
-               </widget>
-              </item>
-              <item>
                <widget class="QPushButton" name="pushButton">
                 <property name="text">
                  <string>Thông tin sinh viên</string>
@@ -167,9 +153,9 @@ background-color: cyan;
                </widget>
               </item>
               <item>
-               <widget class="QPushButton" name="DangKiHPBtn">
+               <widget class="QPushButton" name="XemDiemBtn">
                 <property name="text">
-                 <string>Thống kê điểm</string>
+                 <string>Xem điểm</string>
                 </property>
                </widget>
               </item>
@@ -210,6 +196,13 @@ background-color: cyan;
               <enum>QFrame::Raised</enum>
              </property>
              <layout class="QVBoxLayout" name="verticalLayout_8">
+              <item>
+               <widget class="QPushButton" name="DangKiHPBtn">
+                <property name="text">
+                 <string>Thống kê điểm</string>
+                </property>
+               </widget>
+              </item>
               <item>
                <widget class="QPushButton" name="QLTKBtn">
                 <property name="text">
@@ -293,17 +286,40 @@ background-color: cyan;
    <item row="0" column="1">
     <widget class="QWidget" name="Frame_Display" native="true">
      <property name="styleSheet">
-      <string notr="true">#Frame_QLGV, #Frame_QLL, #Frame_QLSV, #Frame_QLMH, #Frame_QLK, #Frame_NhapDiem {
+      <string notr="true">#Frame_QLGV, #Frame_QLL, #Frame_QLSV, #Frame_QLMH, #Frame_QLK, #Frame_NhapDiem, #ThongKe_Diem {
 background-color: yellow;
 }
 
+#Thongke_frame{
+	border-radius: 10px;
+	border:none;
+	background-color:#fff;
+}
+
+#chon_nam_frame{
+	background-color: #fff;
+	border: none;
+	border-radius: 5px;
+}
+
+#Bieudo_frame{
+	background-color: #fff;
+	border:none;
+	border-radius: 10px;
+}
+
+#diemtop_bot_frame{
+	background-color: #fff;
+	border: none;
+	border-radius: 5px;
+}
 </string>
      </property>
      <layout class="QGridLayout" name="gridLayout_10">
       <item row="0" column="0">
        <widget class="QStackedWidget" name="Frame_Admin">
         <property name="currentIndex">
-         <number>2</number>
+         <number>8</number>
         </property>
         <widget class="QWidget" name="Frame_QLGV">
          <property name="styleSheet">
@@ -1842,6 +1858,139 @@ background-color: yellow;
          </widget>
         </widget>
         <widget class="QWidget" name="Chi_Tiet_BangDiem"/>
+        <widget class="QWidget" name="ThongKe_Diem">
+         <widget class="QFrame" name="Frame_Title_TKD">
+          <property name="geometry">
+           <rect>
+            <x>10</x>
+            <y>10</y>
+            <width>1051</width>
+            <height>61</height>
+           </rect>
+          </property>
+          <property name="frameShape">
+           <enum>QFrame::StyledPanel</enum>
+          </property>
+          <property name="frameShadow">
+           <enum>QFrame::Raised</enum>
+          </property>
+          <widget class="QLabel" name="title_lbl">
+           <property name="geometry">
+            <rect>
+             <x>30</x>
+             <y>10</y>
+             <width>1001</width>
+             <height>41</height>
+            </rect>
+           </property>
+           <property name="font">
+            <font>
+             <pointsize>18</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>THỐNG KÊ ĐIỂM</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </widget>
+         <widget class="QFrame" name="Frame_BieuDo">
+          <property name="geometry">
+           <rect>
+            <x>10</x>
+            <y>140</y>
+            <width>1051</width>
+            <height>501</height>
+           </rect>
+          </property>
+          <property name="frameShape">
+           <enum>QFrame::StyledPanel</enum>
+          </property>
+          <property name="frameShadow">
+           <enum>QFrame::Raised</enum>
+          </property>
+         </widget>
+         <widget class="QFrame" name="chon_nam_frame">
+          <property name="geometry">
+           <rect>
+            <x>10</x>
+            <y>80</y>
+            <width>371</width>
+            <height>50</height>
+           </rect>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">#chon_name_frame{
+	background-color: #fff;
+	border: none;
+	border-radius: 5px;
+}</string>
+          </property>
+          <property name="frameShape">
+           <enum>QFrame::StyledPanel</enum>
+          </property>
+          <property name="frameShadow">
+           <enum>QFrame::Raised</enum>
+          </property>
+          <layout class="QHBoxLayout" name="horizontalLayout_5">
+           <item>
+            <widget class="QLabel" name="MH_lbl">
+             <property name="font">
+              <font>
+               <pointsize>10</pointsize>
+              </font>
+             </property>
+             <property name="text">
+              <string>Mã môn học:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="MaMH_Entry_TKD"/>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_36">
+             <property name="font">
+              <font>
+               <pointsize>10</pointsize>
+              </font>
+             </property>
+             <property name="text">
+              <string>Biểu đồ</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QComboBox" name="BieuDo_CBox">
+             <property name="font">
+              <font>
+               <pointsize>10</pointsize>
+              </font>
+             </property>
+             <item>
+              <property name="text">
+               <string>Cột</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>Tròn</string>
+              </property>
+             </item>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="SearchBtn_TKD">
+             <property name="text">
+              <string>Tìm</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </widget>
         <widget class="QWidget" name="Frame_QLL">
          <layout class="QGridLayout" name="gridLayout_24">
           <item row="0" column="0">
