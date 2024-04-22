@@ -197,7 +197,7 @@ background-color: cyan;
              </property>
              <layout class="QVBoxLayout" name="verticalLayout_8">
               <item>
-               <widget class="QPushButton" name="DangKiHPBtn">
+               <widget class="QPushButton" name="ThongKeBtn">
                 <property name="text">
                  <string>Thống kê điểm</string>
                 </property>
@@ -319,7 +319,7 @@ background-color: yellow;
       <item row="0" column="0">
        <widget class="QStackedWidget" name="Frame_Admin">
         <property name="currentIndex">
-         <number>8</number>
+         <number>4</number>
         </property>
         <widget class="QWidget" name="Frame_QLGV">
          <property name="styleSheet">
@@ -1788,7 +1788,7 @@ background-color: yellow;
             <x>10</x>
             <y>520</y>
             <width>1061</width>
-            <height>161</height>
+            <height>131</height>
            </rect>
           </property>
           <property name="frameShape">
@@ -1802,8 +1802,8 @@ background-color: yellow;
             <rect>
              <x>10</x>
              <y>10</y>
-             <width>371</width>
-             <height>141</height>
+             <width>353</width>
+             <height>111</height>
             </rect>
            </property>
            <property name="frameShape">
@@ -1812,53 +1812,46 @@ background-color: yellow;
            <property name="frameShadow">
             <enum>QFrame::Raised</enum>
            </property>
-           <widget class="QWidget" name="layoutWidget">
-            <property name="geometry">
-             <rect>
-              <x>12</x>
-              <y>13</y>
-              <width>351</width>
-              <height>121</height>
-             </rect>
-            </property>
-            <layout class="QGridLayout" name="gridLayout_34">
-             <item row="0" column="0">
-              <widget class="QLabel" name="TB4_lbl">
-               <property name="text">
-                <string>- Điểm trung bình học kỳ hệ 4:	</string>
-               </property>
-              </widget>
-             </item>
-             <item row="0" column="1">
-              <widget class="QLineEdit" name="lineEdit"/>
-             </item>
-             <item row="1" column="0">
-              <widget class="QLabel" name="TB10_lbl">
-               <property name="text">
-                <string>- Điểm trung bình học kỳ hệ 10:	</string>
-               </property>
-              </widget>
-             </item>
-             <item row="1" column="1">
-              <widget class="QLineEdit" name="lineEdit_2"/>
-             </item>
-             <item row="2" column="0">
-              <widget class="QLabel" name="TC_lbl">
-               <property name="text">
-                <string>- Số tín chỉ đạt học kỳ:</string>
-               </property>
-              </widget>
-             </item>
-             <item row="2" column="1">
-              <widget class="QLineEdit" name="lineEdit_3"/>
-             </item>
-            </layout>
-           </widget>
+           <layout class="QGridLayout" name="gridLayout_41">
+            <item row="0" column="0">
+             <layout class="QGridLayout" name="gridLayout_34">
+              <item row="0" column="0">
+               <widget class="QLabel" name="TB4_lbl">
+                <property name="text">
+                 <string>- Điểm trung bình học kỳ hệ 4:	</string>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="1">
+               <widget class="QLineEdit" name="lineEdit"/>
+              </item>
+              <item row="1" column="0">
+               <widget class="QLabel" name="TB10_lbl">
+                <property name="text">
+                 <string>- Điểm trung bình học kỳ hệ 10:	</string>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="1">
+               <widget class="QLineEdit" name="lineEdit_2"/>
+              </item>
+              <item row="2" column="0">
+               <widget class="QLabel" name="TC_lbl">
+                <property name="text">
+                 <string>- Số tín chỉ đạt học kỳ:</string>
+                </property>
+               </widget>
+              </item>
+              <item row="2" column="1">
+               <widget class="QLineEdit" name="lineEdit_3"/>
+              </item>
+             </layout>
+            </item>
+           </layout>
           </widget>
          </widget>
         </widget>
-        <widget class="QWidget" name="Chi_Tiet_BangDiem"/>
-        <widget class="QWidget" name="ThongKe_Diem">
+        <widget class="QWidget" name="Frame_ThongKeDiem">
          <widget class="QFrame" name="Frame_Title_TKD">
           <property name="geometry">
            <rect>
