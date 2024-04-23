@@ -1,17 +1,24 @@
-from PyQt6.QtWidgets import QMessageBox, QTableWidgetItem, QPushButton, QWidget, QApplication
+import pandas as pd
+from PyQt6.QtWidgets import QMessageBox, QTableWidgetItem, QPushButton, QWidget, QApplication, QVBoxLayout
 from PyQt6.QtCore import QDate
-from PyQt6.QtGui import QIntValidator
+from PyQt6.QtGui import QIntValidator, QDoubleValidator
+from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
+import matplotlib.pyplot as plt
+import seaborn as sns
 from FrontEnd.Form_Menu import Menu
 from Backend.Connection_Database import ConnectDB
 
 class Window_Menu(QWidget):
-    def __init__(self):
-        super().__init__()
+    def __init__(self, user_id):
+        super(Window_Menu, self).__init__()
+
+        self.USER_ID = user_id
+
+        self.DB = ConnectDB()
+
         self.UI = Menu()
         self.UI.setupMenu(self)
         #############################################################################
-        # Ket noi den database
-        self.DB = ConnectDB()
         # INIT ENTRY 
         ## SV ##
         self.MaSV = self.UI.MaSV_Entry_QLSV
@@ -47,8 +54,21 @@ class Window_Menu(QWidget):
         ## NHAP DIEM
         self.MaMon_QLD = self.UI.MaMH_Entry_QLD
         self.MaNhom_QLD = self.UI.MaNhom_Entry_QLD
+        self.MaSV_QLD = self.UI.MaSV_Entry_QLD
+        self.DiemQT = self.UI.DiemQT_Entry_QLD
+        self.DiemQT.setValidator(QDoubleValidator())
+        self.HesoQT = self.UI.HSQT_Entry_QLD
+        self.HesoQT.setValidator(QDoubleValidator())
+        self.DiemThi = self.UI.DiemThi_Entry_QLD
+        self.DiemThi.setValidator(QDoubleValidator())
+        self.HesoThi = self.UI.HST_Entry_QLD
+        self.HesoThi.setValidator(QDoubleValidator())
         self.NamHoc_QLD = self.UI.NamHoc_Cbox_QLD
         self.HocKy_QLD = self.UI.HocKy_CBox_QLD
+        ## THONG KE
+        self.Frame_BieuDo = self.UI.Frame_BieuDo
+        self.MaMH_TKD = self.UI.MaMH_Entry_TKD
+        self.chonBieudo = self.UI.BieuDo_CBox
         #############################################################################
         # INIT BTN
         ## SV BTN
@@ -74,33 +94,35 @@ class Window_Menu(QWidget):
         ## NHAP DIEM BTN
         self.search_btn_QLD = self.UI.SearchBtn_QLD
         self.update_btn_QLD = self.UI.UpdateBtn_QLD
+        ## THONG KE BTN
+        self.search_btn_TKD = self.UI.SearchBtn_TKD
         #############################################################################
-        # INIT TABLE 
-        ## SV
+        ## SV TABLE
         self.listbox_QLSV = self.UI.tableWidget_QLSV
         self.listbox_QLSV.setSortingEnabled(False)
         self.buttons_list_QLSV = self.UI.Frame_Listbox_QLSV.findChildren(QPushButton)
-        ## GV
+        ## GV TABLE
         self.listbox_QLGV = self.UI.tableWidget_QLGV
         self.listbox_QLGV.setSortingEnabled(False)
         self.buttons_list_QLGV = self.UI.Frame_Listbox_QLGV.findChildren(QPushButton)
-        ## LOP
+        ## LOP TABLE
         self.listbox_QLL = self.UI.tableWidget_QLL
         self.listbox_QLL.setSortingEnabled(False)
         self.buttons_list_QLL = self.UI.Frame_Listbox_QLL.findChildren(QPushButton)
-        ## KHOA
+        ## KHOA TABLE
         self.listbox_QLK = self.UI.tableWidget_QLK
         self.listbox_QLK.setSortingEnabled(False)
         self.buttons_list_QLK = self.UI.Frame_Listbox_QLK.findChildren(QPushButton)
-        ## MON
+        ## MON TABLE
         self.listbox_QLMH = self.UI.tableWidget_QLMH
         self.listbox_QLMH.setSortingEnabled(False)
         self.buttons_list_QLMH = self.UI.Frame_Listbox_QLMH.findChildren(QPushButton)
-        ## NHAP DIEM
+        ## NHAP DIEM TABLE
         self.listbox_QLD = self.UI.tableWidget_QLD
         self.listbox_QLD.setSortingEnabled(False)
         self.buttons_list_QLD = self.UI.Frame_Listbox_QLD.findChildren(QPushButton)
         #############################################################################
+        # Init empty page
         # Init hide
         self.HideDropDown()
         self.init_signal_slot_toggle_dropdown()
@@ -110,10 +132,15 @@ class Window_Menu(QWidget):
         self.init_signal_slot()
         #############################################################################
         # Khoi tao hien thi du lieu dang co trong database
+        ## SV
         self.display_data_QLSV()
+        ## GV
         self.display_data_QLGV()
+        ## LOP
         self.display_data_QLL()
+        ## KHOA
         self.display_data_QLK()
+        ## MON
         self.display_data_QLMH()
     #############################################################################
     def init_signal_slot(self):
@@ -132,43 +159,86 @@ class Window_Menu(QWidget):
         self.add_btn_QLMH.clicked.connect(self.add_info_QLMH)
         self.update_btn_QLMH.clicked.connect(self.update_info_QLMH)
         self.delete_btn_QLMH.clicked.connect(self.delete_info_QLMH)
+        ## TKD 
+        self.search_btn_TKD.clicked.connect(self.on_search_button_clicked)
+        ## NHAPDIEM
         self.search_btn_QLD.clicked.connect(self.search_info_QLD)
+        self.update_btn_QLD.clicked.connect(self.update_info_QLD)
     #############################################################################
-    ## SV ## 
+    ## DIS SV 
     def disable_buttons_QLSV(self):
         for button in self.buttons_list_QLSV:
             button.setDisabled(True)
     def enable_buttons_QLSV(self):
         for button in self.buttons_list_QLSV:
             button.setDisabled(False)
-    ## GV ##
+    ## DIS GV 
     def disable_buttons_QLGV(self):
         for button in self.buttons_list_QLGV:
             button.setDisabled(True)
     def enable_buttons_QLGV(self):
         for button in self.buttons_list_QLGV:
             button.setDisabled(False)
-    ## LOP ##
+    ## DIS LOP 
     def disable_buttons_QLL(self):
         for button in self.buttons_list_QLL:
             button.setDisabled(True)
     def enable_buttons_QLL(self):
         for button in self.buttons_list_QLL:
             button.setDisabled(False)
-    ## KHOA ##
+    ## DIS KHOA 
     def disable_buttons_QLK(self):
         for button in self.buttons_list_QLK:
             button.setDisabled(True)
     def enable_buttons_QLK(self):
         for button in self.buttons_list_QLK:
             button.setDisabled(False)
-    ## MON HOC ##
+    ## DIS MON HOC
     def disable_buttons_QLMH(self):
         for button in self.buttons_list_QLMH:
             button.setDisabled(True)
     def enable_buttons_QLMH(self):
         for button in self.buttons_list_QLMH:
             button.setDisabled(False)
+    #############################################################################
+    # an dropdown
+    def HideDropDown(self):
+        self.UI.SubFrame_AdminBtn.setHidden(True)
+        self.UI.SubFrame_GVBtn.setHidden(True)
+        self.UI.SubFrame_SVBtn.setHidden(True)
+    #############################################################################
+    # khoi tao toggle drop down
+    def init_signal_slot_toggle_dropdown(self):
+        self.UI.AdminBtn.clicked.connect(lambda: self.toggleDropDown(self.UI.SubFrame_AdminBtn))
+        self.UI.SVBtn.clicked.connect(lambda: self.toggleDropDown(self.UI.SubFrame_SVBtn))
+        self.UI.GVBtn.clicked.connect(lambda: self.toggleDropDown(self.UI.SubFrame_GVBtn))
+    #############################################################################
+    # BAT TAT DROPDOWN
+    def toggleDropDown(self, Subframe):
+        if Subframe.isVisible():
+            Subframe.hide()
+        else:
+            Subframe.show()
+    #############################################################################
+    # khoi tao chuyen form
+    def init_signal_slot_form(self):
+        ## SV TOGGLE
+        self.UI.QLSVBtn.clicked.connect(lambda: self.toggleForm(self.UI.Frame_Admin, self.UI.Frame_QLSV))
+        ## GV TOGGLE
+        self.UI.QLGVBtn.clicked.connect(lambda: self.toggleForm(self.UI.Frame_Admin, self.UI.Frame_QLGV))
+        ## LOP TOGGLE
+        self.UI.QLLBtn.clicked.connect(lambda: self.toggleForm(self.UI.Frame_Admin, self.UI.Frame_QLL))
+        ## MON TOGGLE
+        self.UI.QLMHBtn.clicked.connect(lambda: self.toggleForm(self.UI.Frame_Admin, self.UI.Frame_QLMH))
+        ## KHOA TOGGLE
+        self.UI.QLKBtn.clicked.connect(lambda: self.toggleForm(self.UI.Frame_Admin, self.UI.Frame_QLK))
+        ## CHAMDIEM TOGGLE
+        self.UI.ChamDiemBtn.clicked.connect(lambda: self.toggleForm(self.UI.Frame_Admin, self.UI.Frame_NhapDiem))
+        ## THONGKE TOGGLE
+        self.UI.ThongKeBtn.clicked.connect(lambda: self.toggleForm(self.UI.Frame_Admin, self.UI.Frame_ThongKeDiem))
+    #############################################################################
+    def toggleForm(self, Frame, Form):
+        Frame.setCurrentIndex(Frame.indexOf(Form))
     #############################################################################
     ## SV ##
     #############################################################################
@@ -625,12 +695,12 @@ class Window_Menu(QWidget):
                 for column, item in enumerate(lop_list):
                     cell_item = QTableWidgetItem(str(item))
                     self.listbox_QLL.setItem(row, column, cell_item)
-    # #############################################################################        
+    ##############################################################################        
     def display_data_QLL(self):
         search_result = self.DB.search_info_lop()
 
         self.show_data_QLL(search_result)
-    # #############################################################################
+    ##############################################################################
     def get_lop_info(self):
         get_Malop = self.MaLop.text().strip()
         get_TenLop = self.TenLop_QLL.text().strip()
@@ -931,12 +1001,80 @@ class Window_Menu(QWidget):
     #############################################################################
     ## NHAP DIEM ##
     #############################################################################
+    def update_info_QLD(self):
+        if self.MaMon_QLD.isEnabled():
+            self.select_info_QLD()
+        else:
+            new_monhoc_info = self.get_nhapdiem_info()  
+
+            if new_monhoc_info["MAMH"]:
+                # Validate diem_qt and diemthi
+                diem_qt = float(new_monhoc_info["DIEM_QT"])
+                diemthi = float(new_monhoc_info["DIEMTHI"])
+                heso_qt = float(new_monhoc_info["HESO_QT"])
+                heso_thi = float(new_monhoc_info["HESO_THI"])
+
+                if 0 <= diem_qt <= 10 and 0 <= diemthi <= 10 and 0 <= heso_qt <= 1.0 and 0 <= heso_thi <= 1.0 and (heso_qt + heso_thi) == 1.0:
+                    update_result = self.DB.update_info_nhapdiem(
+                        mamh=new_monhoc_info["MAMH"],
+                        manhom=new_monhoc_info["MANHOM"],
+                        masv=new_monhoc_info["MASV"],
+                        diem_qt=diem_qt,
+                        heso_qt=heso_qt,
+                        diemthi=diemthi,
+                        heso_thi=heso_thi
+                    )
+
+                    if update_result:
+                        QMessageBox.information(self, "Canh bao", f"Cap nhap: {update_result} that bai!", QMessageBox.StandardButton.Ok)
+                    else:
+                        self.MaMon_QLD.setEnabled(True)
+                        self.MaNhom_QLD.setEnabled(True)
+                        self.MaSV_QLD.setEnabled(True)
+                        self.search_info_QLD()
+                        self.MaMon_QLD.clear()
+                        self.MaNhom_QLD.clear()
+                        self.MaSV_QLD.clear()
+                        self.DiemQT.clear()
+                        self.HesoQT.clear()
+                        self.DiemThi.clear()
+                        self.HesoThi.clear()
+                else:
+                    QMessageBox.information(self, "Canh bao", "Diem thi va diem QT phai lon hon hoac bang 0 va nho hon 10. Heso QT va Thi phai lon hon hoac bang 0 va nho hon 1.0. Tong Heso QT va Thi phai nho hon 1.0", QMessageBox.StandardButton.Ok)
+            else:
+                QMessageBox.information(self, "Canh bao", "Chon 1 sinh vien de cap nhat diem", QMessageBox.StandardButton.Ok)
+    #############################################################################
+    def select_info_QLD(self):
+        select_row = self.listbox_QLD.currentRow()
+        if select_row != -1:
+            self.MaMon_QLD.setEnabled(False)
+            self.MaNhom_QLD.setEnabled(False)
+            self.MaSV_QLD.setEnabled(False)
+            s_MaMon_QLD = self.listbox_QLD.item(select_row, 1).text().strip()
+            s_MaNhom_QLD = self.listbox_QLD.item(select_row, 2).text().strip()
+            s_MaSV_QLD = self.listbox_QLD.item(select_row, 3).text().strip()
+            s_DiemQT_QLD = self.listbox_QLD.item(select_row, 5).text().strip()
+            s_HSQT_QLD = self.listbox_QLD.item(select_row, 6).text().strip()
+            s_DiemThi_QLD = self.listbox_QLD.item(select_row, 7).text().strip()
+            s_HST_QLD = self.listbox_QLD.item(select_row, 8).text().strip()
+
+            self.MaMon_QLD.setText(s_MaMon_QLD)
+            self.MaNhom_QLD.setText(s_MaNhom_QLD)
+            self.MaSV_QLD.setText(s_MaSV_QLD)
+            self.DiemQT.setText(s_DiemQT_QLD)
+            self.HesoQT.setText(s_HSQT_QLD)
+            self.DiemThi.setText(s_DiemThi_QLD)
+            self.HesoThi.setText(s_HST_QLD)
+        else:
+            QMessageBox.information(self, "Canh bao", "Hay chon 1 mon hoc", QMessageBox.StandardButton.Ok)
+    ##############################################################################
     def search_info_QLD(self):
         nhapdiem_info = self.get_nhapdiem_info()
 
         search_result = self.DB.search_info_nhapdiem(
                 mamhtk= nhapdiem_info["MAMH"],
                 manhomtk= nhapdiem_info["MANHOM"],
+                masvtk= nhapdiem_info["MASV"],
                 hockytk= nhapdiem_info["HOCKY"],
                 namhoctk= nhapdiem_info["NAMHOC"]
         )
@@ -968,6 +1106,7 @@ class Window_Menu(QWidget):
                     info["HESO_QT"],
                     info["DIEMTHI"],
                     info["HESO_THI"],
+                    info["DIEMTB_HE10"],
                     info["HOCKY"],
                     info["NAMHOC"]
                 ]
@@ -975,57 +1114,148 @@ class Window_Menu(QWidget):
                     cell_item = QTableWidgetItem(str(item))
                     self.listbox_QLD.setItem(row, column, cell_item)
     #############################################################################
-    # def display_data_QLD(self):
-    #     ## LAY DU LIEU DE HIEN THI
-    #     search_result = self.DB.search_info_nhapdiem()
+    def display_data_QLD(self):
+        ## LAY DU LIEU DE HIEN THI
+        search_result = self.DB.search_info_nhapdiem()
 
-    #     ## HIEN THI
-    #     self.show_data_QLD(search_result)
+        ## HIEN THI
+        self.show_data_QLD(search_result)
     #############################################################################  
     def get_nhapdiem_info(self):
         get_MaMH = self.MaMon_QLD.text().strip()
         get_MaNhom = self.MaNhom_QLD.text().strip()
+        get_MaSV = self.MaSV_QLD.text().strip()
+        get_DiemQT = self.DiemQT.text().strip()
+        get_HSQT = self.HesoQT.text().strip()
+        get_DiemThi = self.DiemThi.text().strip()
+        get_HST = self.HesoThi.text().strip()
         get_HocKy = self.HocKy_QLD.currentText().strip()
         get_NamHoc = self.NamHoc_QLD.currentText().strip()
 
         diem_info = {
             "MAMH": get_MaMH,
             "MANHOM": get_MaNhom,
+            "MASV": get_MaSV,
+            "DIEM_QT": get_DiemQT,
+            "HESO_QT":  get_HSQT,
+            "DIEMTHI": get_DiemThi,
+            "HESO_THI": get_HST,
             "HOCKY": get_HocKy,
             "NAMHOC": get_NamHoc
         }
 
         return diem_info
     #############################################################################
-    # an dropdown
-    def HideDropDown(self):
-        self.UI.SubFrame_AdminBtn.setHidden(True)
-        self.UI.SubFrame_GVBtn.setHidden(True)
-        self.UI.SubFrame_SVBtn.setHidden(True)
+    ## THONG KE ## 
     #############################################################################
-    # khoi tao toggle drop down
-    def init_signal_slot_toggle_dropdown(self):
-        self.UI.AdminBtn.clicked.connect(lambda: self.toggleDropDown(self.UI.SubFrame_AdminBtn))
-        self.UI.SVBtn.clicked.connect(lambda: self.toggleDropDown(self.UI.SubFrame_SVBtn))
-        self.UI.GVBtn.clicked.connect(lambda: self.toggleDropDown(self.UI.SubFrame_GVBtn))
+    def on_search_button_clicked(self):
+        print("Test button") 
+        self.create_chart()
     #############################################################################
-    def toggleDropDown(self, Subframe):
-        if Subframe.isVisible():
-            Subframe.hide()
+    def create_chart(self):
+        mamh = self.MaMH_TKD.text()
+
+        if not self.check_mamh_exists(mamh):
+            QMessageBox.warning(self, "Lỗi", "Mã môn học không tồn tại.")
+            return
+
+        mydb = self.DB.get_connection()
+        mycursor = mydb.cursor()
+        query = f"""
+        SELECT chitietbangdiem.DIEMTB_HE10
+        FROM sinhvien, chitietbangdiem, bangdiem, nhommonhoc
+        WHERE sinhvien.MASV = bangdiem.MASV
+            AND bangdiem.MABD = chitietbangdiem.BD
+            AND chitietbangdiem.MANHOM = nhommonhoc.MANHOM
+            AND nhommonhoc.MH = '{mamh}';
+        """
+        mycursor.execute(query)
+        result = mycursor.fetchall()
+        mycursor.close()
+        mydb.close()
+
+        if not result:
+            QMessageBox.information(self, "Thông báo", "Môn học chưa được nhập điểm.")
+            return
+
+        df = pd.DataFrame(result, columns=['DIEMTB_HE10'])
+
+        bieudo_option = self.chonBieudo.currentText()
+        if bieudo_option == "Tròn":
+            chart = self.create_pie_chart(df)
         else:
-            Subframe.show()
+            chart = self.create_histogram(df)
+
+        self.add_chart_to_frame(chart)
     #############################################################################
-    def init_signal_slot_form(self):
-        self.UI.QLSVBtn.clicked.connect(lambda: self.toggleForm(self.UI.Frame_Admin, self.UI.Frame_QLSV))
-        self.UI.QLGVBtn.clicked.connect(lambda: self.toggleForm(self.UI.Frame_Admin, self.UI.Frame_QLGV))
-        self.UI.QLLBtn.clicked.connect(lambda: self.toggleForm(self.UI.Frame_Admin, self.UI.Frame_QLL))
-        self.UI.QLMHBtn.clicked.connect(lambda: self.toggleForm(self.UI.Frame_Admin, self.UI.Frame_QLMH))
-        self.UI.QLKBtn.clicked.connect(lambda: self.toggleForm(self.UI.Frame_Admin, self.UI.Frame_QLK))
-        self.UI.ChamDiemBtn.clicked.connect(lambda: self.toggleForm(self.UI.Frame_Admin, self.UI.Frame_NhapDiem))
+    def check_mamh_exists(self, mamh):
+        mydb = self.DB.get_connection()
+        mycursor = mydb.cursor()
+        query = f"SELECT COUNT(*) FROM nhommonhoc WHERE MH = '{mamh}';"
+        mycursor.execute(query)
+        result = mycursor.fetchone()
+        mycursor.close()
+        mydb.close()
+        return result[0] > 0
     #############################################################################
-    def toggleForm(self, Frame, Form):
-        Frame.setCurrentIndex(Frame.indexOf(Form))
+    def check_mamh_exists(self, mamh):
+        mydb = self.DB.get_connection()
+        mycursor = mydb.cursor()
+        query = f"SELECT COUNT(*) FROM nhommonhoc WHERE MH = '{mamh}';"
+        mycursor.execute(query)
+        result = mycursor.fetchone()
+        mycursor.close()
+        mydb.close()
+        return result[0] > 0
     #############################################################################
+    def create_histogram(self, df):
+        plt.figure(figsize=(8, 4.8))
+        ax = plt.subplot()
+        sns.histplot(df['DIEMTB_HE10'], ax=ax, color='skyblue', edgecolor='black', kde=True)
+        ax.set_title('Biểu đồ Histogram và KDE của Điểm trung bình hệ 10')
+        ax.set_xlabel('Điểm trung bình hệ 10')
+        ax.set_ylabel('Số lượng sinh viên')
+        plt.tight_layout()
+
+        canvas = FigureCanvas(plt.gcf())
+        plt.close()
+        return canvas
+    #############################################################################
+    def create_pie_chart(self, df):
+        count_gt_4 = (df['DIEMTB_HE10'] > 4).sum()
+        count_lt_4 = (df['DIEMTB_HE10'] < 4).sum()
+
+        labels = ['>4', '<4']
+        sizes = [count_gt_4, count_lt_4]
+
+        plt.figure(figsize=(6, 6))
+        ax = plt.subplot()
+        ax.pie(sizes, labels=labels, autopct='%1.1f%%', startangle=140)
+        ax.axis('equal')
+        ax.set_title('Phân phối điểm trên và dưới 4')
+        plt.tight_layout()
+
+        canvas = FigureCanvas(plt.gcf())
+        plt.close()
+        return canvas
+    #############################################################################
+    def add_chart_to_frame(self, chart):
+        if self.Frame_BieuDo.layout() is not None:
+            self.remove_current_chart()       
+        layout = self.Frame_BieuDo.layout()
+        if self.Frame_BieuDo.layout() is None:
+            layout = QVBoxLayout()
+            self.Frame_BieuDo.setLayout(layout)
+        
+        layout.addWidget(chart)
+        self.current_chart = chart
+    #############################################################################
+    def remove_current_chart(self):
+        if self.current_chart:
+            self.Frame_BieuDo.layout().removeWidget(self.current_chart)
+            self.current_chart.deleteLater()
+            self.current_chart = None
+
 if __name__ == '__main__':
     APP  = QApplication([])
     WINDOW = Window_Menu()

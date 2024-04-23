@@ -30,7 +30,9 @@ class Window_QLSV(QWidget):
         self.chonBieudo.currentIndexChanged.connect(self.create_chart)
 
         self.current_chart = None
-
+        
+        self.UI.ThongKeBtn.clicked.connect(lambda: self.toggleForm(self.UI.Frame_Admin, self.UI.Frame_ThongKeDiem))
+        
         self.init_signal_slot()
 
     def on_search_button_clicked(self): 

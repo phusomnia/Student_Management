@@ -26,7 +26,7 @@ class Window_Menu(QWidget):
         self.HesoThi.setValidator(QDoubleValidator())
         self.NamHoc_QLD = self.UI.NamHoc_Cbox_QLD
         self.HocKy_QLD = self.UI.HocKy_CBox_QLD
-        
+
         ## NHAP DIEM BTN
         self.search_btn_QLD = self.UI.SearchBtn_QLD
         self.update_btn_QLD = self.UI.UpdateBtn_QLD
@@ -36,8 +36,14 @@ class Window_Menu(QWidget):
         self.listbox_QLD.setSortingEnabled(False)
         self.buttons_list_QLD = self.UI.Frame_Listbox_QLD.findChildren(QPushButton)
 
+        ## LINK 
         self.search_btn_QLD.clicked.connect(self.search_info_QLD)
         self.update_btn_QLD.clicked.connect(self.update_info_QLD)
+    #############################################################################
+        self.UI.ChamDiemBtn.clicked.connect(lambda: self.toggleForm(self.UI.Frame_Admin, self.UI.Frame_NhapDiem))
+    #############################################################################
+    def toggleForm(self, Frame, Form):
+        Frame.setCurrentIndex(Frame.indexOf(Form))
     #############################################################################
     def update_info_QLD(self):
         if self.MaMon_QLD.isEnabled():
@@ -183,39 +189,6 @@ class Window_Menu(QWidget):
         }
 
         return diem_info
-    # def get_update_nhapdiem_info(self):
-    #     get_MaMH = self.MaMon_QLD.text().strip()
-    #     get_MaNhom = self.MaNhom_QLD.text().strip()
-    #     get_MaSV = self.MaSV_QLD.text().strip()
-    #     get_HocKy = self.HocKy_QLD.currentText().strip()
-    #     get_NamHoc = self.NamHoc_QLD.currentText().strip()
-
-    #     selected_row = self.listbox_QLD.currentRow()
-    #     if selected_row != -1:
-    #         # Use the item method to retrieve the QTableWidgetItem
-    #         get_DiemQT = self.listbox_QLD.item(selected_row, 5).text().strip()
-    #         get_HSQT = self.listbox_QLD.item(selected_row, 6).text().strip()
-    #         get_DiemThi = self.listbox_QLD.item(selected_row, 7).text().strip()
-    #         get_HST = self.listbox_QLD.item(selected_row, 8).text().strip()
-    #     else:
-    #         get_DiemQT = ""
-    #         get_HSQT = ""
-    #         get_DiemThi = ""
-    #         get_HST = ""
-
-    #     diem_info = {
-    #         "MAMH": get_MaMH,
-    #         "MANHOM": get_MaNhom,
-    #         "MASV": get_MaSV,
-    #         "DIEM_QT": get_DiemQT,
-    #         "HESO_QT":  get_HSQT,
-    #         "DIEMTHI": get_DiemThi,
-    #         "HESO_THI": get_HST,
-    #         "HOCKY": get_HocKy,
-    #         "NAMHOC": get_NamHoc
-    #     }
-
-    #     return diem_info
 if __name__ == '__main__':
     APP  = QApplication([])
     WINDOW = Window_Menu()

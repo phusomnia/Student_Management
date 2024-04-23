@@ -11,12 +11,13 @@ class ConnectDB:
         self.cursor = None
     # Ket noi den mysql
 
-    def get_connection():
+    def get_connection(self):
         return mysql.connector.connect(
             host='localhost',
             user='root',
             database='dulieu'
         )
+    
     def link_db(self):
         try:
             self.con = mysql.connector.connect(
@@ -25,37 +26,43 @@ class ConnectDB:
                 database=self._database,
                 user=self._user,
             )
-            self.cursor = self.con.cursor(dictionary=True)
-            return self.con
+            if self.con.is_connected():
+                print("Connect successfully!.")
+            self.cursor = self.con.cursor(dictionary=True, buffered=True)
         except mysql.connector.Error as err:
-            print("Error:", err)
+            print(f"Error connecting: {err}")
+            return None
+    #############################################################################
+    ## LOGIN ##
+    #############################################################################
+    def check_username(self, username):
+        try:
+            self.link_db()
+            # TIM TAI KHOAN 
+            sql = f"""
+                SELECT *
+                FROM ACCOUNT
+                WHERE USERNAME = '{username}'
+            """
+            self.cursor.execute(sql)
+            result = self.cursor.fetchall()
+            print(result)
+            return result
+        except Exception as e:
+            print("Error occurred while checking username:", e)
+            return None
+        finally:
+            if self.con:
+                self.con.close()
     #############################################################################
     ## SV ##
     #############################################################################
-    def add_info_sv(self, masv, hoten, lop, diachi, ngsinh, gtinh, sdt):
+    def add_info_sv(self, masv, hoten, ngsinh, gtinh, diachi, sdt, lop):
         self.link_db()
         ## THEM
         sql = f"""
-            INSERT INTO SINHVIEN (MASV, HOTEN, LOP, DCHI ,NGSINH, GTINH, SDT)
-            VALUES ('{masv}', '{hoten}', '{lop}', {diachi}, '{ngsinh}', '{gtinh}', {sdt});
-        """
-
-        try:
-            self.cursor.execute(sql)
-            self.con.commit()
-        except Exception as E:
-            self.con.rollback()
-            return E
-        finally:
-            self.con.close()
-    #############################################################################
-    def update_info_sv(self, masv, hoten, lop, diachi, ngsinh, gtinh, sdt):
-        self.link_db()
-        ## CAP NHAT 
-        sql = f"""
-            UPDATE SINHVIEN
-            SET HOTEN='{hoten}', LOP='{lop}', NGSINH='{ngsinh}', DCHI='{diachi}', GTINH='{gtinh}', SDT={sdt}
-            WHERE MASV={masv}
+            INSERT INTO SINHVIEN (MASV, HOTEN, NGSINH, DCHI ,GTINH, SDT, LOP)
+            VALUES ('{masv}', '{hoten}', '{ngsinh}', '{gtinh}', {diachi}, {sdt}, {lop});
         """
 
         try:
@@ -82,6 +89,24 @@ class ConnectDB:
         except Exception as E:
             self.con.rollback()
             return E
+        finally:
+            self.con.close()
+    #############################################################################
+    def delete_info_sv(self, masv):
+        self.link_db()
+        
+        sql = f"""
+            DELETE FROM SINHVIEN
+            WHERE MASV='{masv}';
+        """
+
+        try:
+            self.cursor.execute(sql)
+            self.con.commit()
+        except Exception as E:
+            self.con.rollback()
+            return E
+        
         finally:
             self.con.close()
     #############################################################################
@@ -276,7 +301,7 @@ class ConnectDB:
         sql = f"""
             UPDATE GIANGVIEN
             SET HOTEN='{hoten}', NGSINH='{ngsinh}', GTINH='{gtinh}', KHOA='{khoa}'
-            WHERE MAGV={magv}
+            WHERE MAGV='{magv}'
         """
 
         try:
@@ -464,12 +489,12 @@ class ConnectDB:
     #############################################################################
     ## KHOA ##
     #############################################################################
-    def add_info_khoa(self, makhoa, tenkhoa, sdt, phong, trgphong):
+    def add_info_khoa(self, makhoa, tenkhoa, sdt, phong, trgkhoa):
         self.link_db()
         
         sql = f"""
-            INSERT INTO KHOA (MAKHOA, TENKHOA, SDT, PHONG, TRGPHONG)
-            VALUES ('{makhoa}', '{tenkhoa}', '{sdt}', '{phong}', '{trgphong}');
+            INSERT INTO KHOA (MAKHOA, TENKHOA, SDT, PHONG, TRGKHOA)
+            VALUES ('{makhoa}', '{tenkhoa}', '{sdt}', '{phong}', '{trgkhoa}');
         """
 
         try:
@@ -520,33 +545,33 @@ class ConnectDB:
             self.con.close()
 
     ##############################################################################
-    def search_info_khoa(self, makhoa=None, tenkhoa=None, sdt=None, phong=None, trgkhoa=None):
+    def search_info_khoa(self, makhoatk=None, tenkhoatk=None, sdttk=None, phongtk=None, trgkhoatk=None):
         self.link_db()
 
         condition = ""
-        if makhoa:
-            condition += f"MAKHOA LIKE '%{makhoa}%'"
+        if makhoatk:
+            condition += f"MAKHOA LIKE '%{makhoatk}%'"
         else:
-            if tenkhoa:
+            if tenkhoatk:
                 if condition:
-                    condition += f" AND TENKHOA LIKE '%{tenkhoa}%'"
+                    condition += f" AND TENKHOA LIKE '%{tenkhoatk}%'"
                 else:
-                    condition += f"TENKHOA LIKE '%{tenkhoa}%'"
-            if sdt:
+                    condition += f"TENKHOA LIKE '%{tenkhoatk}%'"
+            if sdttk:
                 if condition:
-                    condition += f" AND SDT LIKE '%{sdt}%'"
+                    condition += f" AND SDT LIKE '%{sdttk}%'"
                 else:
-                    condition += f"SDT LIKE '%{sdt}%'"
-            if phong:
+                    condition += f"SDT LIKE '%{sdttk}%'"
+            if phongtk:
                 if condition:
-                    condition += f" AND PHONG LIKE '%{phong}%'"
+                    condition += f" AND PHONG LIKE '%{phongtk}%'"
                 else:
-                    condition += f"PHONG LIKE '%{phong}%'"
-            if trgkhoa:
+                    condition += f"PHONG LIKE '%{phongtk}%'"
+            if trgkhoatk:
                 if condition:
-                    condition += f" AND TRGPHONG LIKE '%{trgkhoa}%'"
+                    condition += f" AND TRGPHONG LIKE '%{trgkhoatk}%'"
                 else:
-                    condition += f"TRGPHONG LIKE '%{trgkhoa}%'"
+                    condition += f"TRGPHONG LIKE '%{trgkhoatk}%'"
 
         if condition:
             sql = f"""
@@ -563,10 +588,10 @@ class ConnectDB:
             self.cursor.execute(sql)
             result = self.cursor.fetchall()
             return result
-        
+            
         except Exception as E:
             return E
-        
+            
         finally:
             self.con.close()
     #############################################################################
@@ -724,6 +749,7 @@ class ConnectDB:
         try:
             self.cursor.execute(sql)
             result = self.cursor.fetchall()
+            print(result)
             return result
             
         except Exception as E:
@@ -765,10 +791,61 @@ class ConnectDB:
             finally:
                 self.con.close()
     ##############################################################################
-    ## THONGKE ##
+    ## TTSV ##
     ##############################################################################
+    def info_acc_sv(self, masv):
+        if not self.link_db():
+            return None
 
+        sql_sv = f"""
+                  SELECT sinhvien.MASV, sinhvien.HOTEN, sinhvien.NGSINH, sinhvien.GTINH, sinhvien.SDT, sinhvien.DCHI, sinhvien.LOP, khoa.TENKHOA
+                  from sinhvien, lop, khoa
+                  where sinhvien.LOP = lop.MALOP and lop.KHOA = khoa.MAKHOA and MASV = '{masv}' ;
+              """
+        try:
+            # self.cursor = self.con.cursor()
+            self.cursor.execute(sql_sv)
+            result_sv = self.cursor.fetchall()
+            if result_sv:
+                print("Lấy thông tin giang vien thành công!")
+                return result_sv  # Return the fetched data
 
+            print("Không tìm thấy thông tin sinh viên.")
+            return None
+
+        except mysql.connector.Error as e:
+            print("MySQL Error:", e)
+            return None
+        finally:
+            if self.con:
+                self.con.close()
+    ##############################################################################
+    def ketqua(self, masv):
+        if not self.link_db():
+            return None
+        sql_diem_sv = f"""
+                        SELECT CTBD.DIEMTB_HE10 
+                        FROM BANGDIEM BD, CHITIETBANGDIEM CTBD 
+                        where BD.MASV = '{masv}' AND BD.MABD = CTBD.BD;
+                     """
+        try:
+            self.cursor = self.con.cursor()
+            self.cursor.execute(sql_diem_sv)
+            result = self.cursor.fetchall()
+            if result:
+                print(result)
+                print("Lấy thông tin tất cả môn học thành công!")
+                return result  # Return the fetched data
+
+            print("Không tìm thấy thông tin môn học sinh .")
+            return None
+        except mysql.connector.Error as e:
+            print("MySQL Error:", e)
+            return None
+
+        finally:
+            if self.con:
+               self.con.close()
 
 
 
