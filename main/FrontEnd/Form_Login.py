@@ -82,7 +82,7 @@ class Login(object):
         self.label.setText(_translate("Form", "Tai Khoan"))
         self.label_2.setText(_translate("Form", "Mat Khau"))
         self.LoginBtn.setText(_translate("Form", "Dang Nhap"))
-
+    
 
 if __name__ == "__main__":
     import sys
