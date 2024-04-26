@@ -94,10 +94,10 @@
        </rect>
       </property>
       <property name="text">
-       <string>Thoat</string>
+       <string>Thoát</string>
       </property>
      </widget>
-     <widget class="QWidget" name="">
+     <widget class="QWidget" name="layoutWidget">
       <property name="geometry">
        <rect>
         <x>360</x>
@@ -113,13 +113,13 @@
        <item row="1" column="0">
         <widget class="QLabel" name="label">
          <property name="text">
-          <string>Tai Khoan</string>
+          <string>Tài khoản</string>
          </property>
         </widget>
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="">
+     <widget class="QWidget" name="layoutWidget">
       <property name="geometry">
        <rect>
         <x>360</x>
@@ -132,7 +132,7 @@
        <item row="0" column="0">
         <widget class="QLabel" name="label_2">
          <property name="text">
-          <string>Mat Khau</string>
+          <string>Mật khẩu</string>
          </property>
         </widget>
        </item>
@@ -151,7 +151,7 @@
        </rect>
       </property>
       <property name="text">
-       <string>Dang Nhap</string>
+       <string>Đăng nhập</string>
       </property>
      </widget>
     </widget>

@@ -334,7 +334,7 @@ background-color: yellow;
     <item row="0" column="0">
      <widget class="QStackedWidget" name="Frame_Admin">
       <property name="currentIndex">
-       <number>9</number>
+       <number>7</number>
       </property>
       <widget class="QWidget" name="Frame_QLTK">
        <layout class="QGridLayout" name="gridLayout_137">
@@ -994,7 +994,7 @@ background-color: yellow;
           <string>Thông tin giảng dạy</string>
          </property>
         </widget>
-        <widget class="QWidget" name="">
+        <widget class="QWidget" name="layoutWidget">
          <property name="geometry">
           <rect>
            <x>20</x>
@@ -1036,7 +1036,7 @@ background-color: yellow;
           </item>
          </layout>
         </widget>
-        <widget class="QWidget" name="">
+        <widget class="QWidget" name="layoutWidget">
          <property name="geometry">
           <rect>
            <x>192</x>
@@ -1109,7 +1109,7 @@ background-color: yellow;
           <string>Thông tin cá nhân</string>
          </property>
         </widget>
-        <widget class="QWidget" name="">
+        <widget class="QWidget" name="layoutWidget">
          <property name="geometry">
           <rect>
            <x>38</x>
@@ -1181,7 +1181,7 @@ background-color: yellow;
           </item>
          </layout>
         </widget>
-        <widget class="QWidget" name="">
+        <widget class="QWidget" name="layoutWidget">
          <property name="geometry">
           <rect>
            <x>200</x>
@@ -2707,7 +2707,7 @@ background-color: yellow;
             </size>
            </property>
            <attribute name="horizontalHeaderDefaultSectionSize">
-            <number>147</number>
+            <number>129</number>
            </attribute>
            <column>
             <property name="text">
@@ -2736,12 +2736,17 @@ background-color: yellow;
            </column>
            <column>
             <property name="text">
-             <string>Kết quả</string>
+             <string>Học kỳ</string>
             </property>
            </column>
            <column>
             <property name="text">
-             <string>Chi tiết</string>
+             <string>Năm học</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>Kết quả</string>
             </property>
            </column>
           </widget>
@@ -2782,42 +2787,42 @@ background-color: yellow;
           <item row="0" column="0">
            <layout class="QGridLayout" name="gridLayout_34">
             <item row="1" column="0">
-             <widget class="QLabel" name="DTB_HE10_DB">
+             <widget class="QLabel" name="label_51">
               <property name="text">
                <string>- Điểm trung bình học kỳ hệ 10:	</string>
               </property>
              </widget>
             </item>
             <item row="0" column="0">
-             <widget class="QLabel" name="TB4_lbl">
+             <widget class="QLabel" name="label_73">
               <property name="text">
                <string>- Điểm trung bình học kỳ hệ 4:	</string>
               </property>
              </widget>
             </item>
             <item row="2" column="0">
-             <widget class="QLabel" name="TC_lbl">
+             <widget class="QLabel" name="label_70">
               <property name="text">
                <string>- Số tín chỉ đạt học kỳ:</string>
               </property>
              </widget>
             </item>
             <item row="0" column="1">
-             <widget class="QLabel" name="DTB_HE4_DB">
+             <widget class="QLabel" name="DTB_He4_DB">
               <property name="text">
                <string/>
               </property>
              </widget>
             </item>
             <item row="1" column="1">
-             <widget class="QLabel" name="DTB_HE10_BD">
+             <widget class="QLabel" name="DTB_He10_DB">
               <property name="text">
                <string/>
               </property>
              </widget>
             </item>
             <item row="2" column="1">
-             <widget class="QLabel" name="TONGTC_BD">
+             <widget class="QLabel" name="TongTinChi_BD">
               <property name="text">
                <string/>
               </property>
