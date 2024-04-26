@@ -291,11 +291,11 @@ INSERT INTO GIANGVIEN (MAGV, HOTEN, NGSINH, GTINH, KHOA) VALUES
 ('GV01002', 'Hồ Thanh Việt', '1992-05-27', 'Nam', 'CNTT01'),
 ('GV01003', 'Nguyễn Thị Hương', '1989-09-03', 'Nu', 'CNTT01'),
 ('GV01004', 'Nguyến Thanh Thuận', '1972-05-03', 'Nu', 'CNTT01'),
-('GV02001', 'Phan Duy Khương', '1988-08-03', 'Nam', 'CNTT01'),
+('GV02001', 'Phan Duy Khương', '1988-08-03', 'Nam', 'LUAT02'),
 ('GV02002', 'Trần Mỹ Lan', '1993-05-11', 'Nu', 'CNTT01'),
 ('GV02003', 'Trần Hồ Khải ', '1981-01-03', 'Nam', 'CNTT01'),
 ('GV02004', 'Hồ Thị Mỹ Ngọc', '1991-05-03', 'Nu', 'CNTT01'),
-('GV03001', 'Nguyễn Phú Trọng Nam', '1977-03-03', 'Nam', 'CNTT01'),
+('GV03001', 'Nguyễn Phú Trọng Nam', '1977-03-03', 'Nam', 'NN03'),
 ('GV03002', 'TLê Thị Thanh Thảo', '1986-05-01', 'Nu', 'CNTT01'),
 ('GV03003', 'Nguyễn Thanh Việt', '1974-11-03', 'Nam', 'CNTT01'),
 ('GV03004', 'Phan Tuấn An', '1986-05-20', 'Nam', 'CNTT01');

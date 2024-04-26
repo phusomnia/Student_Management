@@ -55,6 +55,95 @@ class ConnectDB:
             if self.con:
                 self.con.close()
     #############################################################################
+    ## TK ##
+    #############################################################################
+    def add_info_acc(self, matk, matkhau):
+        self.link_db()
+        ## THEM
+        sql = f"""
+            INSERT INTO ACCOUNT (USERNAME, PASS)
+            VALUES ('{matk}', '{matkhau}')
+        """
+
+        try:
+            self.cursor.execute(sql)
+            self.con.commit()
+        except Exception as E:
+            self.con.rollback()
+            return E
+        finally:
+            self.con.close()
+    #############################################################################
+    def update_info_acc(self, matk, matkhau):
+        self.link_db()
+        ## CAP NHAT 
+        sql = f"""
+            UPDATE ACCOUNT
+            SET PASS='{matkhau}'
+            WHERE USERNAME='{matk}'
+        """
+
+        try:
+            self.cursor.execute(sql)
+            self.con.commit()
+        except Exception as E:
+            self.con.rollback()
+            return E
+        finally:
+            self.con.close()
+    #############################################################################
+    def delete_info_acc(self, matk):
+        self.link_db()
+        
+        sql = f"""
+            DELETE FROM ACCOUNT
+            WHERE USERNAME='{matk}';
+        """
+
+        try:
+            self.cursor.execute(sql)
+            self.con.commit()
+        except Exception as E:
+            self.con.rollback()
+            return E
+        
+        finally:
+            self.con.close()
+    #############################################################################
+    def search_info_acc(self, usernametk=None, passwordtk=None):
+        self.link_db()
+
+        condition = ""
+        if usernametk:
+            condition += f"USERNAME LIKE '%{usernametk}%'"
+        else:
+            if passwordtk:
+                if condition:
+                    condition += f" AND PASS LIKE '%{passwordtk}%'"
+                else:
+                    condition += f"PASS LIKE '%{passwordtk}%'"
+        if condition:
+            sql = f"""
+                SELECT * 
+                FROM ACCOUNT WHERE {condition};
+            """
+        else:
+            sql = f"""
+                SELECT *
+                FROM ACCOUNT;
+            """
+
+        try:
+            self.cursor.execute(sql)
+            result = self.cursor.fetchall()
+            return result
+            
+        except Exception as E:
+            return E
+            
+        finally:
+            self.con.close()
+    #############################################################################
     ## SV ##
     #############################################################################
     def add_info_sv(self, masv, hoten, ngsinh, gtinh, diachi, sdt, lop):
@@ -794,20 +883,24 @@ class ConnectDB:
     ## TTSV ##
     ##############################################################################
     def info_acc_sv(self, masv):
-        if not self.link_db():
-            return None
+        self.link_db()
 
         sql_sv = f"""
-                  SELECT sinhvien.MASV, sinhvien.HOTEN, sinhvien.NGSINH, sinhvien.GTINH, sinhvien.SDT, sinhvien.DCHI, sinhvien.LOP, khoa.TENKHOA
-                  from sinhvien, lop, khoa
-                  where sinhvien.LOP = lop.MALOP and lop.KHOA = khoa.MAKHOA and MASV = '{masv}' ;
+                  SELECT SV.MASV, SV.HOTEN, 
+                  SV.NGSINH, SV.GTINH, 
+                  SV.SDT, SV.DCHI, 
+                  SV.LOP, K.TENKHOA,
+                  L.KHOAHOC, L.HEDAOTAO
+                  FROM SINHVIEN SV, LOP L, KHOA K
+                  where SV.LOP = L.MALOP
+                  AND L.KHOA = K.MAKHOA 
+                  AND MASV = '{masv}';
               """
         try:
-            # self.cursor = self.con.cursor()
             self.cursor.execute(sql_sv)
             result_sv = self.cursor.fetchall()
             if result_sv:
-                print("Lấy thông tin giang vien thành công!")
+                print("Lấy thông tin sinh viên thành công!")
                 return result_sv  # Return the fetched data
 
             print("Không tìm thấy thông tin sinh viên.")
@@ -821,15 +914,14 @@ class ConnectDB:
                 self.con.close()
     ##############################################################################
     def ketqua(self, masv):
-        if not self.link_db():
-            return None
+        self.link_db()
+
         sql_diem_sv = f"""
                         SELECT CTBD.DIEMTB_HE10 
                         FROM BANGDIEM BD, CHITIETBANGDIEM CTBD 
-                        where BD.MASV = '{masv}' AND BD.MABD = CTBD.BD;
+                        WHERE BD.MASV = '{masv}' AND BD.MABD = CTBD.BD;
                      """
         try:
-            self.cursor = self.con.cursor()
             self.cursor.execute(sql_diem_sv)
             result = self.cursor.fetchall()
             if result:
@@ -846,6 +938,101 @@ class ConnectDB:
         finally:
             if self.con:
                self.con.close()
+    ##############################################################################
+    ## TTGV ##
+    ##############################################################################
+    def search_acc_gv(self, magv):
+        self.link_db()
 
+        sql_gv = f"""
+                  SELECT GV.MAGV, GV.HOTEN, 
+                  GV.NGSINH, GV.GTINH, 
+                  GV.KHOA, K.TENKHOA
+                  FROM GIANGVIEN GV
+                  JOIN KHOA K ON GV.KHOA = K.MAKHOA
+                  WHERE GV.MAGV = '{magv}';
+                  """
+        try:
+            self.cursor.execute(sql_gv)
+            result_gv = self.cursor.fetchall()
+            if result_gv:
+                print("Lấy thông tin giảng viên thành công!")
+                return result_gv  # Return the fetched data
 
+            print("Không tìm thấy thông tin giảng viên.")
+            return None
 
+        except mysql.connector.Error as e:
+            print("MySQL Error:", e)
+            return None
+        finally:
+            if self.con:
+                self.con.close()
+    ##############################################################################
+    def check_truongkhoa(self, magv):
+        self.link_db()
+
+        sql_check = f"""
+            SELECT *
+            FROM KHOA K
+            WHERE K.TRGKHOA = '{magv}'
+        """
+        try:
+            self.cursor.execute(sql_check)
+            result = self.cursor.fetchall()
+            if result:
+                print("Lay thong tin truong khoa", result)
+                return True
+            print("Khong tim thay truong khoa cua khoa", result)
+        except mysql.connector.Error as e:
+            print("MySQL Error:", e)
+            return None
+        finally:
+            if self.con:
+                self.con.close()
+    #############################################################################
+    ## THONGKE DIEM ##
+    #############################################################################
+    def check_mamh_exists(self, mamh):
+        self.link_db()
+
+        sql = f"SELECT COUNT(*) FROM nhommonhoc WHERE MH = '{mamh}';"
+
+        try:
+            self.cursor.execute(sql)
+            result = self.cursor.fetchone()
+            return result
+        except mysql.connector.Error as e:
+            print("MySQL Error:", e)
+            return None
+        finally:
+            if self.con:
+                self.con.close()
+    #############################################################################
+    ## BANG DIEM ##
+    #############################################################################
+    def search_info_bangdiem(self):
+        self.link_db()
+
+        sql_check_bangdiem = """"
+        SELECT BD.*
+        FROM SINHVIEN SV
+        JOIN BANGDIEM BD ON SV.MASV = BD.MASV
+        """
+
+        try:
+            self.cursor.execute(sql_check_bangdiem)
+            result_bangdiem = self.cursor.fetchall()
+            if result_bangdiem:
+                print("Lấy thông tin bảng điểm thành công!")
+                return result_bangdiem  # Return the fetched data
+
+            print("Không tìm thấy thông tin giảng viên.")
+            return None
+
+        except mysql.connector.Error as e:
+            print("MySQL Error:", e)
+            return None
+        finally:
+            if self.con:
+                self.con.close()

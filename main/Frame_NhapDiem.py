@@ -70,7 +70,7 @@ class Window_Menu(QWidget):
                     )
 
                     if update_result:
-                        QMessageBox.information(self, "Canh bao", f"Cap nhap: {update_result} that bai!", QMessageBox.StandardButton.Ok)
+                        QMessageBox.information(self, "Cảnh báo", f"Cập nhật: {update_result} thất bại!", QMessageBox.StandardButton.Ok)
                     else:
                         self.MaMon_QLD.setEnabled(True)
                         self.MaNhom_QLD.setEnabled(True)
@@ -189,6 +189,7 @@ class Window_Menu(QWidget):
         }
 
         return diem_info
+    #############################################################################
 if __name__ == '__main__':
     APP  = QApplication([])
     WINDOW = Window_Menu()

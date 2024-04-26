@@ -80,7 +80,6 @@ class Window_Menu(QWidget):
 
         self.display_data_QLMH()  
         self.enable_buttons_QLMH()
-
     #############################################################################
     def update_info_QLMH(self):
         if self.MaMon_QLMH.isEnabled():
@@ -105,7 +104,6 @@ class Window_Menu(QWidget):
                     self.display_data_QLMH()
             else:
                 QMessageBox.information(self, "Canh bao", "Chon 1 mon hoc de cap nhat", QMessageBox.StandardButton.Ok)
-
     #############################################################################
     def select_info_QLMH(self):
         select_row = self.listbox_QLMH.currentRow()

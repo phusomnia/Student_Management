@@ -1,7 +1,7 @@
 from PyQt6.QtWidgets import QMessageBox, QTableWidgetItem, QPushButton, QWidget, QApplication
 from PyQt6.QtCore import QDate
 from PyQt6.QtGui import QIntValidator, QDoubleValidator
-from main.Form_Menu import Menu
+from FrontEnd.Form_Menu import Menu
 from Backend.Connection_Database import ConnectDB
 
 class Window_Menu(QWidget):
