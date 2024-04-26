@@ -84,7 +84,7 @@ class Window_Menu(QWidget):
                         self.DiemThi.clear()
                         self.HesoThi.clear()
                 else:
-                    QMessageBox.information(self, "Canh bao", "Diem thi va diem QT phai lon hon hoac bang 0 va nho hon 10. Heso QT va Thi phai lon hon hoac bang 0 va nho hon 1.0. Tong Heso QT va Thi phai nho hon 1.0", QMessageBox.StandardButton.Ok)
+                    QMessageBox.information(self, "Cảnh báo", "Diem thi va diem QT phai lon hon hoac bang 0 va nho hon 10. Heso QT va Thi phai lon hon hoac bang 0 va nho hon 1.0. Tong Heso QT va Thi phai nho hon 1.0", QMessageBox.StandardButton.Ok)
             else:
                 QMessageBox.information(self, "Canh bao", "Chon 1 sinh vien de cap nhat diem", QMessageBox.StandardButton.Ok)
     #############################################################################

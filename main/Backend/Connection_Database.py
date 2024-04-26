@@ -40,19 +40,25 @@ class ConnectDB:
             self.link_db()
             # TIM TAI KHOAN 
             sql = f"""
-                SELECT *
-                FROM ACCOUNT
+                SELECT ACC.*
+                FROM ACCOUNT ACC
                 WHERE USERNAME = '{username}'
             """
             self.cursor.execute(sql)
-            result = self.cursor.fetchall()
-            print(result)
-            return result
-        except Exception as e:
-            print("Error occurred while checking username:", e)
-            return None
+            result_acc = self.cursor.fetchall()
+            if result_acc:
+                for result in result_acc:
+                    print(result)
+                print("Lấy thông tin tài khoản công!")
+                return result_acc
+            else:
+                print("Không tìm thấy thông tin tài khoản.")
+                return None
+            
+        except Exception as E:
+            return E
+
         finally:
-            if self.con:
                 self.con.close()
     #############################################################################
     ## TK ##
@@ -68,9 +74,11 @@ class ConnectDB:
         try:
             self.cursor.execute(sql)
             self.con.commit()
+
         except Exception as E:
             self.con.rollback()
             return E
+        
         finally:
             self.con.close()
     #############################################################################
@@ -87,8 +95,10 @@ class ConnectDB:
             self.cursor.execute(sql)
             self.con.commit()
         except Exception as E:
+
             self.con.rollback()
             return E
+        
         finally:
             self.con.close()
     #############################################################################
@@ -103,6 +113,7 @@ class ConnectDB:
         try:
             self.cursor.execute(sql)
             self.con.commit()
+
         except Exception as E:
             self.con.rollback()
             return E
@@ -1000,39 +1011,50 @@ class ConnectDB:
 
         try:
             self.cursor.execute(sql)
-            result = self.cursor.fetchone()
-            return result
-        except mysql.connector.Error as e:
+            result_mamh = self.cursor.fetchone()
+            if result_mamh:
+                print(result_mamh)
+                return result_mamh
+            else:
+                print("Không tìm thấy mã môn học")
+        except Exception as e:
             print("MySQL Error:", e)
             return None
         finally:
-            if self.con:
                 self.con.close()
     #############################################################################
     ## BANG DIEM ##
     #############################################################################
-    def search_info_bangdiem(self):
+    def search_info_bangdiem(self, masv, hocky, namhoc):
         self.link_db()
 
-        sql_check_bangdiem = """"
-        SELECT BD.*
-        FROM SINHVIEN SV
-        JOIN BANGDIEM BD ON SV.MASV = BD.MASV
+        sql_check_bangdiem = f"""
+            SELECT BD.*, MH.*, CTBD.*
+            FROM SINHVIEN SV
+            JOIN BANGDIEM BD ON SV.MASV = BD.SV 
+            JOIN CHITIETBANGDIEM CTBD ON CTBD.BD = BD.MABD
+            JOIN NHOMMONHOC NMH ON CTBD.NHOM = NMH.MANHOM
+            JOIN DANGKYNHOM DKN ON DKN.NHOM =  NMH.MANHOM AND DKN.SV = SV.MASV
+            JOIN MONHOC MH ON MH.MAMH = NMH.MH
+            WHERE SV.MASV = '{masv}'
+            AND BD.HOCKY = '{hocky}'
+            AND BD.NAMHOC = '{namhoc}';
         """
 
         try:
             self.cursor.execute(sql_check_bangdiem)
             result_bangdiem = self.cursor.fetchall()
             if result_bangdiem:
+                for result in result_bangdiem:
+                    print(result)
                 print("Lấy thông tin bảng điểm thành công!")
                 return result_bangdiem  # Return the fetched data
-
-            print("Không tìm thấy thông tin giảng viên.")
-            return None
-
-        except mysql.connector.Error as e:
-            print("MySQL Error:", e)
-            return None
+            else:
+                print("Không tìm thấy thông tin bảng điểm.")
+                return None
+    
+        except Exception as E:
+            return E
+        
         finally:
-            if self.con:
                 self.con.close()

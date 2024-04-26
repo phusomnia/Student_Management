@@ -12,7 +12,7 @@ class Window_Menu(QWidget):
     def __init__(self, user_id):
         super(Window_Menu, self).__init__()
 
-        self.USER_ID = user_id
+        self.user_id = user_id
 
         self.DB = ConnectDB()
 
@@ -125,7 +125,7 @@ class Window_Menu(QWidget):
         # Init empty page
         # Init hide
         self.HideDropDown()
-        self.init_signal_slot_toggle_dropdown()
+        self.init_signal_slot_toggle_dropdown(user_id)
         self.init_signal_slot_form()
 
         # Khoi tao cac chuc nang
@@ -208,10 +208,12 @@ class Window_Menu(QWidget):
         self.UI.SubFrame_SVBtn.setHidden(True)
     #############################################################################
     # khoi tao toggle drop down
-    def init_signal_slot_toggle_dropdown(self):
-        self.UI.AdminBtn.clicked.connect(lambda: self.toggleDropDown(self.UI.SubFrame_AdminBtn))
-        self.UI.SVBtn.clicked.connect(lambda: self.toggleDropDown(self.UI.SubFrame_SVBtn))
-        self.UI.GVBtn.clicked.connect(lambda: self.toggleDropDown(self.UI.SubFrame_GVBtn))
+    def init_signal_slot_toggle_dropdown(self, user_id):
+        if self.DB.check_username(user_id):
+            self.UI.AdminBtn.clicked.connect(lambda: self.toggleDropDown(self.UI.SubFrame_AdminBtn))
+        else:
+            self.UI.SVBtn.clicked.connect(lambda: self.toggleDropDown(self.UI.SubFrame_SVBtn))
+            self.UI.GVBtn.clicked.connect(lambda: self.toggleDropDown(self.UI.SubFrame_GVBtn))
     #############################################################################
     # BAT TAT DROPDOWN
     def toggleDropDown(self, Subframe):
