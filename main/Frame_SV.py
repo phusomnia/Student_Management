@@ -56,7 +56,7 @@ class Window_Menu(QWidget):
 
         sv_info = self.get_sv_info()
 
-        if sv_info["MASV"] and sv_info["HOTEN"]:
+        if sv_info["MASV"] and sv_info["HOTENSV"]:
             check_result = self.check_masv(new_masv=sv_info["MASV"])
 
             if check_result:
@@ -66,7 +66,7 @@ class Window_Menu(QWidget):
 
             add_result = self.DB.add_info_sv(
                 masv=sv_info["MASV"],
-                hoten=sv_info["HOTEN"],
+                hoten=sv_info["HOTENSV"],
                 diachi=sv_info["DCHI"],
                 ngsinh=sv_info["NGSINH"],
                 gtinh=sv_info["GTINH"],
@@ -100,7 +100,7 @@ class Window_Menu(QWidget):
             if new_sv_info["MASV"]:
                 update_result = self.DB.update_info_sv(
                     masv=new_sv_info["MASV"],
-                    hoten=new_sv_info["HOTEN"],
+                    hoten=new_sv_info["HOTENSV"],
                     ngsinh=new_sv_info["NGSINH"],
                     gtinh=new_sv_info["GTINH"],
                     diachi=new_sv_info["DCHI"],
@@ -178,7 +178,7 @@ class Window_Menu(QWidget):
             for row, info in enumerate(result):
                 info_list = [
                     info["MASV"],
-                    info["HOTEN"],
+                    info["HOTENSV"],
                     info["NGSINH"],
                     info["GTINH"],
                     info["DCHI"],
@@ -210,7 +210,7 @@ class Window_Menu(QWidget):
         # TAO DICT DE LUU CAC BIEN
         sv_info = {
             "MASV": get_Masv,
-            "HOTEN": get_Hoten, 
+            "HOTENSV": get_Hoten, 
             "NGSINH": get_Ngsinh, 
             "GTINH": get_Gtinh, 
             "DCHI": get_Dchi,

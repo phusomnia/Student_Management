@@ -27,11 +27,12 @@ class ConnectDB:
                 user=self._user,
             )
             if self.con.is_connected():
-                print("Connect successfully!.")
+                print("Kết nối database thành công!.")
+            else:
+                print("Kết nối thất bại.")
             self.cursor = self.con.cursor(dictionary=True, buffered=True)
-        except mysql.connector.Error as err:
-            print(f"Error connecting: {err}")
-            return None
+        except mysql.connector.Error as E:
+            return E
     #############################################################################
     ## LOGIN ##
     #############################################################################
@@ -53,9 +54,8 @@ class ConnectDB:
                 return result_acc
             else:
                 print("Không tìm thấy thông tin tài khoản.")
-                return None
             
-        except Exception as E:
+        except mysql.connector.Error as E:
             return E
 
         finally:
@@ -75,7 +75,7 @@ class ConnectDB:
             self.cursor.execute(sql)
             self.con.commit()
 
-        except Exception as E:
+        except mysql.connector.Error as E:
             self.con.rollback()
             return E
         
@@ -94,7 +94,7 @@ class ConnectDB:
         try:
             self.cursor.execute(sql)
             self.con.commit()
-        except Exception as E:
+        except mysql.connector.Error as E:
 
             self.con.rollback()
             return E
@@ -114,7 +114,7 @@ class ConnectDB:
             self.cursor.execute(sql)
             self.con.commit()
 
-        except Exception as E:
+        except mysql.connector.Error as E:
             self.con.rollback()
             return E
         
@@ -149,7 +149,7 @@ class ConnectDB:
             result = self.cursor.fetchall()
             return result
             
-        except Exception as E:
+        except mysql.connector.Error as E:
             return E
             
         finally:
@@ -161,16 +161,20 @@ class ConnectDB:
         self.link_db()
         ## THEM
         sql = f"""
-            INSERT INTO SINHVIEN (MASV, HOTEN, NGSINH, DCHI ,GTINH, SDT, LOP)
+            INSERT INTO SINHVIEN (MASV, HOTENSV, NGSINH, DCHI ,GTINH, SDT, LOP)
             VALUES ('{masv}', '{hoten}', '{ngsinh}', '{gtinh}', {diachi}, {sdt}, {lop});
         """
 
         try:
-            self.cursor.execute(sql)
-            self.con.commit()
-        except Exception as E:
+            if self.cursor.execute(sql):
+                self.con.commit()
+            else:
+                print("Thêm thất bại")
+                
+        except mysql.connector.Error as E:
             self.con.rollback()
             return E
+        
         finally:
             self.con.close()
     #############################################################################
@@ -179,16 +183,20 @@ class ConnectDB:
         ## CAP NHAT 
         sql = f"""
             UPDATE SINHVIEN
-            SET HOTEN='{hoten}', NGSINH='{ngsinh}', GTINH='{gtinh}', DCHI='{diachi}', SDT={sdt}, LOP='{lop}'
+            SET HOTENSV='{hoten}', NGSINH='{ngsinh}', 
+            GTINH='{gtinh}', DCHI='{diachi}', 
+            SDT={sdt}, LOP='{lop}'
             WHERE MASV='{masv}'
         """
 
         try:
             self.cursor.execute(sql)
             self.con.commit()
-        except Exception as E:
+
+        except mysql.connector.Error as E:
             self.con.rollback()
             return E
+        
         finally:
             self.con.close()
     #############################################################################
@@ -203,7 +211,8 @@ class ConnectDB:
         try:
             self.cursor.execute(sql)
             self.con.commit()
-        except Exception as E:
+
+        except mysql.connector.Error as E:
             self.con.rollback()
             return E
         
@@ -260,10 +269,12 @@ class ConnectDB:
 
         try:
             self.cursor.execute(sql)
-            result = self.cursor.fetchall()
-            return result
+            result_sv = self.cursor.fetchall()
+            if result_sv:
+                print(result_sv)
+                print("Tìm thông tin ")
             
-        except Exception as E:
+        except mysql.connector.Error as E:
             return E
             
         finally:
@@ -282,7 +293,7 @@ class ConnectDB:
         try:
             self.cursor.execute(sql)
             self.con.commit()
-        except Exception as E:
+        except mysql.connector.Error as E:
             self.con.rollback()
             return E
         finally:
@@ -301,7 +312,7 @@ class ConnectDB:
         try:
             self.cursor.execute(sql)
             self.con.commit()
-        except Exception as E:
+        except mysql.connector.Error as E:
             self.con.rollback()
             return E
         finally:
@@ -318,7 +329,7 @@ class ConnectDB:
         try:
             self.cursor.execute(sql)
             self.con.commit()
-        except Exception as E:
+        except mysql.connector.Error as E:
             self.con.rollback()
             return E
         
@@ -369,7 +380,7 @@ class ConnectDB:
             result = self.cursor.fetchall()
             return result
         
-        except Exception as E:
+        except mysql.connector.Error as E:
             return E
         
         finally:
@@ -388,7 +399,7 @@ class ConnectDB:
         try:
             self.cursor.execute(sql)
             self.con.commit()
-        except Exception as E:
+        except mysql.connector.Error as E:
             self.con.rollback()
             return E
         finally:
@@ -407,7 +418,7 @@ class ConnectDB:
         try:
             self.cursor.execute(sql)
             self.con.commit()
-        except Exception as E:
+        except mysql.connector.Error as E:
             self.con.rollback()
             return E
         finally:
@@ -424,7 +435,7 @@ class ConnectDB:
         try:
             self.cursor.execute(sql)
             self.con.commit()
-        except Exception as E:
+        except mysql.connector.Error as E:
             self.con.rollback()
             return E
         
@@ -475,7 +486,7 @@ class ConnectDB:
             result = self.cursor.fetchall()
             return result
             
-        except Exception as E:
+        except mysql.connector.Error as E:
             return E
             
         finally:
@@ -494,7 +505,7 @@ class ConnectDB:
         try:
             self.cursor.execute(sql)
             self.con.commit()
-        except Exception as E:
+        except mysql.connector.Error as E:
             self.con.rollback()
             return E
         finally:
@@ -513,7 +524,7 @@ class ConnectDB:
         try:
             self.cursor.execute(sql)
             self.con.commit()
-        except Exception as E:
+        except mysql.connector.Error as E:
             self.con.rollback()
             return E
         finally:
@@ -530,7 +541,7 @@ class ConnectDB:
         try:
             self.cursor.execute(sql)
             self.con.commit()
-        except Exception as E:
+        except mysql.connector.Error as E:
             self.con.rollback()
             return E
         
@@ -581,7 +592,7 @@ class ConnectDB:
             result = self.cursor.fetchall()
             return result
             
-        except Exception as E:
+        except mysql.connector.Error as E:
             return E
             
         finally:
@@ -600,7 +611,7 @@ class ConnectDB:
         try:
             self.cursor.execute(sql)
             self.con.commit()
-        except Exception as E:
+        except mysql.connector.Error as E:
             self.con.rollback()
             return E
         finally:
@@ -619,7 +630,7 @@ class ConnectDB:
         try:
             self.cursor.execute(sql)
             self.con.commit()
-        except Exception as E:
+        except mysql.connector.Error as E:
             self.con.rollback()
             return E
         finally:
@@ -637,7 +648,7 @@ class ConnectDB:
         try:
             self.cursor.execute(sql)
             self.con.commit()
-        except Exception as E:
+        except mysql.connector.Error as E:
             self.con.rollback()
             return E
         
@@ -689,7 +700,7 @@ class ConnectDB:
             result = self.cursor.fetchall()
             return result
             
-        except Exception as E:
+        except mysql.connector.Error as E:
             return E
             
         finally:
@@ -708,7 +719,7 @@ class ConnectDB:
         try:
             self.cursor.execute(sql)
             self.con.commit()
-        except Exception as E:
+        except mysql.connector.Error as E:
             self.con.rollback()
             return E
         finally:
@@ -727,7 +738,7 @@ class ConnectDB:
         try:
             self.cursor.execute(sql)
             self.con.commit()
-        except Exception as E:
+        except mysql.connector.Error as E:
             self.con.rollback()
             return E
         finally:
@@ -744,7 +755,7 @@ class ConnectDB:
         try:
             self.cursor.execute(sql)
             self.con.commit()
-        except Exception as E:
+        except mysql.connector.Error as E:
             self.con.rollback()
             return E
         
@@ -771,7 +782,8 @@ class ConnectDB:
         if condition:
             sql = f"""
                 SELECT * 
-                FROM MONHOC WHERE {condition};
+                FROM MONHOC 
+                WHERE {condition};
             """
         else:
             sql = f"""
@@ -784,7 +796,7 @@ class ConnectDB:
             result = self.cursor.fetchall()
             return result
             
-        except Exception as E:
+        except mysql.connector.Error as E:
             return E
             
         finally:
@@ -792,12 +804,17 @@ class ConnectDB:
     ##############################################################################
     ## NHAP DIEM ##
     ##############################################################################
-    def search_info_nhapdiem(self, mamhtk=None, manhomtk=None, masvtk=None, hockytk=None, namhoctk=None):
+    def search_info_nhapdiem(self, magvtk=None ,mamhtk=None, manhomtk=None, masvtk=None, hockytk=None, namhoctk=None):
         self.link_db()
         # LENH TRUY VAN
         condition = ""
+        if magvtk:
+            condition += f"GV.MAGV LIKE %{magvtk}%"
         if mamhtk:
-            condition += f"MH.MAMH LIKE '%{mamhtk}%'"
+            if condition:
+                condition += f" AND MH.MAMH LIKE '%{mamhtk}%'"
+            else:
+                condition += f"MH.MAMH LIKE '%{mamhtk}%'"
         if manhomtk:
             if condition:
                 condition += f" AND NMH.MANHOM LIKE '%{manhomtk}%'"
@@ -820,39 +837,45 @@ class ConnectDB:
                 condition += f"BD.HOCKY LIKE '%{hockytk}%'"
         if condition:
             sql = f"""
-                SELECT DISTINCT GV.MAGV, GV.HOTEN , MH.MAMH, NMH.MANHOM, SV.MASV, SV.HOTEN , CTBD.DIEM_QT, CTBD.HESO_QT, CTBD.DIEMTHI, CTBD.HESO_THI, CTBD.DIEMTB_HE10, BD.HOCKY, BD.NAMHOC
+                SELECT K.*, GV.*, NMH.*, MH.*, SV.*, CTBD.*, BD.*
                 FROM GIANGVIEN GV
-                JOIN KHOA K ON GV.KHOA = K.MAKHOA
+                JOIN KHOA K ON K.MAKHOA = GV.KHOA
                 JOIN LOP L ON L.KHOA = K.MAKHOA
                 JOIN NHOMMONHOC NMH ON NMH.GV = GV.MAGV
-                JOIN CHITIETBANGDIEM CTBD ON CTBD.MANHOM = NMH.MANHOM
-                JOIN BANGDIEM BD ON CTBD.BD = BD.MABD
-                JOIN DANGKYNHOM DKN ON DKN.NHOM = NMH.MANHOM
-                JOIN SINHVIEN SV ON DKN.SV = SV.MASV AND BD.MASV = SV.MASV
-                JOIN MONHOC MH ON NMH.MH = MH.MAMH
-                WHERE {condition};
+                JOIN MONHOC MH ON MH.MAMH = NMH.MH
+                JOIN CHITIETBANGDIEM CTBD ON CTBD.NHOM = NMH.MANHOM
+                JOIN BANGDIEM BD ON BD.MABD = CTBD.BD
+                JOIN SINHVIEN SV ON SV.MASV = BD.SV AND SV.LOP = L.MALOP
+                JOIN DANGKYNHOM DKN ON DKN.SV = SV.MASV AND DKN.NHOM = NMH.MANHOM
+                WHERE {condition}
             """ 
         else:
             sql = f"""
-                SELECT DISTINCT GV.MAGV, GV.HOTEN , MH.MAMH, NMH.MANHOM, SV.MASV, SV.HOTEN , CTBD.DIEM_QT, CTBD.HESO_QT, CTBD.DIEMTHI, CTBD.HESO_THI, CTBD.DIEMTB_HE10 ,BD.HOCKY, BD.NAMHOC
+                SELECT K.*, GV.*, NMH.*, MH.*, SV.*, CTBD.*, BD.*
                 FROM GIANGVIEN GV
-                JOIN KHOA K ON GV.KHOA = K.MAKHOA
+                JOIN KHOA K ON K.MAKHOA = GV.KHOA
                 JOIN LOP L ON L.KHOA = K.MAKHOA
                 JOIN NHOMMONHOC NMH ON NMH.GV = GV.MAGV
-                JOIN CHITIETBANGDIEM CTBD ON CTBD.MANHOM = NMH.MANHOM
-                JOIN BANGDIEM BD ON CTBD.BD = BD.MABD
-                JOIN DANGKYNHOM DKN ON DKN.NHOM = NMH.MANHOM
-                JOIN SINHVIEN SV ON DKN.SV = SV.MASV AND BD.MASV = SV.MASV
-                JOIN MONHOC MH ON NMH.MH = MH.MAMH
+                JOIN MONHOC MH ON MH.MAMH = NMH.MH
+                JOIN CHITIETBANGDIEM CTBD ON CTBD.NHOM = NMH.MANHOM
+                JOIN BANGDIEM BD ON BD.MABD = CTBD.BD
+                JOIN SINHVIEN SV ON SV.MASV = BD.SV AND SV.LOP = L.MALOP
+                JOIN DANGKYNHOM DKN ON DKN.SV = SV.MASV AND DKN.NHOM = NMH.MANHOM
             """
 
         try:
             self.cursor.execute(sql)
-            result = self.cursor.fetchall()
-            print(result)
-            return result
+            result_bangdiem = self.cursor.fetchall()
+            if result_bangdiem:
+                for item in result_bangdiem:
+                    print(item)
+                    print("\n")
+                print("Tìm thấy thông tin bảng điểm")
+                return result_bangdiem
+            else:
+                print("Không tìm thấy thông tin bảng điểm")
             
-        except Exception as E:
+        except mysql.connector.Error as E:
             return E
             
         finally:
@@ -863,13 +886,13 @@ class ConnectDB:
             sql = f"""
                 UPDATE CHITIETBANGDIEM CTBD
                 JOIN BANGDIEM BD ON CTBD.BD = BD.MABD
-                JOIN SINHVIEN SV ON SV.MASV = BD.MASV
-                JOIN NHOMMONHOC NMH ON NMH.MANHOM = CTBD.MANHOM
+                JOIN SINHVIEN SV ON SV.MASV = BD.SV
+                JOIN NHOMMONHOC NMH ON NMH.MANHOM = CTBD.NHOM
                 JOIN MONHOC MH ON NMH.MH = MH.MAMH
                 JOIN GIANGVIEN GV ON GV.MAGV = NMH.GV
                 JOIN KHOA K ON GV.KHOA = K.MAKHOA
-                JOIN LOP L ON L.KHOA = K.MAKHOA
-                JOIN DANGKYNHOM DKN ON DKN.NHOM = NMH.MANHOM
+                JOIN LOP L ON L.KHOA = K.MAKHOA AND SV.LOP = L.MALOP
+                JOIN DANGKYNHOM DKN ON DKN.NHOM = NMH.MANHOM AND DKN.SV = SV.MASV
                 SET 
                     CTBD.DIEM_QT = '{diem_qt}',
                     CTBD.HESO_QT = '{heso_qt}', 
@@ -878,16 +901,18 @@ class ConnectDB:
                     CTBD.DIEMTB_HE10 = ('{diem_qt}' * '{heso_qt}') + ('{diemthi}' * '{heso_thi}')
                 WHERE 
                     MH.MAMH = '{mamh}'
-                    AND CTBD.MANHOM = '{manhom}'
+                    AND CTBD.NHOM = '{manhom}'
                     AND SV.MASV = '{masv}';
             """
             
             try:
                 self.cursor.execute(sql)
                 self.con.commit()
-            except Exception as E:
+
+            except mysql.connector.Error as E:
                 self.con.rollback()
-                return str(E)
+                return E
+            
             finally:
                 self.con.close()
     ##############################################################################
@@ -913,9 +938,8 @@ class ConnectDB:
             if result_sv:
                 print("Lấy thông tin sinh viên thành công!")
                 return result_sv  # Return the fetched data
-
-            print("Không tìm thấy thông tin sinh viên.")
-            return None
+            else:
+                print("Không tìm thấy thông tin sinh viên.")
 
         except mysql.connector.Error as e:
             print("MySQL Error:", e)
@@ -939,12 +963,9 @@ class ConnectDB:
                 print(result)
                 print("Lấy thông tin tất cả môn học thành công!")
                 return result  # Return the fetched data
-
             print("Không tìm thấy thông tin môn học sinh .")
-            return None
         except mysql.connector.Error as e:
             print("MySQL Error:", e)
-            return None
 
         finally:
             if self.con:
@@ -994,10 +1015,12 @@ class ConnectDB:
             if result:
                 print("Lay thong tin truong khoa", result)
                 return True
-            print("Khong tim thay truong khoa cua khoa", result)
+            else:
+                print("Khong tim thay truong khoa cua khoa", result)
+
         except mysql.connector.Error as e:
             print("MySQL Error:", e)
-            return None
+
         finally:
             if self.con:
                 self.con.close()
@@ -1017,15 +1040,16 @@ class ConnectDB:
                 return result_mamh
             else:
                 print("Không tìm thấy mã môn học")
-        except Exception as e:
+
+        except mysql.connector.Error as e:
             print("MySQL Error:", e)
-            return None
+
         finally:
                 self.con.close()
     #############################################################################
     ## BANG DIEM ##
     #############################################################################
-    def search_info_bangdiem(self, masv, hocky, namhoc):
+    def search_info_bangdiem(self, masvtk=None, hockytk=None, namhoctk=None):
         self.link_db()
 
         sql_check_bangdiem = f"""
@@ -1036,9 +1060,9 @@ class ConnectDB:
             JOIN NHOMMONHOC NMH ON CTBD.NHOM = NMH.MANHOM
             JOIN DANGKYNHOM DKN ON DKN.NHOM =  NMH.MANHOM AND DKN.SV = SV.MASV
             JOIN MONHOC MH ON MH.MAMH = NMH.MH
-            WHERE SV.MASV = '{masv}'
-            AND BD.HOCKY = '{hocky}'
-            AND BD.NAMHOC = '{namhoc}';
+            WHERE SV.MASV = '{masvtk}'
+            AND BD.HOCKY = '{hockytk}'
+            AND BD.NAMHOC = '{namhoctk}';
         """
 
         try:
@@ -1053,7 +1077,7 @@ class ConnectDB:
                 print("Không tìm thấy thông tin bảng điểm.")
                 return None
     
-        except Exception as E:
+        except mysql.connector.Error as E:
             return E
         
         finally:

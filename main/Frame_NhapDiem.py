@@ -84,9 +84,9 @@ class Window_Menu(QWidget):
                         self.DiemThi.clear()
                         self.HesoThi.clear()
                 else:
-                    QMessageBox.information(self, "Cảnh báo", "Diem thi va diem QT phai lon hon hoac bang 0 va nho hon 10. Heso QT va Thi phai lon hon hoac bang 0 va nho hon 1.0. Tong Heso QT va Thi phai nho hon 1.0", QMessageBox.StandardButton.Ok)
+                    QMessageBox.information(self, "Cảnh báo", "Điểm thi và điểm quá trình từ 1-10. Hệ số quá trình vả hệ số thi tổng bằng 1.0", QMessageBox.StandardButton.Ok)
             else:
-                QMessageBox.information(self, "Canh bao", "Chon 1 sinh vien de cap nhat diem", QMessageBox.StandardButton.Ok)
+                QMessageBox.information(self, "Cảnh báo", "Chọn 1 sinh viên để cập nhật điểm", QMessageBox.StandardButton.Ok)
     #############################################################################
     def select_info_QLD(self):
         select_row = self.listbox_QLD.currentRow()
@@ -110,17 +110,17 @@ class Window_Menu(QWidget):
             self.DiemThi.setText(s_DiemThi_QLD)
             self.HesoThi.setText(s_HST_QLD)
         else:
-            QMessageBox.information(self, "Canh bao", "Hay chon 1 mon hoc", QMessageBox.StandardButton.Ok)
+            QMessageBox.information(self, "Cảnh báo", "Hãy chọn 1 môn", QMessageBox.StandardButton.Ok)
     ##############################################################################
     def search_info_QLD(self):
         nhapdiem_info = self.get_nhapdiem_info()
 
         search_result = self.DB.search_info_nhapdiem(
-                mamhtk= nhapdiem_info["MAMH"],
-                manhomtk= nhapdiem_info["MANHOM"],
-                masvtk= nhapdiem_info["MASV"],
-                hockytk= nhapdiem_info["HOCKY"],
-                namhoctk= nhapdiem_info["NAMHOC"]
+            mamhtk= nhapdiem_info["MAMH"],
+            manhomtk= nhapdiem_info["MANHOM"],
+            masvtk= nhapdiem_info["MASV"],
+            hockytk= nhapdiem_info["HOCKY"],
+            namhoctk= nhapdiem_info["NAMHOC"]
         )
 
         if search_result:
@@ -143,9 +143,9 @@ class Window_Menu(QWidget):
                 nhapdiem_info = [
                     info["MAGV"],
                     info["MAMH"],
-                    info["MANHOM"],
+                    info["NHOM"],
                     info["MASV"],
-                    info["HOTEN"],
+                    info["HOTENSV"],
                     info["DIEM_QT"],
                     info["HESO_QT"],
                     info["DIEMTHI"],
@@ -160,7 +160,7 @@ class Window_Menu(QWidget):
     #############################################################################
     def display_data_QLD(self):
         ## LAY DU LIEU DE HIEN THI
-        search_result = self.DB.search_info_nhapdiem()
+        search_result = self.DB.search_info_nhapdiem(magvtk="GV01001")
 
         ## HIEN THI
         self.show_data_QLD(search_result)
