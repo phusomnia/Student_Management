@@ -12,12 +12,11 @@ class LoginWindow(QWidget):
         self.UI.setupLogin(self)
 
         self.DB = ConnectDB()
-
+        #############################################################################
         self.UI.LoginBtn.clicked.connect(self.on_loginBtn_clicked)
         self.UI.ExitBtn.clicked.connect(self.on_exitBtn_clicked)
     #############################################################################
     def on_loginBtn_clicked(self):
-        print("Onclick đăng nhập")
         username = self.UI.TaiKhoan_Entry_Login.text().strip()
         password = self.UI.MatKhau_Entry_Login.text().strip()
 
@@ -34,14 +33,14 @@ class LoginWindow(QWidget):
                     QMessageBox.information(self, "Cảnh báo", "Mật khẩu sai, vui lòng nhập lại!", QMessageBox.StandardButton.Ok)
                     self.UI.MatKhau_Entry_Login.clear()
             else:
-                QMessageBox.information(self, "Cảnh báo", "Tài khoản sai, vui lòng nhập lại.", QMessageBox.StandardButton.Ok)
+                QMessageBox.information(self, "Cảnh báo", "Tài khoản sai, vui lòng nhập lại!", QMessageBox.StandardButton.Ok)
                 self.UI.TaiKhoan_Entry_Login.clear()
                 self.UI.MatKhau_Entry_Login.clear()
         else:
             QMessageBox.information(self, "Cảnh báo", "Vui lòng nhập tài khoản và mật khẩu", QMessageBox.StandardButton.Ok)
     #############################################################################
     def on_exitBtn_clicked(self):
-        reply = QMessageBox.question(self, "Exit", "Are you sure to exit?", QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No)
+        reply = QMessageBox.question(self, "Thoát", "Bạn có muốn thoát không?", QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No)
         if reply == QMessageBox.StandardButton.Yes:
             self.close()
 

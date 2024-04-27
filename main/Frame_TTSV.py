@@ -20,9 +20,9 @@ class Window_Menu(QWidget):
         #############################################################################
         self.Frame_BieuDo_TTSV = self.UI.Frame_BieuDo_TTSV
         #############################################################################
-        self.show_info("222010001")
+        self.show_info("222010002")
         #############################################################################
-        self.create_chart("222010001")
+        self.create_chart("222010002")
     ############################################################################# 
     def toggleForm(self, Frame, Form):
         Frame.setCurrentIndex(Frame.indexOf(Form)) 
@@ -33,7 +33,7 @@ class Window_Menu(QWidget):
             print("Search result:", search_result)
             for sv_info in search_result:
                 masv = sv_info['MASV']
-                tensv = sv_info['HOTEN']
+                tensv = sv_info['HOTENSV']
                 ngaysinh = sv_info['NGSINH']
                 gioitinh = sv_info['GTINH']
                 sdt = sv_info['SDT']
@@ -62,24 +62,23 @@ class Window_Menu(QWidget):
     #############################################################################
     def create_chart(self, masv_search):
         result = self.DB.ketqua(masv_search)
-        df = pd.DataFrame(result, columns=['DIEMTB_HE10'])
-        chart = self.create_histogram(df)
-        self.add_chart_to_frame(chart)
-    #############################################################################
-    def create_histogram(self, df):
-        fig, ax = plt.subplots(figsize=(7, 2.6))
-        sns.histplot(df['DIEMTB_HE10'], ax=ax, color='darkblue', edgecolor='black', kde=True)
-        ax.set_title('')
-        ax.set_ylabel('Số lượng môn học')
-        ax.set_xlabel('Điểm trung bình hệ 10')
-        plt.tight_layout()
-        canvas = FigureCanvas(fig)
-        plt.close()
-        return canvas
-    #############################################################################
-    def add_chart_to_frame(self, chart):
-        self.Frame_BieuDo_TTSV.addWidget(chart)
+        if result:
+            df = pd.DataFrame(result, columns=['TENMH', 'DIEMTB_HE10'])
+            fig, ax = plt.subplots(figsize=(10, 6))
+            monhoc = df['TENMH']
+            diem = df['DIEMTB_HE10']
 
+            ax.bar( monhoc, diem, color='skyblue')
+
+            ax.set_ylabel('Điểm')
+            ax.set_xlabel('Môn học')
+            ax.set_title('Biểu đồ điểm của sinh viên')
+
+            canvas = FigureCanvas(fig)
+            self.Frame_BieuDo_TTSV.addWidget(canvas)
+        else:
+            print("Không có dữ liệu nào được trả về từ cơ sở dữ liệu.")
+    
 if __name__ == '__main__':
     APP  = QApplication([])
     WINDOW = Window_Menu()

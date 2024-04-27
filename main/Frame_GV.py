@@ -157,7 +157,7 @@ class Window_Menu(QWidget):
             for row, info in enumerate(result):
                 info_list = [
                     info["MAGV"],
-                    info["HOTEN"],
+                    info["HOTENGV"],
                     info["NGSINH"],
                     info["GTINH"],
                     info["KHOA"]

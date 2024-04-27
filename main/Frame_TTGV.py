@@ -18,7 +18,7 @@ class Window_Menu(QWidget):
         #############################################################################
         self.UI.TTGVBtn.clicked.connect(lambda: self.toggleForm(self.UI.Frame_Admin, self.UI.Frame_TTGV))
         #############################################################################
-        self.show_gv_info("GV01001")
+        self.show_gv_info("GV010010")
     #############################################################################
     def toggleForm(self, Frame, Form):
         Frame.setCurrentIndex(Frame.indexOf(Form))
@@ -30,7 +30,7 @@ class Window_Menu(QWidget):
             print(search_result)
             for gv_info in search_result:
                 magv = gv_info['MAGV']
-                tengv = gv_info['HOTEN']
+                tengv = gv_info['HOTENGV']
                 ngaysinh = gv_info['NGSINH']
                 gioitinh = gv_info['GTINH']
                 # khoa = gv_info['KHOA']
@@ -38,7 +38,7 @@ class Window_Menu(QWidget):
 
             self.display_info_sv(magv, tengv, ngaysinh.strftime('%d-%m-%Y'), gioitinh, tenkhoa)
         else:
-            print("No data found for the provided search criteria.")
+            print("Không thể hiện thị dữ liệu...")
     #############################################################################
     def display_info_sv(self, magv, tengv, ngaysinh, gioitinh, tenkhoa):
         self.UI.MaGV_Entry_TTGV.setText(magv)

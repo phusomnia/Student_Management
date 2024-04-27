@@ -34,6 +34,7 @@ class Window_Menu(QWidget):
     def toggleForm(self, Frame, Form):
         Frame.setCurrentIndex(Frame.indexOf(Form))
     #############################################################################
+    #############################################################################
     def show_data_BD(self, result):
         if result:
             self.listbox_BD.clearContents()

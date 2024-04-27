@@ -27,7 +27,7 @@ class ConnectDB:
                 user=self._user,
             )
             if self.con.is_connected():
-                print("Kết nối database thành công!.")
+                print("Kết nối database thành công!.\n")
             else:
                 print("Kết nối thất bại.")
             self.cursor = self.con.cursor(dictionary=True, buffered=True)
@@ -37,23 +37,23 @@ class ConnectDB:
     ## LOGIN ##
     #############################################################################
     def check_username(self, username):
+        self.link_db()
+        # TIM TAI KHOAN 
+        sql = f"""
+            SELECT ACC.*
+            FROM ACCOUNT ACC
+            WHERE USERNAME = '{username}'
+        """
         try:
-            self.link_db()
-            # TIM TAI KHOAN 
-            sql = f"""
-                SELECT ACC.*
-                FROM ACCOUNT ACC
-                WHERE USERNAME = '{username}'
-            """
             self.cursor.execute(sql)
             result_acc = self.cursor.fetchall()
             if result_acc:
                 for result in result_acc:
-                    print(result)
-                print("Lấy thông tin tài khoản công!")
+                    print("{}\n".format(result))
+                print("Tìm thông tin tài khoản công!\n")
                 return result_acc
             else:
-                print("Không tìm thấy thông tin tài khoản.")
+                print("Không tìm thấy thông tin tài khoản.\n")
             
         except mysql.connector.Error as E:
             return E
@@ -94,6 +94,7 @@ class ConnectDB:
         try:
             self.cursor.execute(sql)
             self.con.commit()
+
         except mysql.connector.Error as E:
 
             self.con.rollback()
@@ -134,19 +135,20 @@ class ConnectDB:
                 else:
                     condition += f"PASS LIKE '%{passwordtk}%'"
         if condition:
-            sql = f"""
+            sql_search_info_acc = f"""
                 SELECT * 
                 FROM ACCOUNT WHERE {condition};
             """
         else:
-            sql = f"""
+            sql_search_info_acc = f"""
                 SELECT *
                 FROM ACCOUNT;
             """
 
         try:
-            self.cursor.execute(sql)
-            result = self.cursor.fetchall()
+            self.cursor.execute(sql_search_info_acc)
+            result_info_acc = self.cursor.fetchall()
+            
             return result
             
         except mysql.connector.Error as E:
@@ -257,22 +259,26 @@ class ConnectDB:
                 else:
                     condition += f"LOP LIKE '%{loptk}%'"
         if condition:
-            sql = f"""
+            sql_info_sv = f"""
                 SELECT * 
                 FROM SINHVIEN WHERE {condition};
             """
         else:
-            sql = f"""
+            sql_info_sv = f"""
                 SELECT *
                 FROM SINHVIEN;
             """
 
         try:
-            self.cursor.execute(sql)
+            self.cursor.execute(sql_info_sv)
             result_sv = self.cursor.fetchall()
             if result_sv:
-                print(result_sv)
-                print("Tìm thông tin ")
+                for result in result_sv:
+                    print("{}\n".format(result))
+                print("Tìm thông tin sinh viên thành công!\n")
+                return result_sv
+            else:
+                print("Không tìm thấy thông tin sinh viên.\n")
             
         except mysql.connector.Error as E:
             return E
@@ -365,20 +371,26 @@ class ConnectDB:
                     condition += f"HEDAOTAO LIKE '%{hedaotaotk}%'"
 
         if condition:
-            sql = f"""
+            sql_info_lop = f"""
                 SELECT * 
                 FROM LOP WHERE {condition};
             """
         else:
-            sql = f"""
+            ql_info_lop = f"""
                 SELECT *
                 FROM LOP;
             """
 
         try:
-            self.cursor.execute(sql)
-            result = self.cursor.fetchall()
-            return result
+            self.cursor.execute(ql_info_lop)
+            result_lop = self.cursor.fetchall()
+            if result_lop:
+                for result in result_lop:
+                    print("{}\n".format(result))
+                print("Tìm thông tin lớp thành công!\n")
+                return result_lop
+            else:
+                print("Không tìm thấy thông tin lớp.\n")
         
         except mysql.connector.Error as E:
             return E
@@ -804,7 +816,7 @@ class ConnectDB:
     ##############################################################################
     ## NHAP DIEM ##
     ##############################################################################
-    def search_info_nhapdiem(self, magvtk=None ,mamhtk=None, manhomtk=None, masvtk=None, hockytk=None, namhoctk=None):
+    def search_info_ctdb_nhapdiem(self, magvtk=None ,mamhtk=None, manhomtk=None, masvtk=None, hockytk=None, namhoctk=None):
         self.link_db()
         # LENH TRUY VAN
         condition = ""
@@ -836,7 +848,7 @@ class ConnectDB:
             else:
                 condition += f"BD.HOCKY LIKE '%{hockytk}%'"
         if condition:
-            sql = f"""
+            sql_info_ctbd = f"""
                 SELECT K.*, GV.*, NMH.*, MH.*, SV.*, CTBD.*, BD.*
                 FROM GIANGVIEN GV
                 JOIN KHOA K ON K.MAKHOA = GV.KHOA
@@ -850,7 +862,7 @@ class ConnectDB:
                 WHERE {condition}
             """ 
         else:
-            sql = f"""
+            sql_info_ctbd = f"""
                 SELECT K.*, GV.*, NMH.*, MH.*, SV.*, CTBD.*, BD.*
                 FROM GIANGVIEN GV
                 JOIN KHOA K ON K.MAKHOA = GV.KHOA
@@ -864,12 +876,46 @@ class ConnectDB:
             """
 
         try:
-            self.cursor.execute(sql)
+            self.cursor.execute(sql_info_ctbd)
+            result_ctbd = self.cursor.fetchall()
+            if result_ctbd:
+                for info in result_ctbd:
+                    print(info)
+                    print("\n")
+                print("Tìm thấy thông tin chi tiết bảng điểm")
+                return result_ctbd
+            else:
+                print("Không tìm thấy thông tin chi tiết bảng điểm")
+            
+        except mysql.connector.Error as E:
+            return E
+            
+        finally:
+            self.con.close()
+    ##############################################################################
+    def search_info_bd_nhapdiem(self, masv, hocky, namhoc):
+        self.link_db()
+
+        sql_info_bd = f"""
+            SELECT SUM(MH.SOTC),
+            SUM(CTBD.DIEMTB_HE10*MH.SOTC),
+            SUM(CTBD.DIEMTB_HE4*MH.SOTC)
+            FROM SINHVIEN SV
+            JOIN BANGDIEM BD ON SV.MASV = BD.SV 
+            JOIN CHITIETBANGDIEM CTBD ON CTBD.BD = BD.MABD
+            JOIN NHOMMONHOC NMH ON CTBD.NHOM = NMH.MANHOM
+            JOIN DANGKYNHOM DKN ON DKN.NHOM =  NMH.MANHOM AND DKN.SV = SV.MASV
+            JOIN MONHOC MH ON MH.MAMH = NMH.MH
+            WHERE SV.MASV = '{masv}'
+            AND BD.HOCKY = '{hocky}'
+            AND BD.NAMHOC = '{namhoc}';;
+            """
+
+        try:
+            self.cursor.execute(sql_info_bd)
             result_bangdiem = self.cursor.fetchall()
             if result_bangdiem:
-                for item in result_bangdiem:
-                    print(item)
-                    print("\n")
+                print(result_bangdiem)
                 print("Tìm thấy thông tin bảng điểm")
                 return result_bangdiem
             else:
@@ -879,42 +925,72 @@ class ConnectDB:
             return E
             
         finally:
-            self.con.close()            
+            self.con.close()        
     ##############################################################################
-    def update_info_nhapdiem(self, mamh, manhom, masv, diem_qt, heso_qt, diemthi, heso_thi):
-            self.link_db()
-            sql = f"""
-                UPDATE CHITIETBANGDIEM CTBD
-                JOIN BANGDIEM BD ON CTBD.BD = BD.MABD
-                JOIN SINHVIEN SV ON SV.MASV = BD.SV
-                JOIN NHOMMONHOC NMH ON NMH.MANHOM = CTBD.NHOM
-                JOIN MONHOC MH ON NMH.MH = MH.MAMH
-                JOIN GIANGVIEN GV ON GV.MAGV = NMH.GV
-                JOIN KHOA K ON GV.KHOA = K.MAKHOA
-                JOIN LOP L ON L.KHOA = K.MAKHOA AND SV.LOP = L.MALOP
-                JOIN DANGKYNHOM DKN ON DKN.NHOM = NMH.MANHOM AND DKN.SV = SV.MASV
-                SET 
-                    CTBD.DIEM_QT = '{diem_qt}',
-                    CTBD.HESO_QT = '{heso_qt}', 
-                    CTBD.DIEMTHI = '{diemthi}',
-                    CTBD.HESO_THI = '{heso_thi}',
-                    CTBD.DIEMTB_HE10 = ('{diem_qt}' * '{heso_qt}') + ('{diemthi}' * '{heso_thi}')
-                WHERE 
-                    MH.MAMH = '{mamh}'
-                    AND CTBD.NHOM = '{manhom}'
-                    AND SV.MASV = '{masv}';
-            """
-            
-            try:
-                self.cursor.execute(sql)
-                self.con.commit()
+    def update_info_nhapdiem(self, mamh, manhom, masv, diem_qt, heso_qt, diem_thi, heso_thi, diemtb_he10, diemtb_he4, xeploai):
+        self.link_db()
 
-            except mysql.connector.Error as E:
-                self.con.rollback()
-                return E
-            
-            finally:
-                self.con.close()
+        sql_update_ctbd_nhapdiem = f"""
+            UPDATE CHITIETBANGDIEM CTBD
+            JOIN BANGDIEM BD ON CTBD.BD = BD.MABD
+            JOIN SINHVIEN SV ON SV.MASV = BD.SV
+            JOIN NHOMMONHOC NMH ON NMH.MANHOM = CTBD.NHOM
+            JOIN MONHOC MH ON NMH.MH = MH.MAMH
+            JOIN GIANGVIEN GV ON GV.MAGV = NMH.GV
+            JOIN KHOA K ON GV.KHOA = K.MAKHOA
+            JOIN LOP L ON L.KHOA = K.MAKHOA AND SV.LOP = L.MALOP
+            JOIN DANGKYNHOM DKN ON DKN.NHOM = NMH.MANHOM AND DKN.SV = SV.MASV
+            SET 
+                CTBD.DIEM_QT = '{diem_qt}',
+                CTBD.HESO_QT = '{heso_qt}', 
+                CTBD.DIEMTHI = '{diem_thi}',
+                CTBD.HESO_THI = '{heso_thi}',
+                CTBD.DIEMTB_HE10 = '{diemtb_he10}',
+                CTBD.DIEMTB_HE4 = '{diemtb_he4}',
+                CTBD.XEPLOAI = '{xeploai}'
+            WHERE 
+                GV.MAGV LIKE 'GV01001'
+                AND NMH.MANHOM = '{manhom}'
+                AND MH.MAMH = '{mamh}'
+                AND SV.MASV = '{masv}';
+        """
+        
+        try:
+            self.cursor.execute(sql_update_ctbd_nhapdiem)
+            self.con.commit()
+
+        except mysql.connector.Error as E:
+            self.con.rollback()
+            return E
+        
+        finally:
+            self.con.close()
+    ##############################################################################
+    def update_info_bd_nhapdiem(self, masv, diemtk_he10, diemtk_he4):
+        self.link_db()
+
+        sql_update_bd_nhapdiem = f"""
+            UPDATE BANGDIEM BD
+            JOIN SINHVIEN SV ON SV.MASV = BD.SV 
+            JOIN CHITIETBANGDIEM CTBD ON CTBD.BD = BD.MABD
+            JOIN NHOMMONHOC NMH ON CTBD.NHOM = NMH.MANHOM
+            JOIN DANGKYNHOM DKN ON DKN.NHOM = NMH.MANHOM AND DKN.SV = SV.MASV
+            JOIN MONHOC MH ON MH.MAMH = NMH.MH
+            SET BD.DIEMTK_HE10 = '{diemtk_he10}', BD.DIEMTK_HE4 = '{diemtk_he4}' 
+            WHERE SV.MASV = '{masv}';
+        """
+
+                
+        try:
+            self.cursor.execute(sql_update_bd_nhapdiem)
+            self.con.commit()
+
+        except mysql.connector.Error as E:
+            self.con.rollback()
+            return E
+        
+        finally:
+            self.con.close()
     ##############################################################################
     ## TTSV ##
     ##############################################################################
@@ -922,7 +998,7 @@ class ConnectDB:
         self.link_db()
 
         sql_sv = f"""
-                  SELECT SV.MASV, SV.HOTEN, 
+                  SELECT SV.MASV, SV.HOTENSV, 
                   SV.NGSINH, SV.GTINH, 
                   SV.SDT, SV.DCHI, 
                   SV.LOP, K.TENKHOA,
@@ -930,7 +1006,7 @@ class ConnectDB:
                   FROM SINHVIEN SV, LOP L, KHOA K
                   where SV.LOP = L.MALOP
                   AND L.KHOA = K.MAKHOA 
-                  AND MASV = '{masv}';
+                  AND SV.MASV = '{masv}';
               """
         try:
             self.cursor.execute(sql_sv)
@@ -952,9 +1028,12 @@ class ConnectDB:
         self.link_db()
 
         sql_diem_sv = f"""
-                        SELECT CTBD.DIEMTB_HE10 
-                        FROM BANGDIEM BD, CHITIETBANGDIEM CTBD 
-                        WHERE BD.MASV = '{masv}' AND BD.MABD = CTBD.BD;
+                        SELECT MH.TENMH , CTBD.DIEMTB_HE10
+                        FROM CHITIETBANGDIEM CTBD
+                        JOIN BANGDIEM BD ON CTBD.BD = BD.MABD
+                        JOIN NHOMMONHOC NMH ON NMH.MANHOM = CTBD.NHOM
+                        JOIN MONHOC MH ON MH.MAMH = NMH.MH
+                        WHERE BD.SV = '{masv}';
                      """
         try:
             self.cursor.execute(sql_diem_sv)
@@ -977,7 +1056,7 @@ class ConnectDB:
         self.link_db()
 
         sql_gv = f"""
-                  SELECT GV.MAGV, GV.HOTEN, 
+                  SELECT GV.MAGV, GV.HOTENGV, 
                   GV.NGSINH, GV.GTINH, 
                   GV.KHOA, K.TENKHOA
                   FROM GIANGVIEN GV
@@ -1063,6 +1142,37 @@ class ConnectDB:
             WHERE SV.MASV = '{masvtk}'
             AND BD.HOCKY = '{hockytk}'
             AND BD.NAMHOC = '{namhoctk}';
+        """
+
+        try:
+            self.cursor.execute(sql_check_bangdiem)
+            result_bangdiem = self.cursor.fetchall()
+            if result_bangdiem:
+                print(result_bangdiem)
+                print("Lấy thông tin bảng điểm thành công!")
+                return result_bangdiem  # Return the fetched data
+            else:
+                print("Không tìm thấy thông tin bảng điểm.")
+                return None
+    
+        except mysql.connector.Error as E:
+            return E
+        
+        finally:
+                self.con.close()
+    #############################################################################
+    def update_info_bangdiem(self, masvtk=None):
+        self.link_db()
+
+        sql_check_bangdiem = f"""
+            SELECT BD.*, MH.*, CTBD.*
+            FROM SINHVIEN SV
+            JOIN BANGDIEM BD ON SV.MASV = BD.SV 
+            JOIN CHITIETBANGDIEM CTBD ON CTBD.BD = BD.MABD
+            JOIN NHOMMONHOC NMH ON CTBD.NHOM = NMH.MANHOM
+            JOIN DANGKYNHOM DKN ON DKN.NHOM =  NMH.MANHOM AND DKN.SV = SV.MASV
+            JOIN MONHOC MH ON MH.MAMH = NMH.MH
+            WHERE SV.MASV = '{masvtk}'
         """
 
         try:
