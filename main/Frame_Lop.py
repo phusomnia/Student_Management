@@ -164,7 +164,7 @@ class Window_Menu(QWidget):
                     info["KHOAHOC"],
                     info["HEDAOTAO"]
                 ]
-
+        
                 for column, item in enumerate(lop_list):
                     cell_item = QTableWidgetItem(str(item))
                     self.listbox_QLL.setItem(row, column, cell_item)

@@ -60,22 +60,22 @@ class Window_Menu(QWidget):
             check_result = self.check_masv(new_masv=sv_info["MASV"])
 
             if check_result:
-                QMessageBox.information(self, "Canh bao", "Nhap lai MaSV!", QMessageBox.StandardButton.Ok)
+                QMessageBox.information(self, "Cảnh báo", "Nhập lại mã sv!", QMessageBox.StandardButton.Ok)
                 self.enable_buttons_QLSV()
                 return
 
             add_result = self.DB.add_info_sv(
                 masv=sv_info["MASV"],
                 hoten=sv_info["HOTENSV"],
-                diachi=sv_info["DCHI"],
                 ngsinh=sv_info["NGSINH"],
                 gtinh=sv_info["GTINH"],
+                diachi=sv_info["DCHI"],
                 sdt=sv_info["SDT"],
                 lop=sv_info["LOP"]
             )
 
             if add_result:
-                QMessageBox.information(self, "Canh bao", f"Them : {add_result} that bai!.", QMessageBox.StandardButton.Ok)
+                QMessageBox.information(self, "Cảnh báo", f"Thêm : {add_result} thất bại!.", QMessageBox.StandardButton.Ok)
             else:
                 self.MaSV.clear()
                 self.Hoten_QLSV.clear()

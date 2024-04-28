@@ -36,11 +36,11 @@ class Window_Menu(QWidget):
                 # khoa = gv_info['KHOA']
                 tenkhoa = gv_info['TENKHOA']
 
-            self.display_info_sv(magv, tengv, ngaysinh.strftime('%d-%m-%Y'), gioitinh, tenkhoa)
+            self.display_info_gv(magv, tengv, ngaysinh.strftime('%d-%m-%Y'), gioitinh, tenkhoa)
         else:
             print("Không thể hiện thị dữ liệu...")
     #############################################################################
-    def display_info_sv(self, magv, tengv, ngaysinh, gioitinh, tenkhoa):
+    def display_info_gv(self, magv, tengv, ngaysinh, gioitinh, tenkhoa):
         self.UI.MaGV_Entry_TTGV.setText(magv)
         self.UI.Hoten_Entry_TTGV.setText(tengv)
         self.UI.Ngsinh_Entry_TTGV.setText(ngaysinh)

@@ -27,6 +27,7 @@ class LoginWindow(QWidget):
                     user_id = result[0]["USERNAME"]
                     # pass the user_id to main window and show it.
                     main_window = Window_Menu(user_id)
+                    print("User_id: ", user_id)
                     main_window.show()
                     self.close()
                 else:

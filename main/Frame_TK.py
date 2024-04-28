@@ -160,7 +160,7 @@ class Window_Menu(QWidget):
         }
 
         return acc_info
-    #########################
+    #############################################################################
     def check_matk(self, new_matk):
         result = self.DB.search_info_acc(usernametk=new_matk)
         return result

@@ -12,7 +12,7 @@ class Window_Menu(QWidget):
 
         self.DB = ConnectDB()
 
-        ## NHAP DIEM DATA
+        ## NHAP DIEM ĐạtA
         self.MaMon_QLD = self.UI.MaMH_Entry_QLD
         self.MaNhom_QLD = self.UI.MaNhom_Entry_QLD
         self.MaSV_QLD = self.UI.MaSV_Entry_QLD
@@ -51,7 +51,6 @@ class Window_Menu(QWidget):
             self.select_info_QLD()
         else:
             new_info_ctbd = self.get_nhapdiem_info()
-            result_bangdiem = self.get_info_bangdiem_QLD()
             if new_info_ctbd["MAMH"]:
                 # Mo rong phuong thuc de tinh diemtb he4, diem chu, xep loai
                 diem_qt = float(new_info_ctbd["DIEM_QT"])
@@ -61,28 +60,66 @@ class Window_Menu(QWidget):
                 diemtb_he10 = ((diem_qt*heso_qt) + (diem_thi*heso_thi))
                 # Convert diemtb_10 sang diemtb_he4
                 if diemtb_he10 >= 8.5 and diemtb_he10 <= 10: 
-                    diemtb_he4 = 4 
+                    diemtb_he4 = 4.0
                     xeploai = 'A'
+                    tinhtrang = 'Đạt'
                 elif diemtb_he10 >= 7.0 and diemtb_he10 <= 8.4:
-                    diemtb_he4 = 3
+                    diemtb_he4 = 3.0
                     xeploai = 'B'
+                    tinhtrang = 'Đạt'
                 elif diemtb_he10 >= 5.5 and diemtb_he10 <= 6.9:
-                    diemtb_he4 = 2
+                    diemtb_he4 = 2.0
                     xeploai = 'C'
+                    tinhtrang = 'Đạt'
                 elif diemtb_he10 >= 4.0 and diemtb_he10 <= 5.4:
-                    diemtb_he4 = 1
+                    diemtb_he4 = 1.0
                     xeploai = 'D'
+                    tinhtrang = 'Đạt'
+                    danhgia = ''
                 else:
-                    diemtb_he4 = 0
+                    diemtb_he4 = 0.0
                     xeploai = 'F'
-                #
+                    tinhtrang = 'Trượt'
+                    danhgia = 'NULL'
+                print(diem_qt, diem_thi, heso_qt, heso_thi, diemtb_he10, xeploai, tinhtrang)
+                
+                result_bangdiem = self.get_info_bangdiem_QLD()
+                
+                # Tim tong tinh chi mot hoc ky, tong dtb_he4, tong dtb_he10
                 for new_info_bd in result_bangdiem:
                     tong_tc_hk = int(new_info_bd["SUM(MH.SOTC)"])
                     tk_he10 = round(float(new_info_bd["SUM(CTBD.DIEMTB_HE10*MH.SOTC)"]) / tong_tc_hk, 2)
-                    tk_he4 = float(new_info_bd["SUM(CTBD.DIEMTB_HE4*MH.SOTC)"])/tong_tc_hk
-                    print(tong_tc_hk, tk_he10, tk_he4)
-                # Kiem diemqt, diemthi la tu 0 den 10 diem
-                # va tong he so cac diem la 1.0
+                    tk_he4 = round(float(new_info_bd["SUM(CTBD.DIEMTB_HE4*MH.SOTC)"])/tong_tc_hk, 2)
+                if tk_he4 >= 2.0 and tk_he4 <= 2.49:
+                    danhgia = 'Trung bình'
+                elif tk_he4 >= 2.5 and tk_he4 <= 3.19:
+                    danhgia = 'Khá'
+                elif tk_he4 >= 3.2 and tk_he4 <= 3.59:
+                    danhgia = 'Giỏi'
+                elif tk_he4 >= 3.2 and tk_he4 <= 3.59:
+                    danhgia = 'Xuất xắc'
+                else:
+                    danhgia = 'NULL'
+                print(tong_tc_hk, tk_he10, tk_he4, danhgia)
+
+                # Tinh tong tinh chi tat ca nam hoc, diem trung binh tich luy ca nam hoc
+                # tongtc = 0
+                # tong_tbtl_he4 = 0
+                # for sem in range(1):
+                #     for year in range(2023):
+                #         infos = self.DB.search_info_bd_nhapdiem(
+                #             masvtk=new_info_ctbd["MASV"], 
+                #             hockytk=sem, 
+                #             namhoctk=year
+                #         )
+                #     for info in infos:
+                #         tongtc_hk = info["SUM(MH.SOTC)"]
+                #         tongdiem_he4 = info["SUM(CTBD.DIEMTB_HE4*MH.SOTC)"]
+                #         tong_tbtl_he4 += tongdiem_he4
+                #         tongtc += tongtc_hk
+
+                # print("Thong tin: {} {} {} {}\n". format(tongtc,tong_tbtl_he4,diemtb_tl,danhgia))
+
                 if 0 <= diem_qt <= 10 and 0 <= diem_thi <= 10 and 0 <= heso_qt <= 1.0 and 0 <= heso_thi <= 1.0 and (heso_qt + heso_thi) == 1.0:
                     update_result_ctbd = self.DB.update_info_nhapdiem(
                         new_info_ctbd["MAMH"],
@@ -94,13 +131,19 @@ class Window_Menu(QWidget):
                         heso_thi,
                         diemtb_he10,
                         diemtb_he4,
-                        xeploai
+                        xeploai,
+                        tinhtrang
                     )
 
                     update_result_bd = self.DB.update_info_bd_nhapdiem(
                         new_info_ctbd["MASV"],
+                        new_info_ctbd["HOCKY"],
+                        new_info_ctbd["NAMHOC"],
                         tk_he10,
-                        tk_he4
+                        tk_he4,
+                        tk_he4,
+                        tong_tc_hk,
+                        danhgia
                     )
 
                     if update_result_ctbd:
@@ -126,7 +169,11 @@ class Window_Menu(QWidget):
     #############################################################################
     def get_info_bangdiem_QLD(self):
         new_info_ctbd = self.get_nhapdiem_info() 
-        result_bangdiem = self.DB.search_info_bd_nhapdiem(new_info_ctbd["MASV"],new_info_ctbd["HOCKY"],new_info_ctbd["NAMHOC"])
+        result_bangdiem = self.DB.search_info_bd_nhapdiem(
+            masvtk=new_info_ctbd["MASV"],
+            hockytk=new_info_ctbd["HOCKY"],
+            namhoctk=new_info_ctbd["NAMHOC"]
+        )
         return result_bangdiem
     #############################################################################
     def select_info_QLD(self):
@@ -136,12 +183,14 @@ class Window_Menu(QWidget):
             self.MaNhom_QLD.setEnabled(False)
             self.MaSV_QLD.setEnabled(False)
             s_MaMon_QLD = self.listbox_QLD.item(select_row, 1).text().strip()
-            s_MaNhom_QLD = self.listbox_QLD.item(select_row, 2).text().strip()
-            s_MaSV_QLD = self.listbox_QLD.item(select_row, 3).text().strip()
-            s_DiemQT_QLD = self.listbox_QLD.item(select_row, 5).text().strip()
-            s_HSQT_QLD = self.listbox_QLD.item(select_row, 6).text().strip()
-            s_DiemThi_QLD = self.listbox_QLD.item(select_row, 7).text().strip()
-            s_HST_QLD = self.listbox_QLD.item(select_row, 8).text().strip()
+            s_MaNhom_QLD = self.listbox_QLD.item(select_row, 3).text().strip()
+            s_MaSV_QLD = self.listbox_QLD.item(select_row, 4).text().strip()
+            s_DiemQT_QLD = self.listbox_QLD.item(select_row, 6).text().strip()
+            s_HSQT_QLD = self.listbox_QLD.item(select_row, 7).text().strip()
+            s_DiemThi_QLD = self.listbox_QLD.item(select_row, 8).text().strip()
+            s_HST_QLD = self.listbox_QLD.item(select_row, 9).text().strip()
+            s_Hocky_QLD = self.listbox_QLD.item(select_row, 18).text().strip()
+            s_NamHoc_QLD = self.listbox_QLD.item(select_row, 19).text().strip()
 
             self.MaMon_QLD.setText(s_MaMon_QLD)
             self.MaNhom_QLD.setText(s_MaNhom_QLD)
@@ -150,6 +199,8 @@ class Window_Menu(QWidget):
             self.HesoQT.setText(s_HSQT_QLD)
             self.DiemThi.setText(s_DiemThi_QLD)
             self.HesoThi.setText(s_HST_QLD)
+            self.HocKy_QLD.setCurrentText(s_Hocky_QLD)
+            self.NamHoc_QLD.setCurrentText(s_NamHoc_QLD)
         else:
             QMessageBox.information(self, "Cảnh báo", "Hãy chọn 1 môn", QMessageBox.StandardButton.Ok)
     ##############################################################################
@@ -157,6 +208,7 @@ class Window_Menu(QWidget):
         nhapdiem_info = self.get_nhapdiem_info()
 
         search_result = self.DB.search_info_ctdb_nhapdiem(
+            magvtk="GV01001",
             mamhtk= nhapdiem_info["MAMH"],
             manhomtk= nhapdiem_info["MANHOM"],
             masvtk= nhapdiem_info["MASV"],
@@ -183,6 +235,7 @@ class Window_Menu(QWidget):
                 nhapdiem_info = [
                     info["MAGV"],
                     info["MAMH"],
+                    info["SOTC"],
                     info["NHOM"],
                     info["MASV"],
                     info["HOTENSV"],
@@ -192,10 +245,12 @@ class Window_Menu(QWidget):
                     info["HESO_THI"],
                     info["DIEMTB_HE10"],
                     info["DIEMTB_HE4"],
+                    info["XEPLOAI"],
+                    info["TINHTRANG"],
                     info["DIEMTK_HE10"],
                     info["DIEMTK_HE4"],
                     info["DIEMTB_TL"],
-                    info["XEPLOAI"],
+                    info["XEPLOAIHK"],
                     info["HOCKY"],
                     info["NAMHOC"]
                 ]
@@ -203,12 +258,13 @@ class Window_Menu(QWidget):
                     cell_item = QTableWidgetItem(str(item))
                     self.listbox_QLD.setItem(row, column, cell_item)
     #############################################################################
-    def display_data_QLD(self):
-        ## LAY DU LIEU DE HIEN THI
-        search_result = self.DB.search_info_nhapdiem(magvtk="GV01001")
-
-        ## HIEN THI
-        self.show_data_QLD(search_result)
+    # def display_data_QLD(self):
+    #     ## LAY DU LIEU DE HIEN THI
+    #     search_result = self.DB.search_info_ctdb_nhapdiem(
+    #         magvtk="GV01001"
+    #     )
+    #     ## HIEN THI
+    #     self.show_data_QLD(search_result)
     #############################################################################  
     def get_nhapdiem_info(self):
         get_MaMH = self.MaMon_QLD.text().strip()
@@ -220,6 +276,7 @@ class Window_Menu(QWidget):
         get_HST = self.HesoThi.text().strip()
         get_HocKy = self.HocKy_QLD.currentText().strip()
         get_NamHoc = self.NamHoc_QLD.currentText().strip()
+        print(get_MaMH, get_MaNhom, get_DiemQT, get_HSQT, get_DiemThi, get_HST, get_MaSV, get_HocKy, get_NamHoc)
 
         diem_info = {
             "MAMH": get_MaMH,

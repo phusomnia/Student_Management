@@ -22,18 +22,17 @@ class Window_Menu(QWidget):
         self.Hocky_BD.activated.connect(self.display_data_BD)
         self.Namhoc_BD.activated.connect(self.display_data_BD)
         #############################################################################
-        self.listbox_BD= self.UI.tableWidget_BD
+        self.listbox_BD = self.UI.tableWidget_BD
         self.listbox_BD.setSortingEnabled(False)
         self.buttons_list_BD = self.UI.Frame_Listbox_BD.findChildren(QPushButton)
         #############################################################################
         self.display_data_BD()
-        # self.DB.search_info_bangdiem("222010001")
+        self.DB.search_info_bangdiem("222010001")
         #############################################################################
         self.UI.XemDiemBtn.clicked.connect(lambda: self.toggleForm(self.UI.Frame_Admin, self.UI.Frame_BangDiem))
     #############################################################################
     def toggleForm(self, Frame, Form):
         Frame.setCurrentIndex(Frame.indexOf(Form))
-    #############################################################################
     #############################################################################
     def show_data_BD(self, result):
         if result:
@@ -67,7 +66,10 @@ class Window_Menu(QWidget):
         # Lay du lieu tu entry
         bangdiem_info = self.get_nhapdiem_info()
         # tim du lieu bang dict, masv can cu theo id_user
-        search_result = self.DB.search_info_bangdiem("222010001", bangdiem_info["HOCKY"], bangdiem_info["NAMHOC"])
+        search_result = self.DB.search_info_bangdiem(
+            masvtk="222010001", 
+            hockytk=bangdiem_info["HOCKY"], 
+            namhoctk=bangdiem_info["NAMHOC"])
 
         self.show_data_BD(search_result)
     #############################################################################
@@ -90,6 +92,9 @@ class Window_Menu(QWidget):
         }
 
         return bangdiem_info
+    #############################################################################
+    
+    #############################################################################
 if __name__ == '__main__':
     APP  = QApplication([])
     WINDOW = Window_Menu()
