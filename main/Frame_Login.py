@@ -50,3 +50,4 @@ if __name__ == "__main__":
     WINDOW = LoginWindow()
     WINDOW.show()
     APP.exec()
+ 

@@ -74,7 +74,6 @@ class Window_Menu(QWidget):
         ## TTSV
         self.Frame_BieuDo_TTSV = self.UI.Frame_BieuDo_TTSV
         ## TTGV
-        self.show_gv_info("GV01001")
         ## XEM DIEM
         self.Hocky_BD = self.UI.Hocky_Cbox_BD 
         self.Namhoc_BD = self.UI.NamHoc_Cbox_BD
@@ -115,8 +114,8 @@ class Window_Menu(QWidget):
         ## THONG KE BTN
         self.search_btn_TKD = self.UI.SearchBtn_TKD
         ## XEM DIEM BTN
-        self.Hocky_BD.activated.connect(self.display_data_BD)
-        self.Namhoc_BD.activated.connect(self.display_data_BD)
+        self.Hocky_BD.activated.connect(lambda: self.display_data_BD(self.user))
+        self.Namhoc_BD.activated.connect(lambda: self.display_data_BD(self.user))
         #############################################################################
         ## TK TABLE
         self.listbox_QLTK = self.UI.tableWidget_QLTK
@@ -276,13 +275,12 @@ class Window_Menu(QWidget):
             self.UI.AdminBtn.clicked.connect(lambda: self.toggleDropDown(self.UI.SubFrame_AdminBtn))
         elif user_id == check_sv:
             self.UI.SVBtn.clicked.connect(lambda: self.toggleDropDown(self.UI.SubFrame_SVBtn))
-            self.show_info(user_id) ## user_id
-            self.create_chart_sv(user_id) ## user_id
-            self.display_data_BD()
-            self.DB.search_info_bangdiem(user_id) ## user_id
+            self.show_info(user_id)
+            self.create_chart_sv(user_id)
         elif user_id == check_gv:
             self.UI.GVBtn.clicked.connect(lambda: self.toggleDropDown(self.UI.SubFrame_GVBtn))
             self.show_gv_info(user_id)
+            self.search_info_QLD(user_id)
         else:
             QMessageBox.information(self, "Cảnh báo", "Tài khoản bị khóa hoặc không tồn tại", QMessageBox.StandardButton.Ok)
     ############################################################################
@@ -1539,6 +1537,7 @@ class Window_Menu(QWidget):
     #############################################################################
     def show_data_BD(self, result):
         if result:
+            self.listbox_BD.clearContents()
             self.listbox_BD.setRowCount(0)
             self.listbox_BD.setRowCount(len(result))
 
@@ -1564,20 +1563,20 @@ class Window_Menu(QWidget):
         else:
             self.clear_listbox_and_entry_BD()
     #############################################################################
-    def display_data_BD(self):
+    def display_data_BD(self, user_id):
         # Lay du lieu tu entry
         bangdiem_info = self.get_xemdiem_info()
         # tim du lieu bang dict, masv can cu theo id_user
         search_result = self.DB.search_info_bangdiem(
-            masvtk="222010001", 
+            masvtk=user_id, 
             hockytk=bangdiem_info["HOCKY"], 
             namhoctk=bangdiem_info["NAMHOC"])
 
         self.show_data_BD(search_result)
     #############################################################################
     def clear_listbox_and_entry_BD(self):
-        # self.listbox_BD.clearContents()
-        # self.listbox_BD.setRowCount(0) 
+        self.listbox_BD.clearContents()
+        self.listbox_BD.setRowCount(0) 
         self.DTBHe10_BD.setText("")
         self.DTBHe4_BD.setText("")
         self.TongTinChi.setText("")
@@ -1594,6 +1593,9 @@ class Window_Menu(QWidget):
         }
 
         return bangdiem_info
+    #############################################################################
+    #############################################################################
+    ## NHAP DIEM ##
     #############################################################################
     def update_info_chitietbangdiem_QLD(self):
         if self.MaMon_QLD.isEnabled():
@@ -1753,11 +1755,11 @@ class Window_Menu(QWidget):
         else:
             QMessageBox.information(self, "Cảnh báo", "Hãy chọn 1 môn", QMessageBox.StandardButton.Ok)
     ##############################################################################
-    def search_info_QLD(self):
+    def search_info_QLD(self, user_id):
         nhapdiem_info = self.get_nhapdiem_info()
 
         search_result = self.DB.search_info_ctdb_nhapdiem(
-            magvtk="GV01001", #user_id
+            magvtk=user_id, #user_id
             mamhtk= nhapdiem_info["MAMH"],
             manhomtk= nhapdiem_info["MANHOM"],
             masvtk= nhapdiem_info["MASV"],
