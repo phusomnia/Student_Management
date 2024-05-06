@@ -59,7 +59,7 @@ class ConnectDB:
             return E
 
         finally:
-                self.con.close()
+            self.con.close()
     #############################################################################
     ## TK ##
     #############################################################################
@@ -825,7 +825,7 @@ class ConnectDB:
     ##############################################################################
     ## NHAP DIEM ##
     ##############################################################################
-    def search_info_ctdb_nhapdiem(self, magvtk=None ,mamhtk=None, manhomtk=None, masvtk=None, hockytk=None, namhoctk=None):
+    def search_info_ctbd_nhapdiem(self, magvtk=None ,mamhtk=None, manhomtk=None, masvtk=None, hockytk=None, namhoctk=None):
         self.link_db()
         # LENH TRUY VAN
         condition = ""
@@ -934,7 +934,7 @@ class ConnectDB:
         finally:
             self.con.close()        
     ##############################################################################
-    def update_info_nhapdiem(self, mamh, manhom, masv, diem_qt, heso_qt, diem_thi, heso_thi, diemtb_he10, diemtb_he4, xeploai, tinhtrang):
+    def update_info_nhapdiem(self, magv ,mamh, manhom, masv, diem_qt, heso_qt, diem_thi, heso_thi, diemtb_he10, diemtb_he4, xeploai, tinhtrang):
         self.link_db()
 
         sql_update_ctbd_nhapdiem = f"""
@@ -957,7 +957,7 @@ class ConnectDB:
                 CTBD.XEPLOAI = '{xeploai}',
                 CTBD.TINHTRANG = '{tinhtrang}'
             WHERE 
-                GV.MAGV LIKE 'GV001'
+                GV.MAGV = '{magv}'
                 AND NMH.MANHOM = '{manhom}'
                 AND MH.MAMH = '{mamh}'
                 AND SV.MASV = '{masv}';

@@ -12,7 +12,7 @@ class Window_Menu(QWidget):
 
         self.DB = ConnectDB()
 
-        ## NHAP DIEM ĐạtA
+        # NHAP DIEM ĐạtA
         self.MaMon_QLD = self.UI.MaMH_Entry_QLD
         self.MaNhom_QLD = self.UI.MaNhom_Entry_QLD
         self.MaSV_QLD = self.UI.MaSV_Entry_QLD
@@ -27,26 +27,27 @@ class Window_Menu(QWidget):
         self.NamHoc_QLD = self.UI.NamHoc_Cbox_QLD
         self.HocKy_QLD = self.UI.HocKy_CBox_QLD
 
-        ## NHAP DIEM BTN
+        # NHAP DIEM BTN
         self.search_btn_QLD = self.UI.SearchBtn_QLD
         self.update_btn_QLD = self.UI.UpdateBtn_QLD
 
-        ## NHAP DIEM
+        # NHAP DIEM
         self.listbox_QLD = self.UI.tableWidget_QLD
         self.listbox_QLD.setSortingEnabled(False)
         self.buttons_list_QLD = self.UI.Frame_Listbox_QLD.findChildren(QPushButton)
 
-        ## LINK 
-        self.search_btn_QLD.clicked.connect(self.search_info_QLD)
-        # self.search_btn_QLD.clicked.connect(self.get_info_bangdiem_QLD)
-        self.update_btn_QLD.clicked.connect(self.update_info_chitietbangdiem_QLD)
+        self.user_id = "GV01001"
+        # LINK 
+        self.search_btn_QLD.clicked.connect(lambda: self.search_info_QLD(self.user_id))
+        self.update_btn_QLD.clicked.connect(lambda: self.update_info_chitietbangdiem_QLD(self.user_id))
+        self.UI.ChamDiemBtn.clicked.connect(lambda: self.toggleForm(self.UI.Frame_Admin, self.UI.Frame_NhapDiem))
     #############################################################################
         self.UI.ChamDiemBtn.clicked.connect(lambda: self.toggleForm(self.UI.Frame_Admin, self.UI.Frame_NhapDiem))
     #############################################################################
     def toggleForm(self, Frame, Form):
         Frame.setCurrentIndex(Frame.indexOf(Form))
     #############################################################################
-    def update_info_chitietbangdiem_QLD(self):
+    def update_info_chitietbangdiem_QLD(self, user_id):
         if self.MaMon_QLD.isEnabled():
             self.select_info_QLD()
         else:
@@ -101,7 +102,8 @@ class Window_Menu(QWidget):
                 else:
                     danhgia = 'NULL'
                 print(tong_tc_hk, tk_he10, tk_he4, danhgia)
-
+                
+                ## Chua thuc hien duoc ##
                 # Tinh tong tinh chi tat ca nam hoc, diem trung binh tich luy ca nam hoc
                 # tongtc = 0
                 # tong_tbtl_he4 = 0
@@ -122,6 +124,7 @@ class Window_Menu(QWidget):
 
                 if 0 <= diem_qt <= 10 and 0 <= diem_thi <= 10 and 0 <= heso_qt <= 1.0 and 0 <= heso_thi <= 1.0 and (heso_qt + heso_thi) == 1.0:
                     update_result_ctbd = self.DB.update_info_nhapdiem(
+                        user_id,
                         new_info_ctbd["MAMH"],
                         new_info_ctbd["MANHOM"],
                         new_info_ctbd["MASV"],
@@ -154,7 +157,7 @@ class Window_Menu(QWidget):
                         self.MaMon_QLD.setEnabled(True)
                         self.MaNhom_QLD.setEnabled(True)
                         self.MaSV_QLD.setEnabled(True)
-                        self.search_info_QLD()
+                        self.search_info_QLD(user_id)
                         self.MaMon_QLD.clear()
                         self.MaNhom_QLD.clear()
                         self.MaSV_QLD.clear()
@@ -204,11 +207,11 @@ class Window_Menu(QWidget):
         else:
             QMessageBox.information(self, "Cảnh báo", "Hãy chọn 1 môn", QMessageBox.StandardButton.Ok)
     ##############################################################################
-    def search_info_QLD(self):
+    def search_info_QLD(self, user_id):
         nhapdiem_info = self.get_nhapdiem_info()
 
-        search_result = self.DB.search_info_ctdb_nhapdiem(
-            magvtk="GV01001",
+        search_result = self.DB.search_info_ctbd_nhapdiem(
+            magvtk=user_id,
             mamhtk= nhapdiem_info["MAMH"],
             manhomtk= nhapdiem_info["MANHOM"],
             masvtk= nhapdiem_info["MASV"],

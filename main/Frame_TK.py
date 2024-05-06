@@ -33,6 +33,7 @@ class Window_Menu(QWidget):
         self.delete_btn_QLTK.clicked.connect(self.delete_info_QLTK)
         #############################################################################
         self.UI.QLTKBtn.clicked.connect(lambda: self.toggleForm(self.UI.Frame_Admin, self.UI.Frame_QLTK))
+        self.UI.ExitBtn_QLTK.clicked.connect(lambda: self.toggleForm(self.UI.Frame_Admin, self.UI.Frame_Init))
     #############################################################################
     def toggleForm(self, Frame, Form):
         Frame.setCurrentIndex(Frame.indexOf(Form))
@@ -55,8 +56,8 @@ class Window_Menu(QWidget):
             check_result = self.check_matk(new_matk=acc_info["USERNAME"])
 
             if check_result:
-                QMessageBox.information(self, "Canh bao", "Nhap lai ma mon hoc!", QMessageBox.StandardButton.Ok)
-                self.enable_buttons_QLMH()
+                QMessageBox.information(self, "Canh bao", "Nhập lại tài khoản!", QMessageBox.StandardButton.Ok)
+                self.enable_buttons_QLTK()
                 return
 
             add_result = self.DB.add_info_acc(
@@ -71,7 +72,7 @@ class Window_Menu(QWidget):
                     self.MatKhau.clear()
                     self.display_data_QLTK()
         else:
-            QMessageBox.information(self, "Cảnh báo", "Nhập mã và tên môn học", QMessageBox.StandardButton.Ok)
+            QMessageBox.information(self, "Cảnh báo", "Nhập tài khoản và mật khẩu", QMessageBox.StandardButton.Ok)
 
         self.display_data_QLTK()  
         self.enable_buttons_QLTK()

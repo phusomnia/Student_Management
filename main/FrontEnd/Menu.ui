@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1280</width>
+    <width>1302</width>
     <height>720</height>
    </rect>
   </property>
@@ -412,7 +412,7 @@
     <item row="0" column="0">
      <widget class="QStackedWidget" name="Frame_Admin">
       <property name="currentIndex">
-       <number>7</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="Frame_QLTK">
        <layout class="QGridLayout" name="gridLayout_137">
@@ -973,7 +973,7 @@
           <x>10</x>
           <y>320</y>
           <width>1051</width>
-          <height>291</height>
+          <height>341</height>
          </rect>
         </property>
         <property name="frameShape">
@@ -1006,36 +1006,11 @@
            <x>10</x>
            <y>30</y>
            <width>1031</width>
-           <height>251</height>
+           <height>301</height>
           </rect>
          </property>
          <layout class="QVBoxLayout" name="Frame_BieuDo_TTSV"/>
         </widget>
-       </widget>
-       <widget class="QFrame" name="frame_3">
-        <property name="geometry">
-         <rect>
-          <x>940</x>
-          <y>620</y>
-          <width>121</width>
-          <height>41</height>
-         </rect>
-        </property>
-        <property name="frameShape">
-         <enum>QFrame::StyledPanel</enum>
-        </property>
-        <property name="frameShadow">
-         <enum>QFrame::Raised</enum>
-        </property>
-        <layout class="QGridLayout" name="gridLayout_130">
-         <item row="0" column="0">
-          <widget class="QPushButton" name="ExitBtn_TTGV_2">
-           <property name="text">
-            <string>Thoát</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
        </widget>
       </widget>
       <widget class="QWidget" name="Frame_TTGV">

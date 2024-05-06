@@ -203,7 +203,7 @@ class Window_Menu(QWidget):
         ## NHAPDIEM
         self.search_btn_QLD.clicked.connect(self.search_info_QLD)
         # self.search_btn_QLD.clicked.connect(self.get_info_bangdiem_QLD)
-        self.update_btn_QLD.clicked.connect(self.update_info_chitietbangdiem_QLD)
+        self.update_btn_QLD.clicked.connect(self.update_info_chitietbangdiem_QLD(self.user))
     #############################################################################
     ## DIS TK
     def disable_buttons_QLTK(self):
@@ -261,14 +261,14 @@ class Window_Menu(QWidget):
         check_sv = ""
         if info_acc_sv != None:
             for info in info_acc_sv:
-                print("Kiem tra user_id: ", info["MASV"])
+                print("Kiểm tra user_id: ", info["MASV"])
                 check_sv = info["MASV"]
         info_acc_gv = self.DB.search_info_gv(magvtk=user_id)
         ## Tim acc sv trong qlgv
         check_gv = ""
         if info_acc_gv != None:
             for info in info_acc_gv:
-                print("Kiem tra user_id: ", info["MAGV"])
+                print("Kiểm tra user_id: ", info["MAGV"])
                 check_gv = info["MAGV"]
         ## Phan quyen
         if user_id == 'ADMIN':
@@ -317,6 +317,14 @@ class Window_Menu(QWidget):
         self.UI.XemDiemBtn.clicked.connect(lambda: self.toggleForm(self.UI.Frame_Admin, self.UI.Frame_BangDiem))
         ## NHAP DIEM TOGGLE
         self.UI.ChamDiemBtn.clicked.connect(lambda: self.toggleForm(self.UI.Frame_Admin, self.UI.Frame_NhapDiem))
+        ## TOGGLE THOAT
+        self.UI.ExitBtn_QLSV.clicked.connect(lambda: self.toggleForm(self.UI.Frame_Admin, self.UI.Frame_Init))
+        self.UI.ExitBtn_QLL.clicked.connect(lambda: self.toggleForm(self.UI.Frame_Admin, self.UI.Frame_Init))
+        self.UI.ExitBtn_QLK.clicked.connect(lambda: self.toggleForm(self.UI.Frame_Admin, self.UI.Frame_Init))
+        self.UI.ExitBtn_QLGV.clicked.connect(lambda: self.toggleForm(self.UI.Frame_Admin, self.UI.Frame_Init))
+        self.UI.ExitBtn_QLD.clicked.connect(lambda: self.toggleForm(self.UI.Frame_Admin, self.UI.Frame_Init))
+        self.UI.ExitBtn_QLMH.clicked.connect(lambda: self.toggleForm(self.UI.Frame_Admin, self.UI.Frame_Init))
+        self.UI.ExitBtn_QLTK.clicked.connect(lambda: self.toggleForm(self.UI.Frame_Admin, self.UI.Frame_Init))
     #############################################################################
     def toggleForm(self, Frame, Form):
         Frame.setCurrentIndex(Frame.indexOf(Form))
@@ -333,7 +341,7 @@ class Window_Menu(QWidget):
             check_result = self.check_matk(new_matk=acc_info["USERNAME"])
 
             if check_result:
-                QMessageBox.information(self, "Canh bao", "Nhap lai ma mon hoc!", QMessageBox.StandardButton.Ok)
+                QMessageBox.information(self, "Cảnh báo", "Nhập lại tài khoản!", QMessageBox.StandardButton.Ok)
                 self.enable_buttons_QLMH()
                 return
 
@@ -349,7 +357,7 @@ class Window_Menu(QWidget):
                     self.MatKhau.clear()
                     self.display_data_QLTK()
         else:
-            QMessageBox.information(self, "Cảnh báo", "Nhập mã và tên môn học", QMessageBox.StandardButton.Ok)
+            QMessageBox.information(self, "Cảnh báo", "Nhập tài khoản và mật khẩu", QMessageBox.StandardButton.Ok)
 
         self.display_data_QLTK()  
         self.enable_buttons_QLTK()
@@ -1597,7 +1605,7 @@ class Window_Menu(QWidget):
     #############################################################################
     ## NHAP DIEM ##
     #############################################################################
-    def update_info_chitietbangdiem_QLD(self):
+    def update_info_chitietbangdiem_QLD(self, user_id):
         if self.MaMon_QLD.isEnabled():
             self.select_info_QLD()
         else:
@@ -1705,7 +1713,7 @@ class Window_Menu(QWidget):
                         self.MaMon_QLD.setEnabled(True)
                         self.MaNhom_QLD.setEnabled(True)
                         self.MaSV_QLD.setEnabled(True)
-                        self.search_info_QLD()
+                        self.search_info_QLD(user_id)
                         self.MaMon_QLD.clear()
                         self.MaNhom_QLD.clear()
                         self.MaSV_QLD.clear()
