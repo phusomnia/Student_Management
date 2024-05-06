@@ -13,13 +13,12 @@ class Menu(object):
     def setupMenu(self, Form):
         Form.setObjectName("Form")
         Form.resize(1280, 720)
-        Form.setStyleSheet("#Frame_Title, #Frame_Entry, #Frame_Listbox, #Frame_Function{\n"
-"background-color: pink;\n"
-"}")
+        Form.setStyleSheet("")
         self.Menu_Frame = QtWidgets.QWidget(parent=Form)
         self.Menu_Frame.setGeometry(QtCore.QRect(9, 9, 165, 691))
         self.Menu_Frame.setStyleSheet("#Menu_Frame{\n"
-"background-color: cyan;\n"
+"    border-radius: 5px;\n"
+"    background-color: #f9cfcf;\n"
 "}")
         self.Menu_Frame.setObjectName("Menu_Frame")
         self.gridLayout_2 = QtWidgets.QGridLayout(self.Menu_Frame)
@@ -140,35 +139,113 @@ class Menu(object):
         self.Frame_Display.setStyleSheet("#Frame_QLGV, #Frame_QLL, #Frame_QLSV, #Frame_QLMH, \n"
 "#Frame_QLK, #Frame_NhapDiem, #ThongKe_Diem, #Frame_TTSV, \n"
 "#Frame_TTGV,#Frame_ThongKeDiem, #Frame_QLTK, #Frame_BangDiem,\n"
-"#Frame_Init\n"
+"#Frame_Init, \n"
+"#chon_nam_frame, #Thongke_frame,\n"
+"#Bieudo_frame\n"
+"#diemtop_bot_frame\n"
 "{\n"
-"background-color: yellow;\n"
-"}\n"
-"\n"
-"#Thongke_frame{\n"
-"    border-radius: 10px;\n"
-"    border:none;\n"
-"    background-color:#fff;\n"
-"}\n"
-"\n"
-"#chon_nam_frame{\n"
-"    background-color: #fff;\n"
-"    border: none;\n"
 "    border-radius: 5px;\n"
+"    background-color: #e1e1e1;\n"
 "}\n"
 "\n"
-"#Bieudo_frame{\n"
-"    background-color: #fff;\n"
-"    border:none;\n"
-"    border-radius: 10px;\n"
-"}\n"
-"\n"
-"#diemtop_bot_frame{\n"
-"    background-color: #fff;\n"
-"    border: none;\n"
+"#Frame_Title_QLGV,\n"
+"#Frame_Entry_QLGV,\n"
+"#Frame_Listbox_QLGV,\n"
+"#Frame_Function_QLGV\n"
+"{\n"
 "    border-radius: 5px;\n"
+"    background-color: #c2efec;\n"
 "}\n"
-"")
+"\n"
+"#Frame_Title_QLSV,\n"
+"#Frame_Entry_QLSV,\n"
+"#Frame_Listbox_QLSV,\n"
+"#Frame_Function_QLSV\n"
+"{\n"
+"    border-radius: 5px;\n"
+"    background-color: #c2efec;\n"
+"}\n"
+"\n"
+"#Frame_Title_QLMH,\n"
+"#Frame_Entry_QLMH,\n"
+"#Frame_Listbox_QLMH,\n"
+"#Frame_Function_QLMH\n"
+"{\n"
+"    border-radius: 5px;\n"
+"    background-color: #c2efec;\n"
+"}\n"
+"\n"
+"#Frame_Title_QLD,\n"
+"#Frame_Entry_QLD,\n"
+"#Frame_Listbox_QLD,\n"
+"#Frame_Function_QLD\n"
+"{\n"
+"    border-radius: 5px;\n"
+"    background-color: #c2efec;\n"
+"}\n"
+"\n"
+"#Frame_Title_QLK,\n"
+"#Frame_Entry_QLK,\n"
+"#Frame_Listbox_QLK,\n"
+"#Frame_Function_QLK\n"
+"{\n"
+"    border-radius: 5px;\n"
+"    background-color: #c2efec;\n"
+"}\n"
+"\n"
+"#Frame_Title_QLBD,\n"
+"#Frame_Search_BD,\n"
+"#Frame_Listbox_BD,\n"
+"#Frame_Box_BD\n"
+"{\n"
+"    border-radius: 5px;\n"
+"    background-color: #c2efec;\n"
+"}\n"
+"\n"
+"#Frame_Title_TKD,\n"
+"#chon_nam_frame,\n"
+"#Frame_BieuDo\n"
+"{\n"
+"    border-radius: 5px;\n"
+"    background-color: #c2efec;\n"
+"}\n"
+"\n"
+"#Frame_Title_QLL,\n"
+"#Frame_Entry_QLL,\n"
+"#Frame_Listbox_QLL,\n"
+"#Frame_Function_QLL\n"
+"{\n"
+"    border-radius: 5px;\n"
+"    background-color: #c2efec;\n"
+"}\n"
+"\n"
+"#Frame_Title_QLTK,\n"
+"#Frame_Entry_QLTK,\n"
+"#Frame_Listbox_QLTK,\n"
+"#Frame_Function_QLTK\n"
+"{\n"
+"    border-radius: 5px;\n"
+"    background-color: #c2efec;\n"
+"}\n"
+"\n"
+"#Frame_Title_TTSV,\n"
+"#Frame_TTCN,\n"
+"#Frame_TTKH,\n"
+"#Frame_KQHT_TTSV,\n"
+"#frame_3\n"
+"{\n"
+"    border-radius: 5px;\n"
+"    background-color: #c2efec;\n"
+"}\n"
+"\n"
+"#Frame_Title_TTGV,\n"
+"#Frame_TTGD_TTGV,\n"
+"#Frame_TTCN_TTGV,\n"
+"#frame\n"
+"{\n"
+"    border-radius: 5px;\n"
+"    background-color: #c2efec;\n"
+"}")
         self.Frame_Display.setObjectName("Frame_Display")
         self.gridLayout_10 = QtWidgets.QGridLayout(self.Frame_Display)
         self.gridLayout_10.setContentsMargins(0, 0, 0, 0)
@@ -179,13 +256,13 @@ class Menu(object):
         self.Frame_QLTK.setObjectName("Frame_QLTK")
         self.gridLayout_137 = QtWidgets.QGridLayout(self.Frame_QLTK)
         self.gridLayout_137.setObjectName("gridLayout_137")
-        self.Frame_Title_QLL_3 = QtWidgets.QFrame(parent=self.Frame_QLTK)
-        self.Frame_Title_QLL_3.setFrameShape(QtWidgets.QFrame.Shape.StyledPanel)
-        self.Frame_Title_QLL_3.setFrameShadow(QtWidgets.QFrame.Shadow.Raised)
-        self.Frame_Title_QLL_3.setObjectName("Frame_Title_QLL_3")
-        self.gridLayout_131 = QtWidgets.QGridLayout(self.Frame_Title_QLL_3)
+        self.Frame_Title_QLTK = QtWidgets.QFrame(parent=self.Frame_QLTK)
+        self.Frame_Title_QLTK.setFrameShape(QtWidgets.QFrame.Shape.StyledPanel)
+        self.Frame_Title_QLTK.setFrameShadow(QtWidgets.QFrame.Shadow.Raised)
+        self.Frame_Title_QLTK.setObjectName("Frame_Title_QLTK")
+        self.gridLayout_131 = QtWidgets.QGridLayout(self.Frame_Title_QLTK)
         self.gridLayout_131.setObjectName("gridLayout_131")
-        self.label_48 = QtWidgets.QLabel(parent=self.Frame_Title_QLL_3)
+        self.label_48 = QtWidgets.QLabel(parent=self.Frame_Title_QLTK)
         font = QtGui.QFont()
         font.setFamily("Times New Roman")
         font.setPointSize(30)
@@ -193,37 +270,37 @@ class Menu(object):
         self.label_48.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.label_48.setObjectName("label_48")
         self.gridLayout_131.addWidget(self.label_48, 0, 0, 1, 1)
-        self.gridLayout_137.addWidget(self.Frame_Title_QLL_3, 0, 0, 1, 1)
-        self.Frame_Entry_QLL_3 = QtWidgets.QFrame(parent=self.Frame_QLTK)
-        self.Frame_Entry_QLL_3.setFrameShape(QtWidgets.QFrame.Shape.StyledPanel)
-        self.Frame_Entry_QLL_3.setFrameShadow(QtWidgets.QFrame.Shadow.Raised)
-        self.Frame_Entry_QLL_3.setObjectName("Frame_Entry_QLL_3")
-        self.gridLayout_132 = QtWidgets.QGridLayout(self.Frame_Entry_QLL_3)
+        self.gridLayout_137.addWidget(self.Frame_Title_QLTK, 0, 0, 1, 1)
+        self.Frame_Entry_QLTK = QtWidgets.QFrame(parent=self.Frame_QLTK)
+        self.Frame_Entry_QLTK.setFrameShape(QtWidgets.QFrame.Shape.StyledPanel)
+        self.Frame_Entry_QLTK.setFrameShadow(QtWidgets.QFrame.Shadow.Raised)
+        self.Frame_Entry_QLTK.setObjectName("Frame_Entry_QLTK")
+        self.gridLayout_132 = QtWidgets.QGridLayout(self.Frame_Entry_QLTK)
         self.gridLayout_132.setObjectName("gridLayout_132")
         self.gridLayout_133 = QtWidgets.QGridLayout()
         self.gridLayout_133.setObjectName("gridLayout_133")
         self.gridLayout_134 = QtWidgets.QGridLayout()
         self.gridLayout_134.setObjectName("gridLayout_134")
-        self.MaTK_Entry_QLTK = QtWidgets.QLineEdit(parent=self.Frame_Entry_QLL_3)
+        self.MaTK_Entry_QLTK = QtWidgets.QLineEdit(parent=self.Frame_Entry_QLTK)
         self.MaTK_Entry_QLTK.setObjectName("MaTK_Entry_QLTK")
         self.gridLayout_134.addWidget(self.MaTK_Entry_QLTK, 0, 2, 1, 1)
-        self.label_68 = QtWidgets.QLabel(parent=self.Frame_Entry_QLL_3)
+        self.label_68 = QtWidgets.QLabel(parent=self.Frame_Entry_QLTK)
         self.label_68.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.label_68.setObjectName("label_68")
         self.gridLayout_134.addWidget(self.label_68, 0, 0, 1, 1)
         self.gridLayout_133.addLayout(self.gridLayout_134, 0, 0, 1, 1)
         self.gridLayout_135 = QtWidgets.QGridLayout()
         self.gridLayout_135.setObjectName("gridLayout_135")
-        self.MatKhau_Entry_QLTK = QtWidgets.QLineEdit(parent=self.Frame_Entry_QLL_3)
+        self.MatKhau_Entry_QLTK = QtWidgets.QLineEdit(parent=self.Frame_Entry_QLTK)
         self.MatKhau_Entry_QLTK.setObjectName("MatKhau_Entry_QLTK")
         self.gridLayout_135.addWidget(self.MatKhau_Entry_QLTK, 0, 2, 1, 1)
-        self.label_147 = QtWidgets.QLabel(parent=self.Frame_Entry_QLL_3)
+        self.label_147 = QtWidgets.QLabel(parent=self.Frame_Entry_QLTK)
         self.label_147.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.label_147.setObjectName("label_147")
         self.gridLayout_135.addWidget(self.label_147, 0, 0, 1, 1)
         self.gridLayout_133.addLayout(self.gridLayout_135, 0, 1, 1, 1)
         self.gridLayout_132.addLayout(self.gridLayout_133, 0, 0, 1, 1)
-        self.gridLayout_137.addWidget(self.Frame_Entry_QLL_3, 1, 0, 1, 1)
+        self.gridLayout_137.addWidget(self.Frame_Entry_QLTK, 1, 0, 1, 1)
         self.Frame_Listbox_QLTK = QtWidgets.QFrame(parent=self.Frame_QLTK)
         self.Frame_Listbox_QLTK.setFrameShape(QtWidgets.QFrame.Shape.StyledPanel)
         self.Frame_Listbox_QLTK.setFrameShadow(QtWidgets.QFrame.Shadow.Raised)
@@ -242,30 +319,30 @@ class Menu(object):
         self.tableWidget_QLTK.horizontalHeader().setDefaultSectionSize(200)
         self.gridLayout_136.addWidget(self.tableWidget_QLTK, 0, 0, 1, 1)
         self.gridLayout_137.addWidget(self.Frame_Listbox_QLTK, 2, 0, 1, 1)
-        self.Frame_Function_QLL_3 = QtWidgets.QFrame(parent=self.Frame_QLTK)
-        self.Frame_Function_QLL_3.setFrameShape(QtWidgets.QFrame.Shape.StyledPanel)
-        self.Frame_Function_QLL_3.setFrameShadow(QtWidgets.QFrame.Shadow.Raised)
-        self.Frame_Function_QLL_3.setObjectName("Frame_Function_QLL_3")
-        self.horizontalLayout_16 = QtWidgets.QHBoxLayout(self.Frame_Function_QLL_3)
+        self.Frame_Function_QLTK = QtWidgets.QFrame(parent=self.Frame_QLTK)
+        self.Frame_Function_QLTK.setFrameShape(QtWidgets.QFrame.Shape.StyledPanel)
+        self.Frame_Function_QLTK.setFrameShadow(QtWidgets.QFrame.Shadow.Raised)
+        self.Frame_Function_QLTK.setObjectName("Frame_Function_QLTK")
+        self.horizontalLayout_16 = QtWidgets.QHBoxLayout(self.Frame_Function_QLTK)
         self.horizontalLayout_16.setObjectName("horizontalLayout_16")
-        self.AddBtn_QLTK = QtWidgets.QPushButton(parent=self.Frame_Function_QLL_3)
+        self.AddBtn_QLTK = QtWidgets.QPushButton(parent=self.Frame_Function_QLTK)
         self.AddBtn_QLTK.setObjectName("AddBtn_QLTK")
         self.horizontalLayout_16.addWidget(self.AddBtn_QLTK)
-        self.UpdateBtn_QLTK = QtWidgets.QPushButton(parent=self.Frame_Function_QLL_3)
+        self.UpdateBtn_QLTK = QtWidgets.QPushButton(parent=self.Frame_Function_QLTK)
         self.UpdateBtn_QLTK.setObjectName("UpdateBtn_QLTK")
         self.horizontalLayout_16.addWidget(self.UpdateBtn_QLTK)
-        self.DelBtn_QLTK = QtWidgets.QPushButton(parent=self.Frame_Function_QLL_3)
+        self.DelBtn_QLTK = QtWidgets.QPushButton(parent=self.Frame_Function_QLTK)
         self.DelBtn_QLTK.setObjectName("DelBtn_QLTK")
         self.horizontalLayout_16.addWidget(self.DelBtn_QLTK)
-        self.ExitBtn_QLTK = QtWidgets.QPushButton(parent=self.Frame_Function_QLL_3)
+        self.ExitBtn_QLTK = QtWidgets.QPushButton(parent=self.Frame_Function_QLTK)
         self.ExitBtn_QLTK.setObjectName("ExitBtn_QLTK")
         self.horizontalLayout_16.addWidget(self.ExitBtn_QLTK)
-        self.gridLayout_137.addWidget(self.Frame_Function_QLL_3, 3, 0, 1, 1)
+        self.gridLayout_137.addWidget(self.Frame_Function_QLTK, 3, 0, 1, 1)
         self.Frame_Admin.addWidget(self.Frame_QLTK)
         self.Frame_TTSV = QtWidgets.QWidget()
         self.Frame_TTSV.setObjectName("Frame_TTSV")
         self.Frame_Title_TTSV = QtWidgets.QFrame(parent=self.Frame_TTSV)
-        self.Frame_Title_TTSV.setGeometry(QtCore.QRect(10, 5, 1061, 71))
+        self.Frame_Title_TTSV.setGeometry(QtCore.QRect(10, 5, 1051, 71))
         self.Frame_Title_TTSV.setFrameShape(QtWidgets.QFrame.Shape.StyledPanel)
         self.Frame_Title_TTSV.setFrameShadow(QtWidgets.QFrame.Shadow.Raised)
         self.Frame_Title_TTSV.setObjectName("Frame_Title_TTSV")
@@ -883,13 +960,13 @@ class Menu(object):
         self.Frame_NhapDiem.setObjectName("Frame_NhapDiem")
         self.gridLayout_37 = QtWidgets.QGridLayout(self.Frame_NhapDiem)
         self.gridLayout_37.setObjectName("gridLayout_37")
-        self.Frame_Title_QLK_2 = QtWidgets.QFrame(parent=self.Frame_NhapDiem)
-        self.Frame_Title_QLK_2.setFrameShape(QtWidgets.QFrame.Shape.StyledPanel)
-        self.Frame_Title_QLK_2.setFrameShadow(QtWidgets.QFrame.Shadow.Raised)
-        self.Frame_Title_QLK_2.setObjectName("Frame_Title_QLK_2")
-        self.gridLayout_53 = QtWidgets.QGridLayout(self.Frame_Title_QLK_2)
+        self.Frame_Title_QLD = QtWidgets.QFrame(parent=self.Frame_NhapDiem)
+        self.Frame_Title_QLD.setFrameShape(QtWidgets.QFrame.Shape.StyledPanel)
+        self.Frame_Title_QLD.setFrameShadow(QtWidgets.QFrame.Shadow.Raised)
+        self.Frame_Title_QLD.setObjectName("Frame_Title_QLD")
+        self.gridLayout_53 = QtWidgets.QGridLayout(self.Frame_Title_QLD)
         self.gridLayout_53.setObjectName("gridLayout_53")
-        self.label_57 = QtWidgets.QLabel(parent=self.Frame_Title_QLK_2)
+        self.label_57 = QtWidgets.QLabel(parent=self.Frame_Title_QLD)
         font = QtGui.QFont()
         font.setFamily("Times New Roman")
         font.setPointSize(30)
@@ -897,7 +974,7 @@ class Menu(object):
         self.label_57.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.label_57.setObjectName("label_57")
         self.gridLayout_53.addWidget(self.label_57, 0, 0, 1, 1)
-        self.gridLayout_37.addWidget(self.Frame_Title_QLK_2, 0, 0, 1, 1)
+        self.gridLayout_37.addWidget(self.Frame_Title_QLD, 0, 0, 1, 1)
         self.Frame_Entry_QLD = QtWidgets.QFrame(parent=self.Frame_NhapDiem)
         self.Frame_Entry_QLD.setFrameShape(QtWidgets.QFrame.Shape.StyledPanel)
         self.Frame_Entry_QLD.setFrameShadow(QtWidgets.QFrame.Shadow.Raised)
@@ -1046,22 +1123,22 @@ class Menu(object):
         self.tableWidget_QLD.horizontalHeader().setDefaultSectionSize(85)
         self.gridLayout_13.addWidget(self.tableWidget_QLD, 0, 0, 1, 1)
         self.gridLayout_37.addWidget(self.Frame_Listbox_QLD, 2, 0, 1, 1)
-        self.Frame_Function_QLK_2 = QtWidgets.QFrame(parent=self.Frame_NhapDiem)
-        self.Frame_Function_QLK_2.setFrameShape(QtWidgets.QFrame.Shape.StyledPanel)
-        self.Frame_Function_QLK_2.setFrameShadow(QtWidgets.QFrame.Shadow.Raised)
-        self.Frame_Function_QLK_2.setObjectName("Frame_Function_QLK_2")
-        self.horizontalLayout_11 = QtWidgets.QHBoxLayout(self.Frame_Function_QLK_2)
+        self.Frame_Function_QLD = QtWidgets.QFrame(parent=self.Frame_NhapDiem)
+        self.Frame_Function_QLD.setFrameShape(QtWidgets.QFrame.Shape.StyledPanel)
+        self.Frame_Function_QLD.setFrameShadow(QtWidgets.QFrame.Shadow.Raised)
+        self.Frame_Function_QLD.setObjectName("Frame_Function_QLD")
+        self.horizontalLayout_11 = QtWidgets.QHBoxLayout(self.Frame_Function_QLD)
         self.horizontalLayout_11.setObjectName("horizontalLayout_11")
-        self.SearchBtn_QLD = QtWidgets.QPushButton(parent=self.Frame_Function_QLK_2)
+        self.SearchBtn_QLD = QtWidgets.QPushButton(parent=self.Frame_Function_QLD)
         self.SearchBtn_QLD.setObjectName("SearchBtn_QLD")
         self.horizontalLayout_11.addWidget(self.SearchBtn_QLD)
-        self.UpdateBtn_QLD = QtWidgets.QPushButton(parent=self.Frame_Function_QLK_2)
+        self.UpdateBtn_QLD = QtWidgets.QPushButton(parent=self.Frame_Function_QLD)
         self.UpdateBtn_QLD.setObjectName("UpdateBtn_QLD")
         self.horizontalLayout_11.addWidget(self.UpdateBtn_QLD)
-        self.ExitBtn_QLD = QtWidgets.QPushButton(parent=self.Frame_Function_QLK_2)
+        self.ExitBtn_QLD = QtWidgets.QPushButton(parent=self.Frame_Function_QLD)
         self.ExitBtn_QLD.setObjectName("ExitBtn_QLD")
         self.horizontalLayout_11.addWidget(self.ExitBtn_QLD)
-        self.gridLayout_37.addWidget(self.Frame_Function_QLK_2, 3, 0, 1, 1)
+        self.gridLayout_37.addWidget(self.Frame_Function_QLD, 3, 0, 1, 1)
         self.Frame_Admin.addWidget(self.Frame_NhapDiem)
         self.Frame_QLK = QtWidgets.QWidget()
         self.Frame_QLK.setObjectName("Frame_QLK")
@@ -1279,7 +1356,7 @@ class Menu(object):
         self.Frame_BangDiem = QtWidgets.QWidget()
         self.Frame_BangDiem.setObjectName("Frame_BangDiem")
         self.Frame_Title_QLBD = QtWidgets.QFrame(parent=self.Frame_BangDiem)
-        self.Frame_Title_QLBD.setGeometry(QtCore.QRect(10, 10, 1055, 66))
+        self.Frame_Title_QLBD.setGeometry(QtCore.QRect(10, 10, 1055, 61))
         self.Frame_Title_QLBD.setFrameShape(QtWidgets.QFrame.Shape.StyledPanel)
         self.Frame_Title_QLBD.setFrameShadow(QtWidgets.QFrame.Shadow.Raised)
         self.Frame_Title_QLBD.setObjectName("Frame_Title_QLBD")
@@ -1408,6 +1485,7 @@ class Menu(object):
         self.Frame_ThongKeDiem.setObjectName("Frame_ThongKeDiem")
         self.Frame_Title_TKD = QtWidgets.QFrame(parent=self.Frame_ThongKeDiem)
         self.Frame_Title_TKD.setGeometry(QtCore.QRect(10, 10, 1051, 61))
+        self.Frame_Title_TKD.setStyleSheet("")
         self.Frame_Title_TKD.setFrameShape(QtWidgets.QFrame.Shape.StyledPanel)
         self.Frame_Title_TKD.setFrameShadow(QtWidgets.QFrame.Shadow.Raised)
         self.Frame_Title_TKD.setObjectName("Frame_Title_TKD")
@@ -1420,16 +1498,13 @@ class Menu(object):
         self.title_lbl.setObjectName("title_lbl")
         self.Frame_BieuDo = QtWidgets.QFrame(parent=self.Frame_ThongKeDiem)
         self.Frame_BieuDo.setGeometry(QtCore.QRect(10, 140, 1051, 501))
+        self.Frame_BieuDo.setStyleSheet("")
         self.Frame_BieuDo.setFrameShape(QtWidgets.QFrame.Shape.StyledPanel)
         self.Frame_BieuDo.setFrameShadow(QtWidgets.QFrame.Shadow.Raised)
         self.Frame_BieuDo.setObjectName("Frame_BieuDo")
         self.chon_nam_frame = QtWidgets.QFrame(parent=self.Frame_ThongKeDiem)
         self.chon_nam_frame.setGeometry(QtCore.QRect(10, 80, 371, 50))
-        self.chon_nam_frame.setStyleSheet("#chon_name_frame{\n"
-"    background-color: #fff;\n"
-"    border: none;\n"
-"    border-radius: 5px;\n"
-"}")
+        self.chon_nam_frame.setStyleSheet("")
         self.chon_nam_frame.setFrameShape(QtWidgets.QFrame.Shape.StyledPanel)
         self.chon_nam_frame.setFrameShadow(QtWidgets.QFrame.Shadow.Raised)
         self.chon_nam_frame.setObjectName("chon_nam_frame")
@@ -1467,6 +1542,7 @@ class Menu(object):
         self.gridLayout_24 = QtWidgets.QGridLayout(self.Frame_QLL)
         self.gridLayout_24.setObjectName("gridLayout_24")
         self.Frame_Title_QLL = QtWidgets.QFrame(parent=self.Frame_QLL)
+        self.Frame_Title_QLL.setStyleSheet("")
         self.Frame_Title_QLL.setFrameShape(QtWidgets.QFrame.Shape.StyledPanel)
         self.Frame_Title_QLL.setFrameShadow(QtWidgets.QFrame.Shadow.Raised)
         self.Frame_Title_QLL.setObjectName("Frame_Title_QLL")
@@ -1482,6 +1558,7 @@ class Menu(object):
         self.gridLayout_17.addWidget(self.label_22, 0, 0, 1, 1)
         self.gridLayout_24.addWidget(self.Frame_Title_QLL, 0, 0, 1, 1)
         self.Frame_Entry_QLL = QtWidgets.QFrame(parent=self.Frame_QLL)
+        self.Frame_Entry_QLL.setStyleSheet("")
         self.Frame_Entry_QLL.setFrameShape(QtWidgets.QFrame.Shape.StyledPanel)
         self.Frame_Entry_QLL.setFrameShadow(QtWidgets.QFrame.Shadow.Raised)
         self.Frame_Entry_QLL.setObjectName("Frame_Entry_QLL")
@@ -1532,6 +1609,7 @@ class Menu(object):
         self.gridLayout_18.addLayout(self.gridLayout_19, 0, 0, 1, 1)
         self.gridLayout_24.addWidget(self.Frame_Entry_QLL, 1, 0, 1, 1)
         self.Frame_Listbox_QLL = QtWidgets.QFrame(parent=self.Frame_QLL)
+        self.Frame_Listbox_QLL.setStyleSheet("")
         self.Frame_Listbox_QLL.setFrameShape(QtWidgets.QFrame.Shape.StyledPanel)
         self.Frame_Listbox_QLL.setFrameShadow(QtWidgets.QFrame.Shadow.Raised)
         self.Frame_Listbox_QLL.setObjectName("Frame_Listbox_QLL")
@@ -1556,6 +1634,7 @@ class Menu(object):
         self.gridLayout_22.addWidget(self.tableWidget_QLL, 0, 0, 1, 1)
         self.gridLayout_24.addWidget(self.Frame_Listbox_QLL, 2, 0, 1, 1)
         self.Frame_Function_QLL = QtWidgets.QFrame(parent=self.Frame_QLL)
+        self.Frame_Function_QLL.setStyleSheet("")
         self.Frame_Function_QLL.setFrameShape(QtWidgets.QFrame.Shape.StyledPanel)
         self.Frame_Function_QLL.setFrameShadow(QtWidgets.QFrame.Shadow.Raised)
         self.Frame_Function_QLL.setObjectName("Frame_Function_QLL")

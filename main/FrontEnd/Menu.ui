@@ -14,9 +14,7 @@
    <string>Form</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">#Frame_Title, #Frame_Entry, #Frame_Listbox, #Frame_Function{
-background-color: pink;
-}</string>
+   <string notr="true"/>
   </property>
   <widget class="QWidget" name="Menu_Frame" native="true">
    <property name="geometry">
@@ -29,7 +27,8 @@ background-color: pink;
    </property>
    <property name="styleSheet">
     <string notr="true">#Menu_Frame{
-background-color: cyan;
+	border-radius: 5px;
+	background-color: #f9cfcf;
 }</string>
    </property>
    <layout class="QGridLayout" name="gridLayout_2">
@@ -301,35 +300,113 @@ background-color: cyan;
     <string notr="true">#Frame_QLGV, #Frame_QLL, #Frame_QLSV, #Frame_QLMH, 
 #Frame_QLK, #Frame_NhapDiem, #ThongKe_Diem, #Frame_TTSV, 
 #Frame_TTGV,#Frame_ThongKeDiem, #Frame_QLTK, #Frame_BangDiem,
-#Frame_Init
+#Frame_Init, 
+#chon_nam_frame, #Thongke_frame,
+#Bieudo_frame
+#diemtop_bot_frame
 {
-background-color: yellow;
-}
-
-#Thongke_frame{
-	border-radius: 10px;
-	border:none;
-	background-color:#fff;
-}
-
-#chon_nam_frame{
-	background-color: #fff;
-	border: none;
 	border-radius: 5px;
+	background-color: #e1e1e1;
 }
 
-#Bieudo_frame{
-	background-color: #fff;
-	border:none;
-	border-radius: 10px;
-}
-
-#diemtop_bot_frame{
-	background-color: #fff;
-	border: none;
+#Frame_Title_QLGV,
+#Frame_Entry_QLGV,
+#Frame_Listbox_QLGV,
+#Frame_Function_QLGV
+{
 	border-radius: 5px;
+	background-color: #c2efec;
 }
-</string>
+
+#Frame_Title_QLSV,
+#Frame_Entry_QLSV,
+#Frame_Listbox_QLSV,
+#Frame_Function_QLSV
+{
+	border-radius: 5px;
+	background-color: #c2efec;
+}
+
+#Frame_Title_QLMH,
+#Frame_Entry_QLMH,
+#Frame_Listbox_QLMH,
+#Frame_Function_QLMH
+{
+	border-radius: 5px;
+	background-color: #c2efec;
+}
+
+#Frame_Title_QLD,
+#Frame_Entry_QLD,
+#Frame_Listbox_QLD,
+#Frame_Function_QLD
+{
+	border-radius: 5px;
+	background-color: #c2efec;
+}
+
+#Frame_Title_QLK,
+#Frame_Entry_QLK,
+#Frame_Listbox_QLK,
+#Frame_Function_QLK
+{
+	border-radius: 5px;
+	background-color: #c2efec;
+}
+
+#Frame_Title_QLBD,
+#Frame_Search_BD,
+#Frame_Listbox_BD,
+#Frame_Box_BD
+{
+	border-radius: 5px;
+	background-color: #c2efec;
+}
+
+#Frame_Title_TKD,
+#chon_nam_frame,
+#Frame_BieuDo
+{
+	border-radius: 5px;
+	background-color: #c2efec;
+}
+
+#Frame_Title_QLL,
+#Frame_Entry_QLL,
+#Frame_Listbox_QLL,
+#Frame_Function_QLL
+{
+	border-radius: 5px;
+	background-color: #c2efec;
+}
+
+#Frame_Title_QLTK,
+#Frame_Entry_QLTK,
+#Frame_Listbox_QLTK,
+#Frame_Function_QLTK
+{
+	border-radius: 5px;
+	background-color: #c2efec;
+}
+
+#Frame_Title_TTSV,
+#Frame_TTCN,
+#Frame_TTKH,
+#Frame_KQHT_TTSV,
+#frame_3
+{
+	border-radius: 5px;
+	background-color: #c2efec;
+}
+
+#Frame_Title_TTGV,
+#Frame_TTGD_TTGV,
+#Frame_TTCN_TTGV,
+#frame
+{
+	border-radius: 5px;
+	background-color: #c2efec;
+}</string>
    </property>
    <layout class="QGridLayout" name="gridLayout_10">
     <item row="0" column="0">
@@ -340,7 +417,7 @@ background-color: yellow;
       <widget class="QWidget" name="Frame_QLTK">
        <layout class="QGridLayout" name="gridLayout_137">
         <item row="0" column="0">
-         <widget class="QFrame" name="Frame_Title_QLL_3">
+         <widget class="QFrame" name="Frame_Title_QLTK">
           <property name="frameShape">
            <enum>QFrame::StyledPanel</enum>
           </property>
@@ -368,7 +445,7 @@ background-color: yellow;
          </widget>
         </item>
         <item row="1" column="0">
-         <widget class="QFrame" name="Frame_Entry_QLL_3">
+         <widget class="QFrame" name="Frame_Entry_QLTK">
           <property name="frameShape">
            <enum>QFrame::StyledPanel</enum>
           </property>
@@ -453,7 +530,7 @@ background-color: yellow;
          </widget>
         </item>
         <item row="3" column="0">
-         <widget class="QFrame" name="Frame_Function_QLL_3">
+         <widget class="QFrame" name="Frame_Function_QLTK">
           <property name="frameShape">
            <enum>QFrame::StyledPanel</enum>
           </property>
@@ -500,7 +577,7 @@ background-color: yellow;
          <rect>
           <x>10</x>
           <y>5</y>
-          <width>1061</width>
+          <width>1051</width>
           <height>71</height>
          </rect>
         </property>
@@ -1772,7 +1849,7 @@ background-color: yellow;
       <widget class="QWidget" name="Frame_NhapDiem">
        <layout class="QGridLayout" name="gridLayout_37">
         <item row="0" column="0">
-         <widget class="QFrame" name="Frame_Title_QLK_2">
+         <widget class="QFrame" name="Frame_Title_QLD">
           <property name="frameShape">
            <enum>QFrame::StyledPanel</enum>
           </property>
@@ -2108,7 +2185,7 @@ background-color: yellow;
          </widget>
         </item>
         <item row="3" column="0">
-         <widget class="QFrame" name="Frame_Function_QLK_2">
+         <widget class="QFrame" name="Frame_Function_QLD">
           <property name="frameShape">
            <enum>QFrame::StyledPanel</enum>
           </property>
@@ -2535,7 +2612,7 @@ background-color: yellow;
           <x>10</x>
           <y>10</y>
           <width>1055</width>
-          <height>66</height>
+          <height>61</height>
          </rect>
         </property>
         <property name="frameShape">
@@ -2842,6 +2919,9 @@ background-color: yellow;
           <height>61</height>
          </rect>
         </property>
+        <property name="styleSheet">
+         <string notr="true"/>
+        </property>
         <property name="frameShape">
          <enum>QFrame::StyledPanel</enum>
         </property>
@@ -2879,6 +2959,9 @@ background-color: yellow;
           <height>501</height>
          </rect>
         </property>
+        <property name="styleSheet">
+         <string notr="true"/>
+        </property>
         <property name="frameShape">
          <enum>QFrame::StyledPanel</enum>
         </property>
@@ -2896,11 +2979,7 @@ background-color: yellow;
          </rect>
         </property>
         <property name="styleSheet">
-         <string notr="true">#chon_name_frame{
-	background-color: #fff;
-	border: none;
-	border-radius: 5px;
-}</string>
+         <string notr="true"/>
         </property>
         <property name="frameShape">
          <enum>QFrame::StyledPanel</enum>
@@ -2969,6 +3048,9 @@ background-color: yellow;
        <layout class="QGridLayout" name="gridLayout_24">
         <item row="0" column="0">
          <widget class="QFrame" name="Frame_Title_QLL">
+          <property name="styleSheet">
+           <string notr="true"/>
+          </property>
           <property name="frameShape">
            <enum>QFrame::StyledPanel</enum>
           </property>
@@ -2997,6 +3079,9 @@ background-color: yellow;
         </item>
         <item row="1" column="0">
          <widget class="QFrame" name="Frame_Entry_QLL">
+          <property name="styleSheet">
+           <string notr="true"/>
+          </property>
           <property name="frameShape">
            <enum>QFrame::StyledPanel</enum>
           </property>
@@ -3083,6 +3168,9 @@ background-color: yellow;
         </item>
         <item row="2" column="0">
          <widget class="QFrame" name="Frame_Listbox_QLL">
+          <property name="styleSheet">
+           <string notr="true"/>
+          </property>
           <property name="frameShape">
            <enum>QFrame::StyledPanel</enum>
           </property>
@@ -3133,6 +3221,9 @@ background-color: yellow;
         </item>
         <item row="3" column="0">
          <widget class="QFrame" name="Frame_Function_QLL">
+          <property name="styleSheet">
+           <string notr="true"/>
+          </property>
           <property name="frameShape">
            <enum>QFrame::StyledPanel</enum>
           </property>

@@ -14,11 +14,11 @@ class Login(object):
         Form.setObjectName("Form")
         Form.resize(1280, 720)
         Form.setStyleSheet("#Title_Login {\n"
-"    background-color: cyan;\n"
+"    background-color: #c2efec;\n"
 "}\n"
 "\n"
 "#Main_Login {\n"
-"    background-color: grey;\n"
+"    background-color: #f9cfcf;\n"
 "}\n"
 "")
         self.frame = QtWidgets.QFrame(parent=Form)
