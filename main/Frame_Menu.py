@@ -201,9 +201,9 @@ class Window_Menu(QWidget):
         ## TKD 
         self.search_btn_TKD.clicked.connect(self.on_search_button_clicked)
         ## NHAPDIEM
-        self.search_btn_QLD.clicked.connect(self.search_info_QLD)
+        self.search_btn_QLD.clicked.connect(lambda: self.search_info_QLD(self.user))
         # self.search_btn_QLD.clicked.connect(self.get_info_bangdiem_QLD)
-        self.update_btn_QLD.clicked.connect(self.update_info_chitietbangdiem_QLD(self.user))
+        self.update_btn_QLD.clicked.connect(lambda: self.update_info_chitietbangdiem_QLD(self.user))
     #############################################################################
     ## DIS TK
     def disable_buttons_QLTK(self):
@@ -280,7 +280,6 @@ class Window_Menu(QWidget):
         elif user_id == check_gv:
             self.UI.GVBtn.clicked.connect(lambda: self.toggleDropDown(self.UI.SubFrame_GVBtn))
             self.show_gv_info(user_id)
-            self.search_info_QLD(user_id)
         else:
             QMessageBox.information(self, "Cảnh báo", "Tài khoản bị khóa hoặc không tồn tại", QMessageBox.StandardButton.Ok)
     ############################################################################
@@ -1766,8 +1765,8 @@ class Window_Menu(QWidget):
     def search_info_QLD(self, user_id):
         nhapdiem_info = self.get_nhapdiem_info()
 
-        search_result = self.DB.search_info_ctdb_nhapdiem(
-            magvtk=user_id, #user_id
+        search_result = self.DB.search_info_ctbd_nhapdiem(
+            magvtk=user_id,
             mamhtk= nhapdiem_info["MAMH"],
             manhomtk= nhapdiem_info["MANHOM"],
             masvtk= nhapdiem_info["MASV"],

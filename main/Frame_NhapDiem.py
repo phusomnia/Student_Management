@@ -12,7 +12,7 @@ class Window_Menu(QWidget):
 
         self.DB = ConnectDB()
 
-        # NHAP DIEM ĐạtA
+        # NHAP DIEM
         self.MaMon_QLD = self.UI.MaMH_Entry_QLD
         self.MaNhom_QLD = self.UI.MaNhom_Entry_QLD
         self.MaSV_QLD = self.UI.MaSV_Entry_QLD
@@ -76,12 +76,10 @@ class Window_Menu(QWidget):
                     diemtb_he4 = 1.0
                     xeploai = 'D'
                     tinhtrang = 'Đạt'
-                    danhgia = ''
                 else:
                     diemtb_he4 = 0.0
                     xeploai = 'F'
                     tinhtrang = 'Trượt'
-                    danhgia = 'NULL'
                 print(diem_qt, diem_thi, heso_qt, heso_thi, diemtb_he10, xeploai, tinhtrang)
                 
                 result_bangdiem = self.get_info_bangdiem_QLD()
