@@ -5,13 +5,12 @@ from FrontEnd.Form_Login import Login
 from Backend.Connection_Database import ConnectDB
 from Frame_Menu import Window_Menu
 
-
 class LoginWindow(QWidget):
     def __init__(self):
         super(LoginWindow, self).__init__()
         self.UI = Login()
         self.UI.setupLogin(self)
-        
+
         self.DB = ConnectDB()
         #############################################################################
         self.UI.LoginBtn.clicked.connect(self.on_loginBtn_clicked)
@@ -32,27 +31,23 @@ class LoginWindow(QWidget):
                     main_window.show()
                     self.close()
                 else:
-                    QMessageBox.information(self, "Cảnh báo", "Mật khẩu sai, vui lòng nhập lại!",
-                                            QMessageBox.StandardButton.Ok)
+                    QMessageBox.information(self, "Cảnh báo", "Mật khẩu sai, vui lòng nhập lại!", QMessageBox.StandardButton.Ok)
                     self.UI.MatKhau_Entry_Login.clear()
             else:
-                QMessageBox.information(self, "Cảnh báo", "Tài khoản sai, vui lòng nhập lại!",
-                                        QMessageBox.StandardButton.Ok)
+                QMessageBox.information(self, "Cảnh báo", "Tài khoản sai, vui lòng nhập lại!", QMessageBox.StandardButton.Ok)
                 self.UI.TaiKhoan_Entry_Login.clear()
                 self.UI.MatKhau_Entry_Login.clear()
         else:
-            QMessageBox.information(self, "Cảnh báo", "Vui lòng nhập tài khoản và mật khẩu",
-                                    QMessageBox.StandardButton.Ok)
-
+            QMessageBox.information(self, "Cảnh báo", "Vui lòng nhập tài khoản và mật khẩu", QMessageBox.StandardButton.Ok)
     #############################################################################
     def on_exitBtn_clicked(self):
-        reply = QMessageBox.question(self, "Thoát", "Bạn có muốn thoát không?",
-                                     QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No)
+        reply = QMessageBox.question(self, "Thoát", "Bạn có muốn thoát không?", QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No)
         if reply == QMessageBox.StandardButton.Yes:
             self.close()
 
 if __name__ == "__main__":
-    APP = QApplication([])
+    APP  = QApplication([])
     WINDOW = LoginWindow()
     WINDOW.show()
     APP.exec()
+ 

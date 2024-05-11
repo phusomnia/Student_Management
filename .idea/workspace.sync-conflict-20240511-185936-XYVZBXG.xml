@@ -5,12 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6d53c9f6-2d1e-4a51-9429-4da7a71bf308" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/Student-Management.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Student-Management.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main/Frame_Login.py" beforeDir="false" afterPath="$PROJECT_DIR$/main/Frame_Login.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main/FrontEnd/Form_Login.py" beforeDir="false" afterPath="$PROJECT_DIR$/main/FrontEnd/Form_Login.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main/FrontEnd/Login.ui" beforeDir="false" afterPath="$PROJECT_DIR$/main/FrontEnd/Login.ui" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/Backend/Connection_Database.py" beforeDir="false" afterPath="$PROJECT_DIR$/main/Backend/Connection_Database.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/Frame_TTSV.py" beforeDir="false" afterPath="$PROJECT_DIR$/main/Frame_TTSV.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/FrontEnd/Menu.ui" beforeDir="false" afterPath="$PROJECT_DIR$/main/FrontEnd/Menu.ui" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,11 +28,10 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "Python.Frame_Login.executor": "Run",
     "Python.window.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "main",
-    "last_opened_file_path": "G:/OpenCV",
+    "last_opened_file_path": "D:/Storage/clone/search",
     "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
   }
 }]]></component>

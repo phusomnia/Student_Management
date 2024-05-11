@@ -12,7 +12,7 @@ from PyQt6 import QtCore, QtGui, QtWidgets
 class Menu(object):
     def setupMenu(self, Form):
         Form.setObjectName("Form")
-        Form.resize(1280, 720)
+        Form.resize(1302, 720)
         Form.setStyleSheet("")
         self.Menu_Frame = QtWidgets.QWidget(parent=Form)
         self.Menu_Frame.setGeometry(QtCore.QRect(9, 9, 165, 691))
@@ -135,14 +135,15 @@ class Menu(object):
         self.gridLayout.addWidget(self.pushButton_7, 5, 0, 1, 1)
         self.gridLayout_2.addLayout(self.gridLayout, 0, 0, 1, 1)
         self.Frame_Display = QtWidgets.QWidget(parent=Form)
-        self.Frame_Display.setGeometry(QtCore.QRect(180, 9, 1091, 691))
+        self.Frame_Display.setGeometry(QtCore.QRect(180, 9, 1111, 691))
         self.Frame_Display.setStyleSheet("#Frame_QLGV, #Frame_QLL, #Frame_QLSV, #Frame_QLMH, \n"
 "#Frame_QLK, #Frame_NhapDiem, #ThongKe_Diem, #Frame_TTSV, \n"
 "#Frame_TTGV,#Frame_ThongKeDiem, #Frame_QLTK, #Frame_BangDiem,\n"
 "#Frame_Init, \n"
 "#chon_nam_frame, #Thongke_frame,\n"
-"#Bieudo_frame\n"
-"#diemtop_bot_frame\n"
+"#Bieudo_frame,\n"
+"#diemtop_bot_frame,\n"
+"#Frame_BaoCao\n"
 "{\n"
 "    border-radius: 5px;\n"
 "    background-color: #e1e1e1;\n"
@@ -231,8 +232,7 @@ class Menu(object):
 "#Frame_Title_TTSV,\n"
 "#Frame_TTCN,\n"
 "#Frame_TTKH,\n"
-"#Frame_KQHT_TTSV,\n"
-"#frame_3\n"
+"#Frame_KQHT_TTSV\n"
 "{\n"
 "    border-radius: 5px;\n"
 "    background-color: #c2efec;\n"
@@ -245,7 +245,15 @@ class Menu(object):
 "{\n"
 "    border-radius: 5px;\n"
 "    background-color: #c2efec;\n"
-"}")
+"}\n"
+"#Frame_Title_BaoCao,\n"
+"#Frame_BaoCaoEntry,\n"
+"#Frame_Function_BaoCao\n"
+"{\n"
+"    border-radius: 5px;\n"
+"    background-color: #c2efec;\n"
+"}\n"
+"")
         self.Frame_Display.setObjectName("Frame_Display")
         self.gridLayout_10 = QtWidgets.QGridLayout(self.Frame_Display)
         self.gridLayout_10.setContentsMargins(0, 0, 0, 0)
@@ -342,7 +350,7 @@ class Menu(object):
         self.Frame_TTSV = QtWidgets.QWidget()
         self.Frame_TTSV.setObjectName("Frame_TTSV")
         self.Frame_Title_TTSV = QtWidgets.QFrame(parent=self.Frame_TTSV)
-        self.Frame_Title_TTSV.setGeometry(QtCore.QRect(10, 5, 1051, 71))
+        self.Frame_Title_TTSV.setGeometry(QtCore.QRect(10, 10, 1071, 61))
         self.Frame_Title_TTSV.setFrameShape(QtWidgets.QFrame.Shape.StyledPanel)
         self.Frame_Title_TTSV.setFrameShadow(QtWidgets.QFrame.Shadow.Raised)
         self.Frame_Title_TTSV.setObjectName("Frame_Title_TTSV")
@@ -461,7 +469,7 @@ class Menu(object):
         self.DiaChi_Entry_TTSV.setObjectName("DiaChi_Entry_TTSV")
         self.gridLayout_58.addWidget(self.DiaChi_Entry_TTSV, 5, 0, 1, 1)
         self.Frame_TTKH = QtWidgets.QFrame(parent=self.Frame_TTSV)
-        self.Frame_TTKH.setGeometry(QtCore.QRect(520, 80, 541, 231))
+        self.Frame_TTKH.setGeometry(QtCore.QRect(520, 80, 561, 231))
         self.Frame_TTKH.setFrameShape(QtWidgets.QFrame.Shape.StyledPanel)
         self.Frame_TTKH.setFrameShadow(QtWidgets.QFrame.Shadow.Raised)
         self.Frame_TTKH.setObjectName("Frame_TTKH")
@@ -536,7 +544,7 @@ class Menu(object):
         self.HDT_Entry_TTSV.setObjectName("HDT_Entry_TTSV")
         self.gridLayout_43.addWidget(self.HDT_Entry_TTSV, 3, 0, 1, 1)
         self.Frame_KQHT_TTSV = QtWidgets.QFrame(parent=self.Frame_TTSV)
-        self.Frame_KQHT_TTSV.setGeometry(QtCore.QRect(10, 320, 1051, 291))
+        self.Frame_KQHT_TTSV.setGeometry(QtCore.QRect(10, 320, 1071, 341))
         self.Frame_KQHT_TTSV.setFrameShape(QtWidgets.QFrame.Shape.StyledPanel)
         self.Frame_KQHT_TTSV.setFrameShadow(QtWidgets.QFrame.Shadow.Raised)
         self.Frame_KQHT_TTSV.setObjectName("Frame_KQHT_TTSV")
@@ -547,21 +555,11 @@ class Menu(object):
         self.label_69.setFont(font)
         self.label_69.setObjectName("label_69")
         self.verticalLayoutWidget = QtWidgets.QWidget(parent=self.Frame_KQHT_TTSV)
-        self.verticalLayoutWidget.setGeometry(QtCore.QRect(10, 30, 1031, 251))
+        self.verticalLayoutWidget.setGeometry(QtCore.QRect(10, 30, 1051, 301))
         self.verticalLayoutWidget.setObjectName("verticalLayoutWidget")
         self.Frame_BieuDo_TTSV = QtWidgets.QVBoxLayout(self.verticalLayoutWidget)
         self.Frame_BieuDo_TTSV.setContentsMargins(0, 0, 0, 0)
         self.Frame_BieuDo_TTSV.setObjectName("Frame_BieuDo_TTSV")
-        self.frame_3 = QtWidgets.QFrame(parent=self.Frame_TTSV)
-        self.frame_3.setGeometry(QtCore.QRect(940, 620, 121, 41))
-        self.frame_3.setFrameShape(QtWidgets.QFrame.Shape.StyledPanel)
-        self.frame_3.setFrameShadow(QtWidgets.QFrame.Shadow.Raised)
-        self.frame_3.setObjectName("frame_3")
-        self.gridLayout_130 = QtWidgets.QGridLayout(self.frame_3)
-        self.gridLayout_130.setObjectName("gridLayout_130")
-        self.ExitBtn_TTGV_2 = QtWidgets.QPushButton(parent=self.frame_3)
-        self.ExitBtn_TTGV_2.setObjectName("ExitBtn_TTGV_2")
-        self.gridLayout_130.addWidget(self.ExitBtn_TTGV_2, 0, 0, 1, 1)
         self.Frame_Admin.addWidget(self.Frame_TTSV)
         self.Frame_TTGV = QtWidgets.QWidget()
         self.Frame_TTGV.setObjectName("Frame_TTGV")
@@ -611,7 +609,7 @@ class Menu(object):
         self.Khoa_Entry_TTGV.setObjectName("Khoa_Entry_TTGV")
         self.gridLayout_125.addWidget(self.Khoa_Entry_TTGV, 0, 0, 1, 1)
         self.Frame_TTCN_TTGV = QtWidgets.QFrame(parent=self.Frame_TTGV)
-        self.Frame_TTCN_TTGV.setGeometry(QtCore.QRect(500, 90, 561, 521))
+        self.Frame_TTCN_TTGV.setGeometry(QtCore.QRect(500, 90, 581, 521))
         self.Frame_TTCN_TTGV.setFrameShape(QtWidgets.QFrame.Shape.StyledPanel)
         self.Frame_TTCN_TTGV.setFrameShadow(QtWidgets.QFrame.Shadow.Raised)
         self.Frame_TTCN_TTGV.setObjectName("Frame_TTCN_TTGV")
@@ -682,7 +680,7 @@ class Menu(object):
         self.Ngsinh_Entry_TTGV.setObjectName("Ngsinh_Entry_TTGV")
         self.gridLayout_128.addWidget(self.Ngsinh_Entry_TTGV, 2, 0, 1, 1)
         self.Frame_Title_TTGV = QtWidgets.QFrame(parent=self.Frame_TTGV)
-        self.Frame_Title_TTGV.setGeometry(QtCore.QRect(10, 10, 1051, 71))
+        self.Frame_Title_TTGV.setGeometry(QtCore.QRect(10, 10, 1071, 71))
         self.Frame_Title_TTGV.setFrameShape(QtWidgets.QFrame.Shape.StyledPanel)
         self.Frame_Title_TTGV.setFrameShadow(QtWidgets.QFrame.Shadow.Raised)
         self.Frame_Title_TTGV.setObjectName("Frame_Title_TTGV")
@@ -697,7 +695,7 @@ class Menu(object):
         self.label_79.setObjectName("label_79")
         self.gridLayout_127.addWidget(self.label_79, 0, 0, 1, 1)
         self.frame = QtWidgets.QFrame(parent=self.Frame_TTGV)
-        self.frame.setGeometry(QtCore.QRect(940, 620, 121, 41))
+        self.frame.setGeometry(QtCore.QRect(960, 620, 121, 41))
         self.frame.setFrameShape(QtWidgets.QFrame.Shape.StyledPanel)
         self.frame.setFrameShadow(QtWidgets.QFrame.Shadow.Raised)
         self.frame.setObjectName("frame")
@@ -956,6 +954,53 @@ class Menu(object):
         self.gridLayout_9.addLayout(self.gridLayout_4, 0, 0, 1, 1)
         self.gridLayout_8.addWidget(self.Frame_Entry_QLSV, 1, 0, 1, 1)
         self.Frame_Admin.addWidget(self.Frame_QLSV)
+        self.Frame_BaoCao = QtWidgets.QWidget()
+        self.Frame_BaoCao.setObjectName("Frame_BaoCao")
+        self.Frame_Function_BaoCao = QtWidgets.QFrame(parent=self.Frame_BaoCao)
+        self.Frame_Function_BaoCao.setGeometry(QtCore.QRect(10, 620, 1071, 41))
+        self.Frame_Function_BaoCao.setFrameShape(QtWidgets.QFrame.Shape.StyledPanel)
+        self.Frame_Function_BaoCao.setFrameShadow(QtWidgets.QFrame.Shadow.Raised)
+        self.Frame_Function_BaoCao.setObjectName("Frame_Function_BaoCao")
+        self.InBC_Btn = QtWidgets.QPushButton(parent=self.Frame_Function_BaoCao)
+        self.InBC_Btn.setGeometry(QtCore.QRect(10, 10, 71, 23))
+        self.InBC_Btn.setObjectName("InBC_Btn")
+        self.TimKiemEntry_BaoCao = QtWidgets.QLineEdit(parent=self.Frame_Function_BaoCao)
+        self.TimKiemEntry_BaoCao.setGeometry(QtCore.QRect(100, 11, 113, 20))
+        self.TimKiemEntry_BaoCao.setObjectName("TimKiemEntry_BaoCao")
+        self.TimKiemBtn_BaoCao = QtWidgets.QPushButton(parent=self.Frame_Function_BaoCao)
+        self.TimKiemBtn_BaoCao.setGeometry(QtCore.QRect(230, 10, 71, 23))
+        self.TimKiemBtn_BaoCao.setObjectName("TimKiemBtn_BaoCao")
+        self.XoaBtn_BaoCao = QtWidgets.QPushButton(parent=self.Frame_Function_BaoCao)
+        self.XoaBtn_BaoCao.setGeometry(QtCore.QRect(320, 10, 71, 23))
+        self.XoaBtn_BaoCao.setObjectName("XoaBtn_BaoCao")
+        self.ThoatBtn_BaoCao = QtWidgets.QPushButton(parent=self.Frame_Function_BaoCao)
+        self.ThoatBtn_BaoCao.setGeometry(QtCore.QRect(990, 10, 71, 21))
+        self.ThoatBtn_BaoCao.setObjectName("ThoatBtn_BaoCao")
+        self.Frame_BaoCaoEntry = QtWidgets.QFrame(parent=self.Frame_BaoCao)
+        self.Frame_BaoCaoEntry.setGeometry(QtCore.QRect(10, 80, 1071, 531))
+        self.Frame_BaoCaoEntry.setFrameShape(QtWidgets.QFrame.Shape.StyledPanel)
+        self.Frame_BaoCaoEntry.setFrameShadow(QtWidgets.QFrame.Shadow.Raised)
+        self.Frame_BaoCaoEntry.setObjectName("Frame_BaoCaoEntry")
+        self.BaoCaoEntry = QtWidgets.QTextEdit(parent=self.Frame_BaoCaoEntry)
+        self.BaoCaoEntry.setGeometry(QtCore.QRect(10, 10, 1051, 511))
+        self.BaoCaoEntry.setObjectName("BaoCaoEntry")
+        self.Frame_Title_BaoCao = QtWidgets.QFrame(parent=self.Frame_BaoCao)
+        self.Frame_Title_BaoCao.setGeometry(QtCore.QRect(10, 10, 1071, 61))
+        self.Frame_Title_BaoCao.setFrameShape(QtWidgets.QFrame.Shape.StyledPanel)
+        self.Frame_Title_BaoCao.setFrameShadow(QtWidgets.QFrame.Shadow.Raised)
+        self.Frame_Title_BaoCao.setObjectName("Frame_Title_BaoCao")
+        self.label_74 = QtWidgets.QLabel(parent=self.Frame_Title_BaoCao)
+        self.label_74.setGeometry(QtCore.QRect(430, 10, 201, 41))
+        font = QtGui.QFont()
+        font.setPointSize(20)
+        self.label_74.setFont(font)
+        self.label_74.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        self.label_74.setObjectName("label_74")
+        self.NMF_Label = QtWidgets.QLabel(parent=self.Frame_BaoCao)
+        self.NMF_Label.setGeometry(QtCore.QRect(110, 650, 101, 20))
+        self.NMF_Label.setStyleSheet("")
+        self.NMF_Label.setObjectName("NMF_Label")
+        self.Frame_Admin.addWidget(self.Frame_BaoCao)
         self.Frame_NhapDiem = QtWidgets.QWidget()
         self.Frame_NhapDiem.setObjectName("Frame_NhapDiem")
         self.gridLayout_37 = QtWidgets.QGridLayout(self.Frame_NhapDiem)
@@ -1657,7 +1702,7 @@ class Menu(object):
         self.gridLayout_10.addWidget(self.Frame_Admin, 0, 0, 1, 1)
 
         self.retranslateUi(Form)
-        self.Frame_Admin.setCurrentIndex(7)
+        self.Frame_Admin.setCurrentIndex(5)
         QtCore.QMetaObject.connectSlotsByName(Form)
 
     def retranslateUi(self, Form):
@@ -1705,7 +1750,6 @@ class Menu(object):
         self.label_63.setText(_translate("Form", "Khóa:"))
         self.label_64.setText(_translate("Form", "Hệ Đào tạo:"))
         self.label_69.setText(_translate("Form", "Kết quả học tập"))
-        self.ExitBtn_TTGV_2.setText(_translate("Form", "Thoát"))
         self.label_47.setText(_translate("Form", "Thông tin giảng dạy"))
         self.label_49.setText(_translate("Form", "Khoa:"))
         self.label_50.setText(_translate("Form", "Chức vụ:"))
@@ -1768,6 +1812,12 @@ class Menu(object):
         self.label_6.setText(_translate("Form", "Ngày sinh"))
         self.label_7.setText(_translate("Form", "Giới tính"))
         self.label_8.setText(_translate("Form", "Số điện thoại"))
+        self.InBC_Btn.setText(_translate("Form", "In"))
+        self.TimKiemBtn_BaoCao.setText(_translate("Form", "Tìm kiếm"))
+        self.XoaBtn_BaoCao.setText(_translate("Form", "Xóa"))
+        self.ThoatBtn_BaoCao.setText(_translate("Form", "Thoát"))
+        self.label_74.setText(_translate("Form", "Báo cáo"))
+        self.NMF_Label.setText(_translate("Form", "No matches found."))
         self.label_57.setText(_translate("Form", "Quản lý điểm"))
         self.label_23.setText(_translate("Form", "Mã MH"))
         self.label_32.setText(_translate("Form", "Điểm quá trình"))
